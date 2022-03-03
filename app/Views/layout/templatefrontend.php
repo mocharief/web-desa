@@ -75,12 +75,12 @@
                         <div class="mobile-responsive-menu">
                             <div class="logo">
                                 <a href="<?= base_url(); ?>">
-                                    <?php if ($logo['logo'] == '') {
+                                    <?php if ($logo['logo'] == null) {
                                     ?>
-                                        <img src="<?= base_url('public/admin/images/identitas/sumedang.png'); ?>" alt="logo">
+                                        <img style="height: 60px; margin-left: 20px;" src="<?= base_url('public/admin/images/identitas/sumedang.png'); ?>" alt="logo">
                                     <?php } else {
                                     ?>
-                                        <img src="<?= base_url('public/admin/images/identitas/' . $logo['logo']); ?>" alt="logo">
+                                        <img style="height: 60px; margin-left: 20px;" src="<?= base_url('public/admin/images/identitas/' . $logo['logo']); ?>" alt="logo">
                                     <?php } ?>
 								</a>
                             </div>
@@ -94,10 +94,10 @@
                             <a class="navbar-brand" href="<?= base_url(); ?>">
                                 <?php if ($logo['logo'] == '') {
                                 ?>
-                                    <img src="<?= base_url('public/admin/images/identitas/sumedang.png'); ?>" alt="logo">
+                                    <img style="height: 60px; margin-left: 20px;" src="<?= base_url('public/admin/images/identitas/sumedang.png'); ?>" alt="logo">
                                 <?php } else {
                                 ?>
-                                    <img src="<?= base_url('public/admin/images/identitas/' . $logo['logo']); ?>" alt="logo">
+                                    <img style="height: 60px; margin-left: 20px;" src="<?= base_url('public/admin/images/identitas/' . $logo['logo']); ?>" alt="logo">
                                 <?php } ?>
                             </a>
 
@@ -109,8 +109,8 @@
                                     <li class="nav-item <?= ($activemenu == 'profil') ? 'active' : '' ?>">
 										<a href="<?= base_url('/profil'); ?>" class="nav-link">Profil Desa</a>
 									</li>
-                                    <li class="nav-item <?= ($activemenu == 'album') ? 'active' : '' ?>">
-										<a href="<?= base_url('/album'); ?>" class="nav-link">Album Galeri</a>
+                                    <li class="nav-item <?= ($activemenu == 'galeri') ? 'active' : '' ?>">
+										<a href="<?= base_url('/galeri/0'); ?>" class="nav-link">Galeri</a>
 									</li>
                                     <li class="nav-item <?= ($activemenu == 'kebudayaan') ? 'active' : '' ?>">
 										<a href="<?= base_url('/kebudayaan'); ?>" class="nav-link">Kebudayaan</a>
@@ -143,7 +143,7 @@
 										<li>
 											<a href="#" class="call">
 												<i class="ri-phone-fill"></i>
-												+62 (261) 234567
+												<?= $logo['telepon']; ?>
 											</a>
 										</li>
 									</ul>
@@ -188,7 +188,7 @@
 										<li>
                                             <a href="#" class="call">
 												<i class="ri-phone-fill"></i>
-												+62 (261) 234567
+												<?= $logo['telepon']; ?>
 											</a>
 										</li>
 									</ul>
@@ -208,19 +208,19 @@
 		<footer class="footer-area pt-100 pb-70">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-8 col-md-8">
+					<div class="col-lg-6 col-md-6">
 						<div class="single-footer-widget single-bg">
                             <a href="<?= base_url(); ?>" class="logo">
                                 <?php if ($logo['logo'] == '') {
                                 ?>
-                                    <img src="<?= base_url('public/admin/images/identitas/sumedang.png'); ?>" alt="Image">
+                                    <img style="width: 10%;" src="<?= base_url('public/admin/images/identitas/sumedang.png'); ?>" alt="Image">
                                 <?php } else {
                                 ?>
-                                    <img src="<?= base_url('public/admin/images/identitas/' . $logo['logo']); ?>" alt="Image">
+                                    <img style="width: 10%;" src="<?= base_url('public/admin/images/identitas/' . $logo['logo']); ?>" alt="Image">
                                 <?php } ?>
                             </a>
 
-							<p>Desa <?= $logo['nama_desa'];?> Kabupaten Sumedang</p> 
+							<p><?= 'Desa ' . $logo['nama_desa'] . ', Kecamatan ' . $logo['nama_kecamatan'] . ', Kabupaten ' . $logo['nama_kabupaten'] . ', ' . $logo['nama_propinsi'] . ' ' . $logo['kode_pos'];?></p> 
 
 							<ul class="social-icon">
 								<li>
@@ -247,26 +247,26 @@
 						</div>
 					</div>
 
-					<div class="col-lg-4 col-md-4">
+					<div class="col-lg-6 col-md-6">
 						<div class="single-footer-widget">
-							<h3>Anda dapat hubungi kami</h3>
+							<h3>Hubungi kami</h3>
 
 							<ul class="address">
 								<li>
 									<i class="ri-map-pin-fill"></i>
-									2976 Sunrise road las vegas, <br> NV 89108
+									<?= $logo['alamat_kantor']; ?>
 								</li>
 								<li>
 									<i class="ri-mail-open-fill"></i>
-									<a href="#"><span class="__cf_email__" data-cfemail="">email@gmail.com</span></a>
+									<a href="#"><span class="__cf_email__" data-cfemail=""><?= $logo['email_desa']; ?></span></a>
 								</li>
                                 <li>
 									<i class="ri-global-fill"></i>
-									www.desa.com
+									<?= $logo['website']; ?>
 								</li>
 								<li class="location">
 									<i class="ri-phone-fill"></i>
-									<a href="#">+62 (261) 234567</a>
+									<a href="#"><?= $logo['telepon']; ?></a>
 								</li>
 							</ul>
 						</div>
