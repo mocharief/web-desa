@@ -60,7 +60,10 @@
 					<div class="row align-items-center">
 						<div class="col-lg-12 col-md-12">
                             <marquee style="color: #ffffff;">
-                                INI TEXT BERJALAN
+								<?php foreach ($text as $p) : ?>
+									<i class="ri-notification-2-line p-1"></i>
+									<?= $p['isi']; ?>
+								<?php endforeach; ?>
                             </marquee>
                         </div>
 					</div>
@@ -111,6 +114,9 @@
 									</li>
                                     <li class="nav-item <?= ($activemenu == 'galeri') ? 'active' : '' ?>">
 										<a href="<?= base_url('/galeri/0'); ?>" class="nav-link">Galeri</a>
+									</li>
+									<li class="nav-item <?= ($activemenu == 'umkm') ? 'active' : '' ?>">
+										<a href="<?= base_url('/umkm'); ?>" class="nav-link">UMKM</a>
 									</li>
                                     <li class="nav-item <?= ($activemenu == 'kebudayaan') ? 'active' : '' ?>">
 										<a href="<?= base_url('/kebudayaan'); ?>" class="nav-link">Kebudayaan</a>

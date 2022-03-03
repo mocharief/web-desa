@@ -56,4 +56,31 @@ class BudayaModel extends Model
     {
         return $this->db->table($this->table)->update($data, ['id_budaya' => $id]);
     }
+
+    public function viewBudayaWithKat($kddesa, $id = false)
+    {
+        if ($id === false) {
+            $this->select('budaya.*, kat_budaya.kategori');
+            $this->join('kat_budaya', 'budaya.id_kat = kat_budaya.id_kat');
+            $this->where('budaya.kddesa', $kddesa);
+            $query = $this->get();
+            return $query->getResultArray();
+        } else {
+            $this->select('budaya.*, kat_budaya.kategori');
+            $this->join('kat_budaya', 'budaya.id_kat = kat_budaya.id_kat');
+            $this->where('budaya.kddesa', $kddesa);
+            $this->where('budaya.id_budaya !=', $id);
+            $query = $this->get();
+            return $query->getResultArray();
+        }
+    }
+
+    public function getDataWithKat($id)
+    {
+        $this->select('budaya.*, kat_budaya.kategori');
+        $this->join('kat_budaya', 'budaya.id_kat = kat_budaya.id_kat');
+        $this->where('budaya.id_budaya', $id);
+        $query = $this->get();
+        return $query->getRowArray();
+    }
 }

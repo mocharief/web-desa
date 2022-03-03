@@ -385,6 +385,7 @@ $routes->delete('/deletedokumenuser/(:num)', 'User\Dokumen::delete/$1', ['filter
 //------ Route Web Desa Untuk User ------//
 $routes->get('/profil', 'Home::profil');
 $routes->get('/galeri/(:segment)', 'Home::galeri/$1');
+$routes->get('/umkm', 'Home::umkm');
 $routes->get('/kebudayaan', 'Home::kebudayaan');
 $routes->get('/kebudayaan/detail/(:segment)', 'Home::kebudayaanDetail/$1');
 $routes->get('/artikel', 'Home::artikel');
