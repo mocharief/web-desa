@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\PendudukModel;
+use App\Models\DusunModel;
 use App\Models\BudayaModel;
 use App\Models\UmkmModel;
 use App\Models\IdentitasModel;
@@ -14,10 +15,13 @@ use App\Models\GaleriModel;
 use App\Models\TextModel;
 use App\Models\ArtikelModel;
 use App\Models\KatartikelModel;
+use App\Models\SliderModel;
+use App\Models\PendataanModel;
 
 class Home extends BaseController
 {
 	protected $pendudukModel;
+	protected $dusunModel;
 	protected $budayaModel;
 	protected $umkmModel;
 	protected $identitasModel;
@@ -27,10 +31,13 @@ class Home extends BaseController
 	protected $textModel;
 	protected $artikelModel;
 	protected $katartikelModel;
+    protected $sliderModel;
+    protected $pendataanModel;
 	
 	public function __construct()
 	{
 		$this->pendudukModel = new PendudukModel();
+		$this->dusunModel = new DusunModel();
 		$this->budayaModel = new BudayaModel();
 		$this->umkmModel = new UmkmModel();
 		$this->identitasModel = new IdentitasModel();
@@ -40,6 +47,8 @@ class Home extends BaseController
         $this->textModel = new TextModel();
         $this->artikelModel = new ArtikelModel();
         $this->katartikelModel = new KatartikelModel();
+        $this->sliderModel = new SliderModel();
+        $this->pendataanModel = new PendataanModel();
 		helper('form');
 	}
 
@@ -48,22 +57,32 @@ class Home extends BaseController
 	{
 		$session = session();
 		$kddesa = $session->get('kddesa');
-		$budaya = $this->budayaModel->totalbudaya($kddesa);
-		$penduduk = $this->pendudukModel->totalpenduduk($kddesa);
-		$umkm = $this->umkmModel->totalumkm($kddesa);
 		$logo = $this->identitasModel->view($kddesa);
-        $album = $this->albumModel->viewalbum($kddesa);
         $text = $this->textModel->view($kddesa);
+		$penduduk = $this->pendudukModel->totalpenduduk($kddesa);
+		$dusun = $this->dusunModel->totaldusun($kddesa);
+		$budaya = $this->budayaModel->totalbudaya($kddesa);
+		$umkm = $this->umkmModel->totalumkm($kddesa);
+        $slider = $this->sliderModel->view($kddesa);
+		$artikelList = $this->artikelModel->viewArtikelWithKat($kddesa, '');
+		$budayaList = $this->budayaModel->viewBudayaWithKat($kddesa);
+		$albumList = $this->albumModel->viewalbum($kddesa);
+        $pendataan = $this->pendataanModel->view($kddesa);
 
 		$db = \Config\Database::connect();
 		$data = [
 			'title' => 'Beranda',
-			'budaya' => $budaya,
-			'penduduk' => $penduduk,
-			'umkm' => $umkm,
 			'logo' => $logo,
-			'album' => $album,
             'text' => $text,
+			'penduduk' => $penduduk,
+			'dusun' => $dusun,
+			'budaya' => $budaya,
+			'umkm' => $umkm,
+            'slider' => $slider,
+			'artikelList' => $artikelList,
+			'budayaList' => $budayaList,
+			'albumList' => $albumList,
+            'pendataan' => $pendataan,
 			// 'db' => $db,
 			'activemenu' => $this->data['activemenu'] = 'beranda',
 		];
@@ -133,7 +152,7 @@ class Home extends BaseController
 
 		$db = \Config\Database::connect();
 		$data = [
-			'title' => 'Profil',
+			'title' => 'UMKM',
 			'logo' => $logo,
             'text' => $text,
 			'umkm' => $umkm,
@@ -154,7 +173,7 @@ class Home extends BaseController
 
 		// $db = \Config\Database::connect();
 		$data = [
-			'title' => 'Galeri',
+			'title' => 'Kebudayaan',
 			'logo' => $logo,
 		    'text' => $text,
 			'budayaList' => $budayaList,
@@ -176,7 +195,7 @@ class Home extends BaseController
 
 		// $db = \Config\Database::connect();
 		$data = [
-			'title' => 'Galeri',
+			'title' => 'Kebudayaan',
 			'logo' => $logo,
 		    'text' => $text,
 			'budayaList' => $budayaList,
@@ -205,7 +224,7 @@ class Home extends BaseController
 
 		// $db = \Config\Database::connect();
 		$data = [
-			'title' => 'Galeri',
+			'title' => 'Artikel',
 			'logo' => $logo,
 		    'text' => $text,
 			'artikelList' => $artikelList,
@@ -228,7 +247,7 @@ class Home extends BaseController
 
 		// $db = \Config\Database::connect();
 		$data = [
-			'title' => 'Galeri',
+			'title' => 'Artikel',
 			'logo' => $logo,
 		    'text' => $text,
 			'artikelDetail' => $artikelDetail,
