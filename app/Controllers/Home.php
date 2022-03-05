@@ -12,6 +12,8 @@ use App\Models\AlbumModel;
 use App\Models\KatalbumModel;
 use App\Models\GaleriModel;
 use App\Models\TextModel;
+use App\Models\ArtikelModel;
+use App\Models\KatartikelModel;
 
 class Home extends BaseController
 {
@@ -23,6 +25,8 @@ class Home extends BaseController
     protected $galeriModel;
     protected $katalbumModel;
 	protected $textModel;
+	protected $artikelModel;
+	protected $katartikelModel;
 	
 	public function __construct()
 	{
@@ -34,6 +38,8 @@ class Home extends BaseController
         $this->galeriModel = new GaleriModel();
         $this->katalbumModel = new KatalbumModel();
         $this->textModel = new TextModel();
+        $this->artikelModel = new ArtikelModel();
+        $this->katartikelModel = new KatartikelModel();
 		helper('form');
 	}
 
@@ -180,6 +186,58 @@ class Home extends BaseController
 		];
 
 		return view('frontend/kebudayaan/detail', $data);
+	}
+
+	public function artikel()
+	{
+		$all_query_values = $this->request->getVar();
+        // It will return an array of all values
+      
+      	// get query variable - name
+        $kategoriQuery = $this->request->getVar("kat");
+
+		$session = session();
+		$kddesa = $session->get('kddesa');
+		$logo = $this->identitasModel->view($kddesa);
+		$text = $this->textModel->view($kddesa);
+		$artikelList = $this->artikelModel->viewArtikelWithKat($kddesa, $kategoriQuery);
+		$katArtikelList = $this->katartikelModel->viewkategori($kddesa);
+
+		// $db = \Config\Database::connect();
+		$data = [
+			'title' => 'Galeri',
+			'logo' => $logo,
+		    'text' => $text,
+			'artikelList' => $artikelList,
+			'katArtikelList' => $katArtikelList,
+			// 'db' => $db,
+			'activemenu' => $this->data['activemenu'] = 'artikel',
+		];
+
+		return view('frontend/artikel/index', $data);
+	}
+
+	public function artikelDetail($id)
+	{
+		$session = session();
+		$kddesa = $session->get('kddesa');
+		$logo = $this->identitasModel->view($kddesa);
+		$text = $this->textModel->view($kddesa);
+		$artikelDetail = $this->artikelModel->getDataWithKat($id);
+		$katArtikelList = $this->katartikelModel->viewkategori($kddesa);
+
+		// $db = \Config\Database::connect();
+		$data = [
+			'title' => 'Galeri',
+			'logo' => $logo,
+		    'text' => $text,
+			'artikelDetail' => $artikelDetail,
+			'katArtikelList' => $katArtikelList,
+			// 'db' => $db,
+			'activemenu' => $this->data['activemenu'] = 'artikel',
+		];
+
+		return view('frontend/artikel/detail', $data);
 	}
 
 	//--------------------------------------------------------------------
