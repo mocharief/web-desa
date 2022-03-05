@@ -17,6 +17,7 @@ use App\Models\ArtikelModel;
 use App\Models\KatartikelModel;
 use App\Models\SliderModel;
 use App\Models\PendataanModel;
+use App\Models\PemerintahanModel;
 
 class Home extends BaseController
 {
@@ -33,6 +34,7 @@ class Home extends BaseController
 	protected $katartikelModel;
     protected $sliderModel;
     protected $pendataanModel;
+    protected $pemerintahanModel;
 	
 	public function __construct()
 	{
@@ -49,6 +51,7 @@ class Home extends BaseController
         $this->katartikelModel = new KatartikelModel();
         $this->sliderModel = new SliderModel();
         $this->pendataanModel = new PendataanModel();
+        $this->pemerintahanModel = new PemerintahanModel();
 		helper('form');
 	}
 
@@ -94,22 +97,30 @@ class Home extends BaseController
 	{
 		$session = session();
 		$kddesa = $session->get('kddesa');
-		$budaya = $this->budayaModel->totalbudaya($kddesa);
-		$penduduk = $this->pendudukModel->totalpenduduk($kddesa);
-		$galeri = $this->albumModel->totalgaleri($kddesa);
-		$umkm = $this->umkmModel->totalumkm($kddesa);
 		$logo = $this->identitasModel->view($kddesa);
         $text = $this->textModel->view($kddesa);
+		$penduduk = $this->pendudukModel->totalpenduduk($kddesa);
+		$dusun = $this->dusunModel->totaldusun($kddesa);
+		$budaya = $this->budayaModel->totalbudaya($kddesa);
+		$umkm = $this->umkmModel->totalumkm($kddesa);
+        $slider = $this->sliderModel->view($kddesa);
+		$budayaList = $this->budayaModel->viewBudayaWithKat($kddesa);
+		$dusunList = $this->dusunModel->view($kddesa);
+        $pemerintahan = $this->pemerintahanModel->viewpemerintahan($kddesa);
 
-		// $db = \Config\Database::connect();
+		$db = \Config\Database::connect();
 		$data = [
 			'title' => 'Profil',
-			'budaya' => $budaya,
-			'penduduk' => $penduduk,
-			'galeri' => $galeri,
-			'umkm' => $umkm,
 			'logo' => $logo,
             'text' => $text,
+			'penduduk' => $penduduk,
+			'dusun' => $dusun,
+			'budaya' => $budaya,
+			'umkm' => $umkm,
+            'slider' => $slider,
+			'budayaList' => $budayaList,
+			'dusunList' => $dusunList,
+            'pemerintahan' => $pemerintahan,
 			// 'db' => $db,
 			'activemenu' => $this->data['activemenu'] = 'profil',
 		];
