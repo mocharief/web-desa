@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2022 at 01:01 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.3.31
+-- Generation Time: Mar 05, 2022 at 08:05 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 7.4.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -62,9 +62,9 @@ CREATE TABLE `album` (
 --
 
 INSERT INTO `album` (`id_album`, `judul`, `id_kat`, `kddesa`) VALUES
-(2, 'A', 2, 1),
-(3, 'm', 2, 1),
-(4, 'A', 2, 1);
+(2, 'Kegiatan Penanganan Covid-19', 2, 1),
+(3, 'Kegiatan Kebudayaan Bangreng', 2, 1),
+(4, 'Wisata Alam', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -97,6 +97,13 @@ CREATE TABLE `anggotaumkm` (
   `keterangan` varchar(255) NOT NULL,
   `kddesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `anggotaumkm`
+--
+
+INSERT INTO `anggotaumkm` (`id_anggota`, `id_umkm`, `id`, `keterangan`, `kddesa`) VALUES
+(9, 4, 13, 'Bagian Keuangan', 1);
 
 -- --------------------------------------------------------
 
@@ -131,7 +138,7 @@ CREATE TABLE `aparat` (
 --
 
 INSERT INTO `aparat` (`pamong_id`, `id`, `pamong_nama`, `pamong_nip`, `pamong_nik`, `jabatan`, `pamong_tgl_terdaftar`, `pamong_ttd`, `foto`, `pamong_tempatlahir`, `pamong_tanggallahir`, `pamong_sex`, `pamong_pendidikan`, `pamong_agama`, `pamong_nosk`, `pamong_tglsk`, `pamong_pangkat`, `pamong_nipd`, `kddesa`) VALUES
-(10, 12, 'Arie Rukmana', '2', '3332323232', '2', NULL, NULL, '', 'c', '2022-02-16', '1', '1', '1', '2', '2022-02-21', '2', '2', 1);
+(10, 0, 'Arie Rukmana', '2634441412', '3332323232', 'Ketua Regu', NULL, NULL, '', 'c', '2022-02-16', '1', '1', '1', '21243123', '2022-02-21', '3B', '22451532432', 1);
 
 -- --------------------------------------------------------
 
@@ -155,6 +162,14 @@ CREATE TABLE `artikel` (
   `id_kat` int(11) NOT NULL,
   `kddesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `artikel`
+--
+
+INSERT INTO `artikel` (`id`, `gambar`, `isi`, `enabled`, `tgl_upload`, `judul`, `gambar1`, `gambar2`, `gambar3`, `dokumen`, `nama_dokumen`, `slug`, `id_kat`, `kddesa`) VALUES
+(9, 'omicron.jpeg', '<p>Varian Omicron saat ini semakin mendominasi di dunia. Bahkan kemunculannya ini hampir menggeser varian Delta yang sebelumnya juga mendominasi banyak negara, termasuk Indonesia, beberapa waktu lalu.<br />\r\nKemunculannya tentu menimbulkan kekhawatiran baru. Sebab, Omicron ini terbukti cerdik dalam menghindari antibodi yang terbentuk oleh vaksinasi. Hal ini membuat orang yang sudah divaksinasi penuh masih bisa terinfeksi varian Omicron.<br />\r\n<br />\r\nHal ini juga dibuktikan dalam laporan pada 30 November 2021 dari Institut Kesehatan Masyarakat Norwegia (NIPH). Dalam laporan tersebut, dari 117 orang tamu sebuah pesta yang positif Corona, sebanyak 66 orang terinfeksi varian Omicron.<br />\r\n<br />\r\nBaca artikel detikHealth, &quot;Waspada, 13 Gejala Omicron yang Muncul Pada Orang yang Sudah Divaksin&quot; selengkapnya https://health.detik.com/berita-detikhealth/d-5949460/waspada-13-gejala-omicron-yang-muncul-pada-orang-yang-sudah-divaksin.</p>\r\n', 1, '2022-03-05 11:55:33', 'Penangan dan kewaspadaan warga masyarakat terhadap Covid-19 Omicron', 'Foto-1mitos-vs-fakta-omicron.jpg', 'ilustrasi-varian-omicron_169.jpeg', '', 'po.txt', 'data_omicron', 'Penangan dan kewaspadaan warga masyarakat terhadap Covid-19 Omicron...', 7, 1),
+(12, 'berita_20220202055915.jpg', '<p>Dinas Koperasi UMKM Perindustrian dan Perdagangan (Diskopumkmperindag) Kabupaten Sumedang bekerjasama dengan distributor minyak goreng, menggelar penjualan minyak goreng kemasan, Selasa (1/2/2022). Penjualan dilakukan untuk membantu masyarakat memenuhi kebutuhan minyak goreng sesuai harga eceran tertinggi, Rp 14.000 per liter. Penjualan digelar di 2 lokasi, yakni depan Alun-Alun Sumedang, dan kawasan Taman Telor. &quot;Sebelumnya kami melakukan pengecekan ke distributor dan ritel-ritel. Ternyata di beberapa ritel itu terjadi kelangkaan,&quot; ujar Kadis Kopumkmperindag Sumedang, Hari Tri Santosa.<br />\r\n<br />\r\nMeski di ritel-ritel terjadi kelangkaan minyak goreng kemasan, namun di tingkat agen dan distributor stok minyak goreng ternyata banyak. &quot;Oleh karena itu kami membantu kami disini membantu menjualkan dengan harga sesuai HET yang ditetapkan pemerintah yakni Rp 14.000 per liter,&quot; ujarnya.<br />\r\n<br />\r\nPada penjualan itu, lanjut Hari, pihaknya menyediakan 2.400 minyak goreng kemasan berisi 1 liter. Satu orang pembeli, kata Hari, hanya boleh membeli maksimal 2 liter.<br />\r\n&quot;Di Alun-alun ini kami siapkan 100 karton (12.000 liter) dan di Taman Endog juga 100 karton,&quot; katanya. [*]</p>\r\n', 1, '2022-03-05 11:55:49', 'Operasi Pasar Minyak Goreng di 2 Titik', '', '', '', '', '', 'Operasi Pasar Minyak Goreng di 2 Titik...', 9, 1);
 
 -- --------------------------------------------------------
 
@@ -192,6 +207,14 @@ CREATE TABLE `budaya` (
   `isi` text NOT NULL,
   `kddesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `budaya`
+--
+
+INSERT INTO `budaya` (`id_budaya`, `judul`, `id_kat`, `link`, `tipe`, `data`, `tgl_posting`, `slug`, `isi`, `kddesa`) VALUES
+(5, 'Bangreng', 2, 0, 1, 'bangreng.jpg', '2022-02-19 16:31:19', 'Bangreng-', '<p>Bangreng adalah jenis kesenian terbang yang menggunakan ronggeng, yaitu wanita yang menjadi juru sekar/penyanyi. Jenis kesenian ini ada di Kecamatan Tanjungkerta, Kabupaten Sumedang.</p>\r\n', 1),
+(6, 'Angklung', 2, 0, 1, '1920x1080_wallpaper_best_509_1080p_hd-hdwallpapers2016com.jpg', '2022-02-28 15:15:35', 'Angklung-', '<p>Angklung ada sejenis alat musik yang terbuat dari bambu.&nbsp;Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam sit cum aliquam qui quam nostrum beatae natus eligendi aliquid minus, officiis repellendus, quod excepturi ipsa commodi, fugiat dignissimos! Dicta, minima!</p>\r\n', 1);
 
 -- --------------------------------------------------------
 
@@ -232,6 +255,14 @@ CREATE TABLE `covid_pemudik` (
   `wajib_pantau` varchar(20) NOT NULL,
   `kddesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `covid_pemudik`
+--
+
+INSERT INTO `covid_pemudik` (`id_terdata`, `id`, `tgl_datang`, `asal_mudik`, `durasi_mudik`, `tujuan_mudik`, `keluhan_kesehatan`, `status_covid`, `no_hp`, `email_penduduk`, `keterangan`, `wajib_pantau`, `kddesa`) VALUES
+(8, 16, '2022-01-01', 'Jakarta', '15', '3', 'Kembung', '1', '089241423412', 'asda@gmail.com', 'Ini keterangan', '1', 1),
+(9, 17, '2022-03-01', 'Bali', '7', '1', 'Rorombeheun', '3', '0892423123312', 'rohmat@gmail.com', 'ini keterangan rohmat', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -278,7 +309,7 @@ CREATE TABLE `dusun` (
 --
 
 INSERT INTO `dusun` (`id_dusun`, `namadusun`, `kepala_dusun`, `kddesa`) VALUES
-(18, 'Dusun Cikandung', 'c', 1),
+(18, 'Dusun Cikandung', 'Rafi Ahmad', 1),
 (20, 'A', 'Arie Rukmana', 2);
 
 -- --------------------------------------------------------
@@ -300,7 +331,8 @@ CREATE TABLE `galeri` (
 --
 
 INSERT INTO `galeri` (`id_galeri`, `id_album`, `judul`, `foto`, `kddesa`) VALUES
-(3, 2, 'asik', 'ilustrasi-olahraga-lari_169.png', 1);
+(3, 2, 'asik', 'ilustrasi-olahraga-lari_169.png', 1),
+(4, 2, 'TEST', 'Foto-1mitos-vs-fakta-omicron.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -382,7 +414,7 @@ CREATE TABLE `identitas` (
   `nama_propinsi` varchar(100) NOT NULL,
   `kode_propinsi` varchar(100) NOT NULL,
   `logo` varchar(100) DEFAULT NULL,
-  `map` varchar(255) DEFAULT NULL,
+  `map` varchar(500) DEFAULT NULL,
   `alamat_kantor` varchar(200) DEFAULT NULL,
   `email_desa` varchar(50) DEFAULT NULL,
   `telepon` varchar(50) DEFAULT NULL,
@@ -396,7 +428,7 @@ CREATE TABLE `identitas` (
 --
 
 INSERT INTO `identitas` (`id`, `nama_desa`, `kode_desa`, `nama_kepala_desa`, `nip_kepala_desa`, `kode_pos`, `nama_kecamatan`, `kode_kecamatan`, `nama_kepala_camat`, `nip_kepala_camat`, `nama_kabupaten`, `kode_kabupaten`, `nama_propinsi`, `kode_propinsi`, `logo`, `map`, `alamat_kantor`, `email_desa`, `telepon`, `website`, `kantor_desa`, `kddesa`) VALUES
-(1, 'Cikandung', '05', 'A', '12', '4', 'Cimalaka', '45', 'Ar', '154', 'Sumedang', '4', 'Jawa Barat', '6545', '', 'sumedang', 'sum', 'asep@gmail.com', '084', 'www.desa', '', 1),
+(1, 'Nyalindung', '05', 'Dimas Drajat', '12', '45314', 'Cimalaka', '45', 'Rudi Hartono', '154', 'Sumedang', '4', 'Jawa Barat', '6545', '', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d63388.96711090981!2d107.92193!3d-6.792905!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68d6589fb70aa3%3A0x28b8686575e99162!2sNyalindung%2C%20Cimalaka%2C%20Sumedang%20Regency%2C%20West%20Java!5e0!3m2!1sen!2sid!4v1645332801142!5m2!1sen!2sid\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\"></iframe>', 'JL Desa Nyalindung, No. 06, Nyalindung, Kec. Cimalaka, Kabupaten Sumedang, Jawa Barat 45353', 'nyalindung_lindungi@gmail.com', '(0261) 234567', 'www.desa.com', 'IMG_20200123_185203.jpg', 1),
 (2, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 2);
 
 -- --------------------------------------------------------
@@ -436,8 +468,9 @@ CREATE TABLE `kat_artikel` (
 --
 
 INSERT INTO `kat_artikel` (`id_kat`, `kategori`, `kddesa`) VALUES
-(7, 'An', 1),
-(8, 'An', 2);
+(7, 'Covid-19', 1),
+(8, 'An', 2),
+(9, 'Bahan pangan', 1);
 
 -- --------------------------------------------------------
 
@@ -811,7 +844,8 @@ INSERT INTO `penduduk` (`id`, `nama`, `nik`, `id_kk`, `kk_level`, `sex`, `tempat
 (12, 'Arie Rukmana', '3332323232', 1, 2, 1, 'c', '2013-02-14', 18, 13, 7, 1, 1, 15, 16, 1, 1, '', '', '1', '2', 'A', 'B', '', 2, 0, 1, '', '', 1, NULL, 3, 7, '1222222222222221', '', '0000-00-00', '', '0000-00-00', NULL, '', '0000-00-00', NULL, NULL, '16:15', 1, 1, 1, 1, 0, '', NULL, '2022-02-06 09:11:45', 0, '2022-02-06 09:11:45', NULL, '', 1),
 (13, 'mimii', '2222222222222222', 1, 4, 2, 'sds', '2004-02-09', 18, 13, 7, 2, 1, 16, 11, 2, 1, '', '', '', '', '', '', '', 9, 0, 1, '', '', 1, 0, 5, 8, '', '', '0000-00-00', '', '0000-00-00', NULL, '02254544545', '0000-00-00', NULL, NULL, '16:15', 3, 2, 3, 2, 0, '', NULL, '2022-02-06 09:13:18', 0, '2022-02-06 09:13:18', NULL, '', 1),
 (14, 'mana', '1234567891234567', 0, 1, 2, 'sds', '2004-02-09', 18, 13, 7, 2, 1, 16, 11, 2, 1, '', '', '', '', '', '', '', 9, 0, 1, '', '', 1, 0, 5, 8, '', '', '0000-00-00', '', '0000-00-00', NULL, '02254544545', '0000-00-00', NULL, NULL, '16:15', 3, 2, 3, 2, 0, '', NULL, '2022-02-06 09:13:18', 0, '2022-02-06 09:13:18', NULL, '', 2),
-(16, 'asdsadasdas', '2222222222221245', 1, 1, 1, 'Suemdnag', '1994-02-08', 18, 13, 7, 1, 2, 3, 2, 1, 1, '', '', '1222222222222222', '1333333333333333', '', '', '', 1, 0, 1, '', '1', 1, 0, 1, 1, '', '', '0000-00-00', '', '0000-00-00', NULL, '', '0000-00-00', NULL, NULL, '15:30', 0, 0, 0, 0, 0, '', NULL, '2022-02-16 08:18:50', 0, '2022-02-16 08:18:50', NULL, '', 1);
+(16, 'asdsadasdas', '2222222222221245', 1, 1, 1, 'Suemdnag', '1994-02-08', 18, 13, 7, 1, 2, 3, 2, 1, 1, '', '', '1222222222222222', '1333333333333333', '', '', '', 1, 0, 1, '', '1', 1, 0, 1, 1, '', '', '0000-00-00', '', '0000-00-00', NULL, '', '0000-00-00', NULL, NULL, '15:30', 0, 0, 0, 0, 0, '', NULL, '2022-02-16 08:18:50', 0, '2022-02-16 08:18:50', NULL, '', 1),
+(17, 'Rohmat Rohim', '3211234124143422', 0, 1, 1, 'Sumedang', '1992-12-02', 18, 13, 6, 1, 6, 18, 12, 2, 1, '', '', '4213625234234242', '4121232342356153', 'Rudi', 'Sartini', '', 4, 0, 1, '', 'Jalanin aja dulu', 1, 1, 7, 1, '514322', '45343243', '2021-12-12', '', '0000-00-00', NULL, '0584735344123', '0000-00-00', NULL, NULL, '20:00', 3, 1, 1, 1, 2700, '30', NULL, '2022-03-01 12:54:49', 0, '2022-03-01 12:54:49', NULL, '', 1);
 
 -- --------------------------------------------------------
 
@@ -934,7 +968,7 @@ CREATE TABLE `rw` (
 
 INSERT INTO `rw` (`id_rw`, `rw`, `id_dusun`, `kepala_rw`, `kddesa`) VALUES
 (13, '001', 18, 'mimii', 1),
-(14, '002', 18, '', 1),
+(14, '002', 18, 'Rohmat Rohim', 1),
 (15, '003', 18, '', 0),
 (16, '004', 18, '', 0),
 (20, '0021', 20, 'mimii', 1);
@@ -1012,6 +1046,14 @@ CREATE TABLE `slider` (
   `tipe` int(11) NOT NULL,
   `kddesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `slider`
+--
+
+INSERT INTO `slider` (`id`, `judul`, `file`, `tipe`, `kddesa`) VALUES
+(5, 'Kami mengutamakan kesejahteran masyarakat Desa Nyalindung', 'desa.png', 1, 1),
+(6, 'Dengan mengusung desa harmonis, kami siap menjadi yang terdepan.', 'banner-video.mp4', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -1329,6 +1371,14 @@ CREATE TABLE `text_berjalan` (
   `kddesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `text_berjalan`
+--
+
+INSERT INTO `text_berjalan` (`id`, `isi`, `kddesa`) VALUES
+(4, 'Atribut width digunakan untuk menentukan ukuran lebar dari elemen marquee dengan nilai angka yang dapat ditulis seperti 18, 15% atau 30px.', 1),
+(5, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -1397,7 +1447,7 @@ CREATE TABLE `umkm` (
 --
 
 INSERT INTO `umkm` (`id_umkm`, `nama_umkm`, `kode`, `id_kat`, `id`, `deskripsi`, `kddesa`) VALUES
-(4, 'A', 'A', 2, 12, 'asd', 1);
+(4, 'Ternak Kambing Etawa', 'TKE', 2, 12, 'Ternak yang dilakukan bersama oleh para warga Dusun Cikunir dan telah memenuhi standar perawatan dari dinas peternakan dan perikanan.', 1);
 
 --
 -- Indexes for dumped tables
@@ -1759,7 +1809,7 @@ ALTER TABLE `allsetting`
 -- AUTO_INCREMENT for table `anggotaumkm`
 --
 ALTER TABLE `anggotaumkm`
-  MODIFY `id_anggota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_anggota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `aparat`
@@ -1771,7 +1821,7 @@ ALTER TABLE `aparat`
 -- AUTO_INCREMENT for table `artikel`
 --
 ALTER TABLE `artikel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `bantuan`
@@ -1783,7 +1833,7 @@ ALTER TABLE `bantuan`
 -- AUTO_INCREMENT for table `budaya`
 --
 ALTER TABLE `budaya`
-  MODIFY `id_budaya` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_budaya` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `covid_pantau`
@@ -1795,7 +1845,7 @@ ALTER TABLE `covid_pantau`
 -- AUTO_INCREMENT for table `covid_pemudik`
 --
 ALTER TABLE `covid_pemudik`
-  MODIFY `id_terdata` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_terdata` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `dokumen`
@@ -1813,7 +1863,7 @@ ALTER TABLE `dusun`
 -- AUTO_INCREMENT for table `galeri`
 --
 ALTER TABLE `galeri`
-  MODIFY `id_galeri` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_galeri` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `golongan_darah`
@@ -1837,7 +1887,7 @@ ALTER TABLE `kat_album`
 -- AUTO_INCREMENT for table `kat_artikel`
 --
 ALTER TABLE `kat_artikel`
-  MODIFY `id_kat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_kat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `kat_budaya`
@@ -1885,7 +1935,7 @@ ALTER TABLE `pendidikan_kk`
 -- AUTO_INCREMENT for table `penduduk`
 --
 ALTER TABLE `penduduk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `penerima`
@@ -1933,7 +1983,7 @@ ALTER TABLE `setting_web`
 -- AUTO_INCREMENT for table `slider`
 --
 ALTER TABLE `slider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `sosmed`
@@ -2017,7 +2067,7 @@ ALTER TABLE `syarat_surat`
 -- AUTO_INCREMENT for table `text_berjalan`
 --
 ALTER TABLE `text_berjalan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tweb_kades`
