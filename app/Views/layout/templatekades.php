@@ -58,7 +58,7 @@
         <li class="dropdown notification-list">
           <a class="nav-link  waves-effect waves-light" href="<?= base_url('permohonansurat'); ?>" role="button">
             <i class="dripicons-download noti-icon"></i>
-            <span class="badge badge-pink rounded-circle noti-icon-badge"><?= $permohonan; ?></span>
+            <span class="badge badge-pink rounded-circle noti-icon-badge" id="permohonan"></span>
           </a>
         </li>
 
@@ -382,6 +382,14 @@
     };
   </script>
 
+  <script>
+    $(document).ready(function() {
+      setInterval(function() {
+        $("#permohonan").load('<?php echo base_url('/kades/count/permohonan'); ?>');
+
+      }, 1000);
+    });
+  </script>
 </body>
 
 </html>

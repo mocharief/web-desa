@@ -44,7 +44,6 @@
   <link href="<?= base_url('public/admin/libs/bootstrap-daterangepicker/daterangepicker.css'); ?>" rel="stylesheet">
   <link href="<?= base_url('public/admin/libs/bootstrap-datepicker/bootstrap-datepicker.min.css'); ?>" rel="stylesheet" type="text/css" />
 
-
 </head>
 
 <body>
@@ -59,20 +58,22 @@
         <li class="dropdown notification-list">
           <a class="nav-link waves-effect waves-light" href="<?= base_url('managependaftaran'); ?>" role="button">
             <i class="dripicons-user noti-icon"></i>
-            <span class="badge badge-pink rounded-circle noti-icon-badge"><?= $pendaftar; ?></span>
+            <span class="badge badge-pink rounded-circle noti-icon-badge" id="pendaftar"></span>
           </a>
         </li>
         <li class="dropdown notification-list">
           <a class="nav-link  waves-effect waves-light" href="<?= base_url('managepermohonan'); ?>" role="button">
             <i class="dripicons-download noti-icon"></i>
-            <span class="badge badge-pink rounded-circle noti-icon-badge"><?= $permohonan; ?></span>
+            <span class="badge badge-pink rounded-circle noti-icon-badge" id="permohonan"></span>
           </a>
         </li>
 
         <li class="dropdown notification-list">
           <a class="nav-link waves-effect waves-light" href="<?= base_url('managepesanmasuk'); ?>" role="button">
             <i class="dripicons-mail noti-icon"></i>
-            <span class="badge badge-pink rounded-circle noti-icon-badge"><?= $pesanmasuk; ?></span>
+            <span class="badge badge-pink rounded-circle noti-icon-badge" id="pesanmasuk">
+
+            </span>
           </a>
         </li>
 
@@ -517,32 +518,30 @@
 
     });
   </script>
-  <script type="text/javascript">
-    function autofill() {
+  <script>
+    $(document).ready(function() {
+      setInterval(function() {
+        $("#pesanmasuk").load('<?php echo base_url('/admin/count/pesanmasuk'); ?>');
 
-      var id = document.getElementById('namapenduduk').value;
-      var action = 'getpenduduk';
-
-      if (id != '') {
-        $.ajax({
-          url: "<?php echo base_url('/admin/penduduk/action'); ?>",
-          method: "POST",
-          data: {
-            id: id,
-            action: action
-          },
-          dataType: "JSON",
-          success: function(data) {
-            var hasil = JSON.parse(data);
-            $.each(hasil, function(key, val) {
-              document.getElementById('namaaparat').value = val.nama;
-            });
-          }
-        });
-      }
-    };
+      }, 1000);
+    });
   </script>
+  <script>
+    $(document).ready(function() {
+      setInterval(function() {
+        $("#pendaftar").load('<?php echo base_url('/admin/count/pendaftar'); ?>');
 
+      }, 1000);
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      setInterval(function() {
+        $("#permohonan").load('<?php echo base_url('/admin/count/permohonan'); ?>');
+
+      }, 1000);
+    });
+  </script>
 </body>
 
 </html>

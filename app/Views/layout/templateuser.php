@@ -23,6 +23,8 @@
 
     <!-- C3 Chart css -->
     <link href="<?= base_url('public/admin/libs/c3/c3.min.css'); ?>" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url('public/admin/libs/select2/select2.min.css'); ?>" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url('public/admin/libs/bootstrap-select/bootstrap-select.min.css'); ?>" rel="stylesheet" type="text/css" />
 
     <!-- App css -->
     <link href="<?= base_url('public/admin/css/bootstrap.min.css '); ?>" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
@@ -57,14 +59,14 @@
                         <li class="dropdown notification-list">
                             <a class="nav-link  waves-effect waves-light" href="<?= base_url('surat'); ?>" role="button">
                                 <i class="dripicons-download noti-icon"></i>
-                                <span class="badge badge-pink rounded-circle noti-icon-badge"><?= $permohonan; ?></span>
+                                <span class="badge badge-pink rounded-circle noti-icon-badge" id="permohonan"></span>
                             </a>
                         </li>
 
                         <li class="dropdown notification-list">
                             <a class="nav-link waves-effect waves-light" href="<?= base_url('pesanuser'); ?>" role="button">
                                 <i class="dripicons-mail noti-icon"></i>
-                                <span class="badge badge-pink rounded-circle noti-icon-badge"><?= $pesanmasuk; ?></span>
+                                <span class="badge badge-pink rounded-circle noti-icon-badge" id="pesanmasuk"></span>
                             </a>
                         </li>
                         <li class="dropdown notification-list">
@@ -360,6 +362,22 @@
                     document.getElementById("tanggal").innerHTML = (("0" + dt.getDate()).slice(-2)) + "-" + (("0" + (dt.getMonth() + 1)).slice(-2)) + "-" + (dt.getFullYear());
                 </script>
                 <script src="<?= base_url('public/admin/libs/lightbox2/lightbox.min.js'); ?>"></script>
+                <script>
+                    $(document).ready(function() {
+                        setInterval(function() {
+                            $("#pesanmasuk").load('<?php echo base_url('/user/count/pesanmasuk'); ?>');
+
+                        }, 1000);
+                    });
+                </script>
+                <script>
+                    $(document).ready(function() {
+                        setInterval(function() {
+                            $("#permohonan").load('<?php echo base_url('/user/count/permohonan'); ?>');
+
+                        }, 1000);
+                    });
+                </script>
 </body>
 
 </html>
