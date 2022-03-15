@@ -19,6 +19,15 @@ use App\Models\SliderModel;
 use App\Models\PendataanModel;
 use App\Models\PemerintahanModel;
 
+use App\Models\PendidikanModel;
+use App\Models\PekerjaanModel;
+use App\Models\PendidikankkModel;
+use App\Models\AgamaModel;
+use App\Models\GolonganModel;
+use App\Models\PesanModel;
+use App\Models\PermohonanModel;
+use App\Models\PendaftarModel;
+
 class Home extends BaseController
 {
 	protected $pendudukModel;
@@ -35,6 +44,15 @@ class Home extends BaseController
     protected $sliderModel;
     protected $pendataanModel;
     protected $pemerintahanModel;
+
+    protected $pendidikanModel;
+    protected $pekerjaanModel;
+    protected $pendidikankkModel;
+    protected $agamaModel;
+    protected $golonganModel;
+    protected $pesanModel;
+    protected $permohonanModel;
+    protected $pendaftarModel;
 	
 	public function __construct()
 	{
@@ -52,6 +70,15 @@ class Home extends BaseController
         $this->sliderModel = new SliderModel();
         $this->pendataanModel = new PendataanModel();
         $this->pemerintahanModel = new PemerintahanModel();
+
+		$this->pesanModel = new PesanModel();
+        $this->permohonanModel = new PermohonanModel();
+        $this->pekerjaanModel = new PekerjaanModel();
+        $this->pendidikanModel = new PendidikanModel();
+        $this->pendidikankkModel = new PendidikankkModel();
+        $this->agamaModel = new AgamaModel();
+        $this->golonganModel = new GolonganModel();
+        $this->pendaftarModel = new PendaftarModel();
 		helper('form');
 	}
 
@@ -99,7 +126,7 @@ class Home extends BaseController
 		$kddesa = $session->get('kddesa');
 		$logo = $this->identitasModel->view($kddesa);
         $text = $this->textModel->view($kddesa);
-		$penduduk = $this->pendudukModel->totalpenduduk($kddesa);
+		$pendudukTotal = $this->pendudukModel->totalpenduduk($kddesa);
 		$dusun = $this->dusunModel->totaldusun($kddesa);
 		$budaya = $this->budayaModel->totalbudaya($kddesa);
 		$umkm = $this->umkmModel->totalumkm($kddesa);
@@ -108,12 +135,23 @@ class Home extends BaseController
 		$dusunList = $this->dusunModel->view($kddesa);
         $pemerintahan = $this->pemerintahanModel->viewpemerintahan($kddesa);
 
+		$pesanmasuk = $this->pesanModel->viewpesan($kddesa);
+        $permohonan = $this->permohonanModel->viewpermohonan($kddesa);
+        $pendaftar = $this->pendaftarModel->totalpendaftar($kddesa);
+        $penduduk = $this->pendudukModel->find();
+        $pekerjaan = $this->pekerjaanModel->findAll();
+        $pendidikan = $this->pendidikanModel->findAll();
+        $pendidikankk = $this->pendidikankkModel->findAll();
+        $agama = $this->agamaModel->findAll();
+        $golongan = $this->golonganModel->findAll();
+
 		$db = \Config\Database::connect();
 		$data = [
 			'title' => 'Profil',
+			'kddesa' => $kddesa,
 			'logo' => $logo,
             'text' => $text,
-			'penduduk' => $penduduk,
+			'pendudukTotal' => $pendudukTotal,
 			'dusun' => $dusun,
 			'budaya' => $budaya,
 			'umkm' => $umkm,
@@ -121,7 +159,16 @@ class Home extends BaseController
 			'budayaList' => $budayaList,
 			'dusunList' => $dusunList,
             'pemerintahan' => $pemerintahan,
-			// 'db' => $db,
+			'pekerjaan' => $pekerjaan,
+            'pendidikan' => $pendidikan,
+            'pendidikankk' => $pendidikankk,
+            'agama' => $agama,
+            'golongan' => $golongan,
+            'penduduk' => $penduduk,
+            'pesanmasuk' => $pesanmasuk,
+            'permohonan' => $permohonan,
+            'pendaftar' => $pendaftar,
+			'db' => $db,
 			'activemenu' => $this->data['activemenu'] = 'profil',
 		];
 

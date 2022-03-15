@@ -30,6 +30,14 @@
 		<link rel="stylesheet" href="<?= base_url('public/frontend/assets/css/style.css'); ?>">
 		<!-- Responsive CSS -->
 		<link rel="stylesheet" href="<?= base_url('public/frontend/assets/css/responsive.css'); ?>">
+
+		<!-- C3 Chart css -->
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/modules/data.js"></script>
+		<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+		<script src="https://code.highcharts.com/modules/export-data.js"></script>
+		<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 		
 		<!-- Favicon -->
         <?php if ($logo['logo'] == '') {
@@ -339,5 +347,16 @@
 		<script src="<?= base_url('public/frontend/assets/js/ajaxchimp.min.js'); ?>"></script>
         <!-- Custom JS -->
 		<script src="<?= base_url('public/frontend/assets/js/custom.js'); ?>"></script>
+
+		<script>
+			if($(".category").length !== 0){
+				$(".category").click(function(){
+					$(".category").removeAttr("style");
+					$(".category#"+ this.id).css("color", "#00aa55");
+					$(".tab-pane").removeClass("active show");
+					$(".tab-pane#"+ this.id).addClass("active show");
+				});
+			}
+		</script>
     </body>
 </html>
