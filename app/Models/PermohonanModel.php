@@ -36,8 +36,10 @@ class PermohonanModel extends Model
 
     public function viewpermohonanuser($id)
     {
-        $this->select('*');
+        $this->select('permohonan_surat.*, surat_format.*');
+        $this->join('surat_format', 'surat_format.id_format_surat = permohonan_surat.id_surat');
         $this->where('status', '3');
+        $this->where('surat_format.mandiri', 1);
         $this->where('id', $id);
         $query = $this->countAllResults();
         return $query;
@@ -67,6 +69,7 @@ class PermohonanModel extends Model
         $this->select('permohonan_surat.*, surat_format.*');
         $this->join('surat_format', 'surat_format.id_format_surat = permohonan_surat.id_surat');
         $this->where('id', $id);
+        $this->where('surat_format.mandiri', 1);
         $this->orderBy('permohonan_surat.id_permohonan', 'DESC');
         $query = $this->get();
         return $query->getResultArray();
@@ -100,7 +103,7 @@ class PermohonanModel extends Model
 
     public function approve($id)
     {
-        $this->select('permohonan_surat.*, surat_format.*, penduduk.*, log_surat.*, dusun.*, rw.*, rt.*, pekerjaan.*, kk.*, agama.*');
+        $this->select('permohonan_surat.*, surat_format.*, penduduk.*, log_surat.*, dusun.*, rw.*, rt.*, pekerjaan.*, kk.*, agama.*,  golongan_darah.*,  pendidikan_kk.*');
         $this->join('surat_format', 'surat_format.id_format_surat = permohonan_surat.id_surat');
         $this->join('penduduk', 'penduduk.id = permohonan_surat.id');
         $this->join('log_surat', 'log_surat.id_permohonan = permohonan_surat.id_permohonan');
@@ -110,6 +113,8 @@ class PermohonanModel extends Model
         $this->join('pekerjaan', 'pekerjaan.id_pekerjaan = penduduk.id_pekerjaan');
         $this->join('kk', 'kk.id_kk = penduduk.id_kk');
         $this->join('agama', 'agama.agama_id = penduduk.agama_id');
+        $this->join('golongan_darah', 'golongan_darah.id_golongan = penduduk.id_golongan');
+        $this->join('pendidikan_kk', 'pendidikan_kk.id_pendidikan_kk = penduduk.id_pendidikan_kk');
         $this->where('permohonan_surat.id_permohonan', $id);
         $query = $this->get();
         return $query->getRowArray();

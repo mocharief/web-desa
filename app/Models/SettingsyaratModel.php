@@ -26,16 +26,17 @@ class SettingsyaratModel extends Model
         }
     }
 
-    public function hapusdata($id_format_surat)
+    public function hapusdata($id_format_surat, $kddesa)
     {
 
-        return $this->db->table($this->table)->delete(['id_surat' => $id_format_surat]);
+        return $this->db->table($this->table)->delete(['id_surat' => $id_format_surat, 'kddesa' => $kddesa]);
     }
 
-    public function view($id)
+    public function view($id, $kddesa)
     {
         $this->select('*');
         $this->where('id_surat', $id);
+        $this->where('kddesa', $kddesa);
         $query = $this->get();
         return $query->getResultArray();
     }

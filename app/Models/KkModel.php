@@ -36,6 +36,17 @@ class KkModel extends Model
         $query = $this->get();
         return $query->getResultArray();
     }
+    public function cetaksemua($kddesa)
+    {
+        $this->select('kk.*, penduduk.*,dusun.*,rw.*,rt.*');
+        $this->join('penduduk', 'penduduk.id = kk.id');
+        $this->join('dusun', 'dusun.id_dusun = penduduk.id_dusun');
+        $this->join('rw', 'rw.id_rw = penduduk.id_rw');
+        $this->join('rt', 'rt.id_rt = penduduk.id_rt');
+        $this->where('kk.kddesa', $kddesa);
+        $query = $this->get();
+        return $query->getResultArray();
+    }
 
     public function viewkk($id)
     {
@@ -46,7 +57,7 @@ class KkModel extends Model
         return $query->getResultArray();
     }
 
-
+   
     public function totalkk($kddesa)
     {
         $this->select('*');

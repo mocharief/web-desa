@@ -114,10 +114,10 @@ class PendudukModel extends Model
 
         $this->select('*');
         $this->where('kddesa', $kddesa);
+        $this->where('status_dasar', 1);
         $query = $this->get();
         return $query->getResultArray();
     }
-
     public function viewkeluarga($id, $kddesa)
     {
         $this->select('*');
@@ -209,6 +209,18 @@ class PendudukModel extends Model
         $query = $this->get();
         return $query->getRowArray();
     }
+
+
+    public function jumlahkeluarga($kddesa, $id_kk)
+    {
+        $this->select('*');
+        $this->where('kddesa', $kddesa);
+        $this->where('id_kk', $id_kk);
+        $query = $this->countAllResults();
+        return $query;
+    }
+
+
     public function simpan($data)
     {
         return $this->db->table($this->table)->insert($data);
@@ -232,5 +244,11 @@ class PendudukModel extends Model
     {
 
         return $this->db->table($this->table)->update($data, ['id_kk' => $id_kk]);
+    }
+
+    public function updatestatus($data, $iduser)
+    {
+
+        return $this->db->table($this->table)->update($data, ['id' => $iduser]);
     }
 }

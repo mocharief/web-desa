@@ -42,4 +42,9 @@ class AkunModel extends Model
     {
         return $this->db->table($this->table)->update($data, ['id_users' => $id]);
     }
+
+    public function updatedata1($data1, $id_users)
+    {
+        return $this->db->table($this->table)->update($data1, ['id_users' => $id_users]);
+    }
 }

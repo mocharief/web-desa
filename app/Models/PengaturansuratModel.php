@@ -40,10 +40,18 @@ class PengaturansuratModel extends Model
         return $query->getResultArray();
     }
 
-    public function viewlayanan()
+    public function viewlayanan($kddesa)
     {
         $this->select('*');
         $this->where('mandiri', 1);
+        $this->where('kddesa', $kddesa);
+        $query = $this->get();
+        return $query->getResultArray();
+    }
+    public function viewpengaturan($kddesa)
+    {
+        $this->select('*');
+        $this->where('kddesa', $kddesa);
         $query = $this->get();
         return $query->getResultArray();
     }
