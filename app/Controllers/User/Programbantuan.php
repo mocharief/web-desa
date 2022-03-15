@@ -49,6 +49,7 @@ class Programbantuan extends BaseController
     {
         $session = session();
         $id = $session->get('id');
+        $kddesa = $session->get('kddesa');
         $pesanmasuk = $this->pesankeluarModel->viewpesanmasuk($id);
         $permohonan = $this->permohonanModel->viewpermohonanuser($id);
         $penerima = $this->penerimaModel->viewpenerima($id);

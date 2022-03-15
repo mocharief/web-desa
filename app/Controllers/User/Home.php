@@ -46,6 +46,7 @@ class Home extends BaseController
     {
         $session = session();
         $id = $session->get('id');
+        $kddesa = $session->get('kddesa');
         $user = $this->pendudukModel->user($id);
         $logo = $this->identitasModel->view($kddesa);
         $pesanmasuk = $this->pesankeluarModel->viewpesanmasuk($id);
@@ -55,6 +56,7 @@ class Home extends BaseController
             'logo' => $logo,
             'pesanmasuk' => $pesanmasuk,
             'permohonan' => $permohonan,
+            'kddesa' => $kddesa,
         ];
 
         return view('user/index', $data);

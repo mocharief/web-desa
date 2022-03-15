@@ -24,12 +24,8 @@ class Login extends BaseController
 	public function index()
 	{
 		helper(['form']);
-		$logo = $this->identitasModel->view();
-		$data = [
 
-			'logo' => $logo,
-		];
-		return view('user/login', $data);
+		return view('user/login');
 	}
 	public function auth()
 	{
@@ -64,9 +60,9 @@ class Login extends BaseController
 
 		session();
 
-		$logo = $this->identitasModel->view();
+
 		$data = [
-			'logo' => $logo,
+
 			'validation' => \Config\Services::validation()
 		];
 

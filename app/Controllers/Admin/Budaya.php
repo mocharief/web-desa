@@ -92,6 +92,7 @@ class Budaya extends BaseController
         $kat = $this->request->getPost('kategori');
         $isi = $this->request->getPost('isi');
         $tipe = $this->request->getPost('tipe');
+        $link = $this->request->getPost('link');
         $kddesa = $this->request->getPost('kddesa');
         $data = $this->request->getFile('data');
 
@@ -99,7 +100,7 @@ class Budaya extends BaseController
 
 
 
-        if ($data->getError() == 4) {
+        if ($data == null) {
 
             $namadata = "";
         } else {
@@ -107,16 +108,29 @@ class Budaya extends BaseController
             $data->move('public/admin/images/budaya/' . $kddesa . '/', $namadata);
         }
 
+        if ($tipe == null) {
 
+            $namatipe = "";
+        } else {
+            $namatipe = $tipe;
+        }
+
+        if ($link == null) {
+
+            $namalink = "";
+        } else {
+            $namalink = $link;
+        }
         $slug = url_title($this->request->getPost('judul') . '-', true);
         $data = [
 
             'judul' => $judul,
             'isi' => $isi,
-            'tipe' => $tipe,
+            'tipe' => $namatipe,
             'id_kat' => $kat,
             'data' => $namadata,
             'slug' =>  $slug,
+            'link' =>  $namalink,
             'kddesa' => $kddesa,
         ];
         session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan');

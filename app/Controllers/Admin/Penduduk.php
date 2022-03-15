@@ -18,6 +18,7 @@ use App\Models\PesanModel;
 use App\Models\PermohonanModel;
 use App\Models\IdentitasModel;
 use App\Models\PendaftarModel;
+use App\Models\LogpendudukModel;
 
 class Penduduk extends BaseController
 {
@@ -38,6 +39,7 @@ class Penduduk extends BaseController
     protected $permohonanModel;
     protected $identitasModel;
     protected $pendaftarModel;
+    protected $logpendudukModel;
 
     public function __construct()
 
@@ -57,6 +59,7 @@ class Penduduk extends BaseController
         $this->kkModel = new KkModel();
         $this->identitasModel = new IdentitasModel();
         $this->pendaftarModel = new PendaftarModel();
+        $this->logpendudukModel = new LogpendudukModel();
     }
     public function index()
     {
@@ -73,6 +76,7 @@ class Penduduk extends BaseController
             'penduduk' => $penduduk,
             'logo' => $logo,
             'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
         ];
         return view('admin/penduduk/penduduk', $data);
     }
@@ -666,12 +670,135 @@ class Penduduk extends BaseController
         $kddesa = $session->get('kddesa');
         $logo = $this->identitasModel->view($kddesa);
         $penduduk = $this->pendudukModel->cetaksemua($kddesa);
+        $sensor = $this->request->getPost('sensor');
         $data = [
             'penduduk' => $penduduk,
             'logo' => $logo,
-
+            'sensor' => $sensor,
         ];
 
         return view('admin/penduduk/cetak/unduh', $data);
+    }
+
+    public function log()
+    {
+        $session = session();
+        $kddesa = $session->get('kddesa');
+        $pesanmasuk = $this->pesanModel->viewpesan($kddesa);
+        $permohonan = $this->permohonanModel->viewpermohonan($kddesa);
+        $pendaftar = $this->pendaftarModel->totalpendaftar($kddesa);
+        $logo = $this->identitasModel->view($kddesa);
+        $statusdasar = $this->request->getPost('statusdasar');
+        $db = \Config\Database::connect();
+        $data = [
+            'pesanmasuk' => $pesanmasuk,
+            'permohonan' => $permohonan,
+            'logo' => $logo,
+            'pendaftar' => $pendaftar,
+            'statusdasar' => $statusdasar,
+            'db' => $db,
+            'kddesa' => $kddesa,
+        ];
+        return view('admin/penduduk/log/logpenduduk', $data);
+    }
+
+
+    public function statusdasar($id)
+    {
+
+        $statusdasar = $this->request->getPost('statusdasar');
+        $tgl1 = $this->request->getPost('tgl1');
+        $tgl2 = $this->request->getPost('tgl2');
+        $catatan = $this->request->getPost('catatan');
+        $kddesa = $this->request->getPost('kddesa');
+        $iduser = $this->request->getPost('id');
+        $data = [
+
+            'status_dasar' => $statusdasar,
+
+
+        ];
+        $data1 = [
+            'id' => $iduser,
+            'id_peristiwa' => $statusdasar,
+            'tgl_peristiwa' => $tgl1,
+            'tgl_lapor' => $tgl2,
+            'kddesa' => $kddesa,
+            'catatan' => $catatan,
+
+        ];
+        session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan');
+        $simpan = $this->pendudukModel->updatedata($data, $id);
+        $simpan = $this->logpendudukModel->simpan($data1);
+        return redirect()->to(base_url('/managependuduk'));
+    }
+
+
+    public function editlog($id)
+    {
+        session();
+        // // Proteksi
+        // if ($session->get('username') == "") {
+        //     $session->setFlashdata('pesan', 'Anda Belum Login');
+        //     return redirect()->to(base_url('/login'));
+        // }
+        $session = session();
+        $kddesa = $session->get('kddesa');
+        $logo = $this->identitasModel->view($kddesa);
+        $pesanmasuk = $this->pesanModel->viewpesan($kddesa);
+        $permohonan = $this->permohonanModel->viewpermohonan($kddesa);
+        $pendaftar = $this->pendaftarModel->totalpendaftar($kddesa);
+        $log = $this->logpendudukModel->find($id);
+        $data = [
+            'log' => $log,
+            'pesanmasuk' => $pesanmasuk,
+            'permohonan' => $permohonan,
+            'logo' => $logo,
+            'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
+            'validation' => \Config\Services::validation()
+        ];
+
+        return view('admin/penduduk/log/editlog', $data);
+    }
+
+    public function updatelog($id)
+    {
+
+        $statusdasar = $this->request->getPost('namalama');
+        $tgl1 = $this->request->getPost('tgl1');
+        $tgl2 = $this->request->getPost('tgl2');
+        $catatan = $this->request->getPost('catatan');
+
+
+        $data = [
+            'id_peristiwa' => $statusdasar,
+            'tgl_peristiwa' => $tgl1,
+            'tgl_lapor' => $tgl2,
+            'catatan' => $catatan,
+
+        ];
+        session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan');
+        $simpan = $this->logpendudukModel->updatedata($data, $id);
+        return redirect()->to(base_url('/logpenduduk'));
+    }
+
+    public function restorestatus($id)
+    {
+
+        $session = session();
+        $kddesa = $session->get('kddesa');
+        $log = $this->logpendudukModel->find($id);
+        $iduser = $log['id'];
+
+        $data = [
+            'status_dasar' => 1,
+
+        ];
+
+        session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan');
+        $simpan = $this->pendudukModel->updatestatus($data, $iduser);
+        $this->logpendudukModel->delete($id);
+        return redirect()->to(base_url('/logpenduduk'));
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Admin;
+namespace App\Controllers\Kades;
 
 use App\Controllers\BaseController;
 use App\Models\DusunModel;
@@ -14,7 +14,7 @@ use App\Models\PermohonanModel;
 use App\Models\IdentitasModel;
 use App\Models\PendaftarModel;
 
-class Home extends BaseController
+class Count extends BaseController
 {
 	protected $dusunModel;
 	protected $pendudukModel;
@@ -42,32 +42,12 @@ class Home extends BaseController
 		helper('form');
 	}
 
-	public function index()
+
+	public function permohonan()
 	{
 		$session = session();
 		$kddesa = $session->get('kddesa');
-		$budaya = $this->budayaModel->totalbudaya($kddesa);
-		$penduduk = $this->pendudukModel->totalpenduduk($kddesa);
-		$dusun = $this->dusunModel->totaldusun($kddesa);
-		$galeri = $this->albumModel->totalgaleri($kddesa);
-		$kk = $this->kkModel->totalkk($kddesa);
-		$umkm = $this->umkmModel->totalumkm($kddesa);
-	
-		$logo = $this->identitasModel->view($kddesa);
-		$data = [
-			'title' => 'Halaman Administrator',
-			'budaya' => $budaya,
-			'penduduk' => $penduduk,
-			'dusun' => $dusun,
-			'galeri' => $galeri,
-			'kk' => $kk,
-			'umkm' => $umkm,
-			
-			'logo' => $logo,
-		
-
-		];
-
-		return view('admin/home', $data);
+		$permohonan = $this->permohonanModel->viewpermohonankades($kddesa);
+		echo json_encode($permohonan);
 	}
 }

@@ -49,6 +49,7 @@ class Gantipin extends BaseController
     {
         $session = session();
         $id = $session->get('id');
+        $kddesa = $session->get('kddesa');
         $user = $this->pendudukModel->user($id);
         $logo = $this->identitasModel->view($kddesa);
         $pesanmasuk = $this->pesankeluarModel->viewpesanmasuk($id);

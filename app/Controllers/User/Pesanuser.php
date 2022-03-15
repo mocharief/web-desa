@@ -47,6 +47,7 @@ class Pesanuser extends BaseController
 
         $session = session();
         $id = $session->get('id');
+        $kddesa = $session->get('kddesa');
         $user = $this->pendudukModel->user($id);
         $logo = $this->identitasModel->view($kddesa);
         $pesan = $this->pesankeluarModel->viewpesan($id);
@@ -115,6 +116,7 @@ class Pesanuser extends BaseController
     {
         $session = session();
         $iduser = $session->get('id');
+        $kddesa = $session->get('kddesa');
         $pesanmasuk = $this->pesankeluarModel->viewpesanmasuk($iduser);
         $permohonan = $this->permohonanModel->viewpermohonanuser($iduser);
         $user = $this->pendudukModel->user($iduser);
@@ -142,6 +144,7 @@ class Pesanuser extends BaseController
 
         $session = session();
         $id = $session->get('id');
+        $kddesa = $session->get('kddesa');
         $user = $this->pendudukModel->user($id);
         $logo = $this->identitasModel->view($kddesa);
         $pesan = $this->pesanModel->viewpesanuser($id);
@@ -162,6 +165,7 @@ class Pesanuser extends BaseController
     {
         $session = session();
         $iduser = $session->get('id');
+        $kddesa = $session->get('kddesa');
         $pesanmasuk = $this->pesankeluarModel->viewpesanmasuk($iduser);
         $permohonan = $this->permohonanModel->viewpermohonanuser($iduser);
 

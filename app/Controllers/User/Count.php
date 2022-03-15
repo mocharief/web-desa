@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Admin;
+namespace App\Controllers\User;
 
 use App\Controllers\BaseController;
 use App\Models\DusunModel;
@@ -12,9 +12,9 @@ use App\Models\UmkmModel;
 use App\Models\PesanModel;
 use App\Models\PermohonanModel;
 use App\Models\IdentitasModel;
-use App\Models\PendaftarModel;
+use App\Models\PesankeluarModel;
 
-class Home extends BaseController
+class Count extends BaseController
 {
 	protected $dusunModel;
 	protected $pendudukModel;
@@ -25,7 +25,7 @@ class Home extends BaseController
 	protected $pesanModel;
 	protected $permohonanModel;
 	protected $identitasModel;
-	protected $pendaftarModel;
+	protected $pesankeluarModel;
 
 	public function __construct()
 	{
@@ -38,36 +38,27 @@ class Home extends BaseController
 		$this->pesanModel = new PesanModel();
 		$this->permohonanModel = new PermohonanModel();
 		$this->identitasModel = new IdentitasModel();
-		$this->pendaftarModel = new PendaftarModel();
+		$this->pesankeluarModel = new PesankeluarModel();
 		helper('form');
 	}
 
-	public function index()
+
+	public function permohonan()
 	{
 		$session = session();
+		$id = $session->get('id');
 		$kddesa = $session->get('kddesa');
-		$budaya = $this->budayaModel->totalbudaya($kddesa);
-		$penduduk = $this->pendudukModel->totalpenduduk($kddesa);
-		$dusun = $this->dusunModel->totaldusun($kddesa);
-		$galeri = $this->albumModel->totalgaleri($kddesa);
-		$kk = $this->kkModel->totalkk($kddesa);
-		$umkm = $this->umkmModel->totalumkm($kddesa);
-	
-		$logo = $this->identitasModel->view($kddesa);
-		$data = [
-			'title' => 'Halaman Administrator',
-			'budaya' => $budaya,
-			'penduduk' => $penduduk,
-			'dusun' => $dusun,
-			'galeri' => $galeri,
-			'kk' => $kk,
-			'umkm' => $umkm,
-			
-			'logo' => $logo,
-		
+		$permohonan = $this->permohonanModel->viewpermohonanuser($id);
+		echo json_encode($permohonan);
+	}
 
-		];
+	public function pesanmasuk()
+	{
+		$session = session();
+		$id = $session->get('id');
+		$kddesa = $session->get('kddesa');
+		$pesanmasuk = $this->pesankeluarModel->viewpesanmasuk($id);
 
-		return view('admin/home', $data);
+		echo json_encode($pesanmasuk);
 	}
 }

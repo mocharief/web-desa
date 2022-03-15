@@ -55,6 +55,7 @@ class Dokumen extends BaseController
     {
         $session = session();
         $id = $session->get('id');
+        $kddesa = $session->get('kddesa');
         $pesanmasuk = $this->pesankeluarModel->viewpesanmasuk($id);
         $permohonan = $this->permohonanModel->viewpermohonanuser($id);
         $penerima = $this->penerimaModel->viewpenerima($id);
@@ -141,6 +142,7 @@ class Dokumen extends BaseController
     {
         $session = session();
         $iduser = $session->get('id');
+        $kddesa = $session->get('kddesa');
         $pesanmasuk = $this->pesankeluarModel->viewpesanmasuk($iduser);
         $permohonan = $this->permohonanModel->viewpermohonanuser($iduser);
         $penerima = $this->penerimaModel->viewpenerima($iduser);

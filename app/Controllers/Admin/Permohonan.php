@@ -32,6 +32,7 @@ use App\Models\SuratkehilanganModel;
 use App\Models\SuratjalanModel;
 use App\Models\SuratdomisiliModel;
 use App\Models\SuratpermohonanModel;
+use App\Models\SuratbedanamaModel;
 
 class Permohonan extends BaseController
 {
@@ -65,6 +66,7 @@ class Permohonan extends BaseController
     protected $suratdomisiliModel;
     protected $suratpermohonanModel;
     protected $pendaftarModel;
+    protected $suratbedanamaModel;
 
     public function __construct()
 
@@ -98,6 +100,7 @@ class Permohonan extends BaseController
         $this->suratjalanModel = new SuratjalanModel();
         $this->suratdomisiliModel = new SuratdomisiliModel();
         $this->suratpermohonanModel = new SuratpermohonanModel();
+        $this->suratbedanamaModel = new SuratbedanamaModel();
         helper('form');
     }
     public function index()
@@ -149,12 +152,14 @@ class Permohonan extends BaseController
         $db = \Config\Database::connect();
         $pemerintahan = $this->pemerintahanModel->find($id);
         $penduduk = $this->pendudukModel->findAll();
+        $pekerjaan = $this->pekerjaanModel->findAll();
         $datapermohonan = $this->permohonanModel->datapermohonan($id);
         $id_format_surat = $datapermohonan['id_surat'];
-        $no_surat = $this->logsuratModel->nomorsurat($id_format_surat);
+        $no_surat = $this->logsuratModel->nomorsurat($id_format_surat, $kddesa);
         $data = [
             'pesanmasuk' => $pesanmasuk,
             'permohonan' => $permohonan,
+            'pekerjaan' => $pekerjaan,
             'db' => $db,
             'penduduk' => $penduduk,
             'pemerintahan' => $pemerintahan,
@@ -162,6 +167,7 @@ class Permohonan extends BaseController
             'datapermohonan' => $datapermohonan,
             'no_surat' => $no_surat,
             'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
         ];
 
         return view('admin/permohonan/periksapermohonan', $data);
@@ -215,7 +221,7 @@ class Permohonan extends BaseController
         $keperluan = $this->request->getPost('keperluan');
         $keterangan = $this->request->getPost('keterangan');
 
-
+        $kddesa = $this->request->getPost('kddesa');
 
         $jenis_barang = $this->request->getPost('jenis_barang');
         $rincian_barang = $this->request->getPost('rincian_barang');
@@ -248,6 +254,18 @@ class Permohonan extends BaseController
         $nama_ibuanak = $this->request->getPost('nama_ibuanak');
         $alamat_orangtua = $this->request->getPost('alamat_orangtua');
 
+        $identitas = $this->request->getPost('identitas');
+        $no_bedaidentitas = $this->request->getPost('no_bedaidentitas');
+        $nama_bedaidentitas = $this->request->getPost('nama_bedaidentitas');
+        $tempat_bedaidentitas = $this->request->getPost('tempat_bedaidentitas');
+        $tgl_bedaidentitas = $this->request->getPost('tgl_bedaidentitas');
+        $jk_bedaidentitas = $this->request->getPost('jk_bedaidentitas');
+        $alamat_bedaidentitas = $this->request->getPost('alamat_bedaidentitas');
+        $agama_bedaidentitas = $this->request->getPost('agama_bedaidentitas');
+        $pekerjaan_bedaidentitas = $this->request->getPost('pekerjaan_bedaidentitas');
+        $keterangan_bedaidentitas = $this->request->getPost('keterangan_bedaidentitas');
+        $perbedaan = $this->request->getPost('perbedaan');
+
         $data = [
             'status' => 2,
         ];
@@ -258,6 +276,7 @@ class Permohonan extends BaseController
             'no_surat' => $no_surat,
             'bulan' => $bulan,
             'tahun' => $tahun,
+            'kddesa' => $kddesa,
 
         ];
         $data2 = [
@@ -336,7 +355,22 @@ class Permohonan extends BaseController
             'nama_ibuanak' => $nama_ibuanak,
             'alamat_orangtua' => $alamat_orangtua,
         ];
-        session()->setFlashdata('pesan', 'Data Berhasil Diubah');
+
+        $data12 = [
+            'id_permohonan' => $id_permohonan,
+            'identitas' => $identitas,
+            'no_bedaidentitas' => $no_bedaidentitas,
+            'nama_bedaidentitas' => $nama_bedaidentitas,
+            'tempat_bedaidentitas' => $tempat_bedaidentitas,
+            'tgl_bedaidentitas' => $tgl_bedaidentitas,
+            'jk_bedaidentitas' => $jk_bedaidentitas,
+            'alamat_bedaidentitas' => $alamat_bedaidentitas,
+            'agama_bedaidentitas' => $agama_bedaidentitas,
+            'pekerjaan_bedaidentitas' => $pekerjaan_bedaidentitas,
+            'keterangan_bedaidentitas' => $keterangan_bedaidentitas,
+            'perbedaan' => $perbedaan,
+        ];
+        session()->setFlashdata('pesan', 'Permohonan Sudah Disimpan');
         $simpan = $this->permohonanModel->updatedata($data, $id);
         $simpan = $this->logsuratModel->simpan($data1);
         if ($id_surat == 1) {
@@ -359,6 +393,8 @@ class Permohonan extends BaseController
             $simpan = $this->suratdomisiliModel->updatedata2($data10, $id_permohonan);
         } else if ($id_surat == 17) {
             $simpan = $this->suratpermohonanModel->updatedata2($data11, $id_permohonan);
+        } else if ($id_surat == 8) {
+            $simpan = $this->suratbedanamaModel->updatedata2($data12, $id_permohonan);
         }
 
         return redirect()->to(base_url('/managepermohonan'));
@@ -377,7 +413,7 @@ class Permohonan extends BaseController
         $permohonansurat = $this->permohonanModel->approve($id);
         $surat = $this->permohonanModel->find($id);
         $db = \Config\Database::connect();
-        $setting = $this->settingModel->view();
+        $setting = $this->settingModel->viewsetting($kddesa);
         $data = [
             'pemerintahan' => $pemerintahan,
             'penduduk' => $penduduk,
@@ -389,6 +425,7 @@ class Permohonan extends BaseController
             'surat' => $surat,
             'setting' => $setting,
             'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
         ];
         return view('admin/permohonan/surat/suratpengantar', $data);
     }
@@ -405,7 +442,7 @@ class Permohonan extends BaseController
         $pemerintahan = $this->pemerintahanModel->findAll();
         $permohonansurat = $this->permohonanModel->approve($id);
         $surat = $this->permohonanModel->find($id);
-        $setting = $this->settingModel->view();
+        $setting = $this->settingModel->viewsetting($kddesa);
         $db = \Config\Database::connect();
         $data = [
             'pemerintahan' => $pemerintahan,
@@ -418,6 +455,7 @@ class Permohonan extends BaseController
             'surat' => $surat,
             'setting' => $setting,
             'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
         ];
         return view('admin/permohonan/surat/suratjualbeli', $data);
     }
@@ -434,7 +472,7 @@ class Permohonan extends BaseController
         $pemerintahan = $this->pemerintahanModel->findAll();
         $permohonansurat = $this->permohonanModel->approve($id);
         $surat = $this->permohonanModel->find($id);
-        $setting = $this->settingModel->view();
+        $setting = $this->settingModel->viewsetting($kddesa);
         $db = \Config\Database::connect();
         $data = [
             'pemerintahan' => $pemerintahan,
@@ -447,6 +485,7 @@ class Permohonan extends BaseController
             'surat' => $surat,
             'setting' => $setting,
             'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
         ];
         return view('admin/permohonan/surat/suratkriminal', $data);
     }
@@ -463,7 +502,7 @@ class Permohonan extends BaseController
         $pemerintahan = $this->pemerintahanModel->findAll();
         $permohonansurat = $this->permohonanModel->approve($id);
         $surat = $this->permohonanModel->find($id);
-        $setting = $this->settingModel->view();
+        $setting = $this->settingModel->viewsetting($kddesa);
         $db = \Config\Database::connect();
         $data = [
             'pemerintahan' => $pemerintahan,
@@ -476,6 +515,7 @@ class Permohonan extends BaseController
             'surat' => $surat,
             'setting' => $setting,
             'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
         ];
         return view('admin/permohonan/surat/suratkurangmampu', $data);
     }
@@ -492,7 +532,7 @@ class Permohonan extends BaseController
         $pemerintahan = $this->pemerintahanModel->findAll();
         $permohonansurat = $this->permohonanModel->approve($id);
         $surat = $this->permohonanModel->find($id);
-        $setting = $this->settingModel->view();
+        $setting = $this->settingModel->viewsetting($kddesa);
         $db = \Config\Database::connect();
         $data = [
             'pemerintahan' => $pemerintahan,
@@ -505,6 +545,7 @@ class Permohonan extends BaseController
             'surat' => $surat,
             'setting' => $setting,
             'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
         ];
         return view('admin/permohonan/surat/suratusaha', $data);
     }
@@ -521,7 +562,7 @@ class Permohonan extends BaseController
         $pemerintahan = $this->pemerintahanModel->findAll();
         $permohonansurat = $this->permohonanModel->approve($id);
         $surat = $this->permohonanModel->find($id);
-        $setting = $this->settingModel->view();
+        $setting = $this->settingModel->viewsetting($kddesa);
         $db = \Config\Database::connect();
         $data = [
             'pemerintahan' => $pemerintahan,
@@ -534,6 +575,7 @@ class Permohonan extends BaseController
             'surat' => $surat,
             'setting' => $setting,
             'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
         ];
         return view('admin/permohonan/surat/suratkeramaian', $data);
     }
@@ -550,7 +592,7 @@ class Permohonan extends BaseController
         $pemerintahan = $this->pemerintahanModel->findAll();
         $permohonansurat = $this->permohonanModel->approve($id);
         $surat = $this->permohonanModel->find($id);
-        $setting = $this->settingModel->view();
+        $setting = $this->settingModel->viewsetting($kddesa);
         $db = \Config\Database::connect();
         $data = [
             'pemerintahan' => $pemerintahan,
@@ -563,6 +605,7 @@ class Permohonan extends BaseController
             'surat' => $surat,
             'setting' => $setting,
             'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
         ];
         return view('admin/permohonan/surat/suratkehilangan', $data);
     }
@@ -579,7 +622,7 @@ class Permohonan extends BaseController
         $pemerintahan = $this->pemerintahanModel->findAll();
         $permohonansurat = $this->permohonanModel->approve($id);
         $surat = $this->permohonanModel->find($id);
-        $setting = $this->settingModel->view();
+        $setting = $this->settingModel->viewsetting($kddesa);
         $db = \Config\Database::connect();
         $data = [
             'pemerintahan' => $pemerintahan,
@@ -592,6 +635,7 @@ class Permohonan extends BaseController
             'surat' => $surat,
             'setting' => $setting,
             'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
         ];
         return view('admin/permohonan/surat/suratjalan', $data);
     }
@@ -608,7 +652,7 @@ class Permohonan extends BaseController
         $pemerintahan = $this->pemerintahanModel->findAll();
         $permohonansurat = $this->permohonanModel->approve($id);
         $surat = $this->permohonanModel->find($id);
-        $setting = $this->settingModel->view();
+        $setting = $this->settingModel->viewsetting($kddesa);
         $db = \Config\Database::connect();
         $data = [
             'pemerintahan' => $pemerintahan,
@@ -621,6 +665,7 @@ class Permohonan extends BaseController
             'surat' => $surat,
             'setting' => $setting,
             'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
         ];
         return view('admin/permohonan/surat/suratdomisili', $data);
     }
@@ -638,7 +683,7 @@ class Permohonan extends BaseController
         $pemerintahan = $this->pemerintahanModel->findAll();
         $permohonansurat = $this->permohonanModel->approve($id);
         $surat = $this->permohonanModel->find($id);
-        $setting = $this->settingModel->view();
+        $setting = $this->settingModel->viewsetting($kddesa);
         $db = \Config\Database::connect();
         $data = [
             'pemerintahan' => $pemerintahan,
@@ -651,7 +696,380 @@ class Permohonan extends BaseController
             'surat' => $surat,
             'setting' => $setting,
             'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
         ];
         return view('admin/permohonan/surat/suratakta', $data);
+    }
+
+    public function ket_miliktanah($id)
+    {
+
+        $session = session();
+        $kddesa = $session->get('kddesa');
+        $pesanmasuk = $this->pesanModel->viewpesan($kddesa);
+        $permohonan = $this->permohonanModel->viewpermohonan($kddesa);
+        $pendaftar = $this->pendaftarModel->totalpendaftar($kddesa);
+        $logo = $this->identitasModel->view($kddesa);
+        $penduduk = $this->pendudukModel->viewpenduduk($kddesa);
+        $pemerintahan = $this->pemerintahanModel->findAll();
+        $permohonansurat = $this->permohonanModel->approve($id);
+        $surat = $this->permohonanModel->find($id);
+        $setting = $this->settingModel->viewsetting($kddesa);
+        $db = \Config\Database::connect();
+        $data = [
+            'pemerintahan' => $pemerintahan,
+            'penduduk' => $penduduk,
+            'pesanmasuk' => $pesanmasuk,
+            'permohonan' => $permohonan,
+            'permohonansurat' => $permohonansurat,
+            'logo' => $logo,
+            'db' => $db,
+            'surat' => $surat,
+            'setting' => $setting,
+            'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
+        ];
+        return view('admin/permohonan/surat/suratkepemilikantanah', $data);
+    }
+
+    public function ket_ktp($id)
+    {
+
+        $session = session();
+        $kddesa = $session->get('kddesa');
+        $pesanmasuk = $this->pesanModel->viewpesan($kddesa);
+        $permohonan = $this->permohonanModel->viewpermohonan($kddesa);
+        $pendaftar = $this->pendaftarModel->totalpendaftar($kddesa);
+        $logo = $this->identitasModel->view($kddesa);
+        $penduduk = $this->pendudukModel->viewpenduduk($kddesa);
+        $pemerintahan = $this->pemerintahanModel->findAll();
+        $permohonansurat = $this->permohonanModel->approve($id);
+        $surat = $this->permohonanModel->find($id);
+        $setting = $this->settingModel->viewsetting($kddesa);
+        $db = \Config\Database::connect();
+        $data = [
+            'pemerintahan' => $pemerintahan,
+            'penduduk' => $penduduk,
+            'pesanmasuk' => $pesanmasuk,
+            'permohonan' => $permohonan,
+            'permohonansurat' => $permohonansurat,
+            'logo' => $logo,
+            'db' => $db,
+            'surat' => $surat,
+            'setting' => $setting,
+            'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
+        ];
+        return view('admin/permohonan/surat/suratktp', $data);
+    }
+
+    public function ket_bedanama($id)
+    {
+
+        $session = session();
+        $kddesa = $session->get('kddesa');
+        $pesanmasuk = $this->pesanModel->viewpesan($kddesa);
+        $permohonan = $this->permohonanModel->viewpermohonan($kddesa);
+        $pendaftar = $this->pendaftarModel->totalpendaftar($kddesa);
+        $logo = $this->identitasModel->view($kddesa);
+        $penduduk = $this->pendudukModel->viewpenduduk($kddesa);
+        $pemerintahan = $this->pemerintahanModel->findAll();
+        $permohonansurat = $this->permohonanModel->approve($id);
+        $surat = $this->permohonanModel->find($id);
+        $setting = $this->settingModel->viewsetting($kddesa);
+        $db = \Config\Database::connect();
+        $data = [
+            'pemerintahan' => $pemerintahan,
+            'penduduk' => $penduduk,
+            'pesanmasuk' => $pesanmasuk,
+            'permohonan' => $permohonan,
+            'permohonansurat' => $permohonansurat,
+            'logo' => $logo,
+            'db' => $db,
+            'surat' => $surat,
+            'setting' => $setting,
+            'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
+        ];
+        return view('admin/permohonan/surat/suratbedaidentitas', $data);
+    }
+
+    public function ket_jamkesos($id)
+    {
+
+        $session = session();
+        $kddesa = $session->get('kddesa');
+        $pesanmasuk = $this->pesanModel->viewpesan($kddesa);
+        $permohonan = $this->permohonanModel->viewpermohonan($kddesa);
+        $pendaftar = $this->pendaftarModel->totalpendaftar($kddesa);
+        $logo = $this->identitasModel->view($kddesa);
+        $penduduk = $this->pendudukModel->viewpenduduk($kddesa);
+        $pemerintahan = $this->pemerintahanModel->findAll();
+        $permohonansurat = $this->permohonanModel->approve($id);
+        $surat = $this->permohonanModel->find($id);
+        $setting = $this->settingModel->viewsetting($kddesa);
+        $db = \Config\Database::connect();
+        $data = [
+            'pemerintahan' => $pemerintahan,
+            'penduduk' => $penduduk,
+            'pesanmasuk' => $pesanmasuk,
+            'permohonan' => $permohonan,
+            'permohonansurat' => $permohonansurat,
+            'logo' => $logo,
+            'db' => $db,
+            'surat' => $surat,
+            'setting' => $setting,
+            'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
+        ];
+        return view('admin/permohonan/surat/suratjamkesos', $data);
+    }
+
+    public function ket_milikkendaraan($id)
+    {
+
+        $session = session();
+        $kddesa = $session->get('kddesa');
+        $pesanmasuk = $this->pesanModel->viewpesan($kddesa);
+        $permohonan = $this->permohonanModel->viewpermohonan($kddesa);
+        $pendaftar = $this->pendaftarModel->totalpendaftar($kddesa);
+        $logo = $this->identitasModel->view($kddesa);
+        $penduduk = $this->pendudukModel->viewpenduduk($kddesa);
+        $pemerintahan = $this->pemerintahanModel->findAll();
+        $permohonansurat = $this->permohonanModel->approve($id);
+        $surat = $this->permohonanModel->find($id);
+        $setting = $this->settingModel->viewsetting($kddesa);
+        $db = \Config\Database::connect();
+        $data = [
+            'pemerintahan' => $pemerintahan,
+            'penduduk' => $penduduk,
+            'pesanmasuk' => $pesanmasuk,
+            'permohonan' => $permohonan,
+            'permohonansurat' => $permohonansurat,
+            'logo' => $logo,
+            'db' => $db,
+            'surat' => $surat,
+            'setting' => $setting,
+            'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
+        ];
+        return view('admin/permohonan/surat/suratmilikkendaraan', $data);
+    }
+
+    public function ket_walihakim($id)
+    {
+
+        $session = session();
+        $kddesa = $session->get('kddesa');
+        $pesanmasuk = $this->pesanModel->viewpesan($kddesa);
+        $permohonan = $this->permohonanModel->viewpermohonan($kddesa);
+        $pendaftar = $this->pendaftarModel->totalpendaftar($kddesa);
+        $logo = $this->identitasModel->view($kddesa);
+        $penduduk = $this->pendudukModel->viewpenduduk($kddesa);
+        $pemerintahan = $this->pemerintahanModel->findAll();
+        $permohonansurat = $this->permohonanModel->approve($id);
+        $surat = $this->permohonanModel->find($id);
+        $setting = $this->settingModel->viewsetting($kddesa);
+        $db = \Config\Database::connect();
+        $data = [
+            'pemerintahan' => $pemerintahan,
+            'penduduk' => $penduduk,
+            'pesanmasuk' => $pesanmasuk,
+            'permohonan' => $permohonan,
+            'permohonansurat' => $permohonansurat,
+            'logo' => $logo,
+            'db' => $db,
+            'surat' => $surat,
+            'setting' => $setting,
+            'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
+        ];
+        return view('admin/permohonan/surat/suratwalihakim', $data);
+    }
+
+    public function ket_lahirmati($id)
+    {
+
+        $session = session();
+        $kddesa = $session->get('kddesa');
+        $pesanmasuk = $this->pesanModel->viewpesan($kddesa);
+        $permohonan = $this->permohonanModel->viewpermohonan($kddesa);
+        $pendaftar = $this->pendaftarModel->totalpendaftar($kddesa);
+        $logo = $this->identitasModel->view($kddesa);
+        $penduduk = $this->pendudukModel->viewpenduduk($kddesa);
+        $pemerintahan = $this->pemerintahanModel->findAll();
+        $permohonansurat = $this->permohonanModel->approve($id);
+        $surat = $this->permohonanModel->find($id);
+        $setting = $this->settingModel->viewsetting($kddesa);
+        $db = \Config\Database::connect();
+        $data = [
+            'pemerintahan' => $pemerintahan,
+            'penduduk' => $penduduk,
+            'pesanmasuk' => $pesanmasuk,
+            'permohonan' => $permohonan,
+            'permohonansurat' => $permohonansurat,
+            'logo' => $logo,
+            'db' => $db,
+            'surat' => $surat,
+            'setting' => $setting,
+            'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
+        ];
+        return view('admin/permohonan/surat/suratlahirmati', $data);
+    }
+
+    public function ket_biopenduduk($id)
+    {
+
+        $session = session();
+        $kddesa = $session->get('kddesa');
+        $pesanmasuk = $this->pesanModel->viewpesan($kddesa);
+        $permohonan = $this->permohonanModel->viewpermohonan($kddesa);
+        $pendaftar = $this->pendaftarModel->totalpendaftar($kddesa);
+        $logo = $this->identitasModel->view($kddesa);
+        $penduduk = $this->pendudukModel->viewpenduduk($kddesa);
+        $pemerintahan = $this->pemerintahanModel->findAll();
+        $permohonansurat = $this->permohonanModel->approve($id);
+        $surat = $this->permohonanModel->find($id);
+        $setting = $this->settingModel->viewsetting($kddesa);
+        $db = \Config\Database::connect();
+        $data = [
+            'pemerintahan' => $pemerintahan,
+            'penduduk' => $penduduk,
+            'pesanmasuk' => $pesanmasuk,
+            'permohonan' => $permohonan,
+            'permohonansurat' => $permohonansurat,
+            'logo' => $logo,
+            'db' => $db,
+            'surat' => $surat,
+            'setting' => $setting,
+            'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
+        ];
+        return view('admin/permohonan/surat/suratbio', $data);
+    }
+
+    public function ket_kawin($id)
+    {
+
+        $session = session();
+        $kddesa = $session->get('kddesa');
+        $pesanmasuk = $this->pesanModel->viewpesan($kddesa);
+        $permohonan = $this->permohonanModel->viewpermohonan($kddesa);
+        $pendaftar = $this->pendaftarModel->totalpendaftar($kddesa);
+        $logo = $this->identitasModel->view($kddesa);
+        $penduduk = $this->pendudukModel->viewpenduduk($kddesa);
+        $pemerintahan = $this->pemerintahanModel->findAll();
+        $permohonansurat = $this->permohonanModel->approve($id);
+        $surat = $this->permohonanModel->find($id);
+        $setting = $this->settingModel->viewsetting($kddesa);
+        $db = \Config\Database::connect();
+        $data = [
+            'pemerintahan' => $pemerintahan,
+            'penduduk' => $penduduk,
+            'pesanmasuk' => $pesanmasuk,
+            'permohonan' => $permohonan,
+            'permohonansurat' => $permohonansurat,
+            'logo' => $logo,
+            'db' => $db,
+            'surat' => $surat,
+            'setting' => $setting,
+            'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
+        ];
+        return view('admin/permohonan/surat/suratpergikawin', $data);
+    }
+
+    public function ket_belumakta($id)
+    {
+
+        $session = session();
+        $kddesa = $session->get('kddesa');
+        $pesanmasuk = $this->pesanModel->viewpesan($kddesa);
+        $permohonan = $this->permohonanModel->viewpermohonan($kddesa);
+        $pendaftar = $this->pendaftarModel->totalpendaftar($kddesa);
+        $logo = $this->identitasModel->view($kddesa);
+        $penduduk = $this->pendudukModel->viewpenduduk($kddesa);
+        $pemerintahan = $this->pemerintahanModel->findAll();
+        $permohonansurat = $this->permohonanModel->approve($id);
+        $surat = $this->permohonanModel->find($id);
+        $setting = $this->settingModel->viewsetting($kddesa);
+        $db = \Config\Database::connect();
+        $data = [
+            'pemerintahan' => $pemerintahan,
+            'penduduk' => $penduduk,
+            'pesanmasuk' => $pesanmasuk,
+            'permohonan' => $permohonan,
+            'permohonansurat' => $permohonansurat,
+            'logo' => $logo,
+            'db' => $db,
+            'surat' => $surat,
+            'setting' => $setting,
+            'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
+        ];
+        return view('admin/permohonan/surat/suratbelumakta', $data);
+    }
+
+    public function ket_cerai($id)
+    {
+
+        $session = session();
+        $kddesa = $session->get('kddesa');
+        $pesanmasuk = $this->pesanModel->viewpesan($kddesa);
+        $permohonan = $this->permohonanModel->viewpermohonan($kddesa);
+        $pendaftar = $this->pendaftarModel->totalpendaftar($kddesa);
+        $logo = $this->identitasModel->view($kddesa);
+        $penduduk = $this->pendudukModel->viewpenduduk($kddesa);
+        $pemerintahan = $this->pemerintahanModel->findAll();
+        $permohonansurat = $this->permohonanModel->approve($id);
+        $surat = $this->permohonanModel->find($id);
+        $setting = $this->settingModel->viewsetting($kddesa);
+        $db = \Config\Database::connect();
+        $data = [
+            'pemerintahan' => $pemerintahan,
+            'penduduk' => $penduduk,
+            'pesanmasuk' => $pesanmasuk,
+            'permohonan' => $permohonan,
+            'permohonansurat' => $permohonansurat,
+            'logo' => $logo,
+            'db' => $db,
+            'surat' => $surat,
+            'setting' => $setting,
+            'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
+        ];
+        return view('admin/permohonan/surat/suratcerai', $data);
+    }
+
+    public function ket_kuasa($id)
+    {
+
+        $session = session();
+        $kddesa = $session->get('kddesa');
+        $pesanmasuk = $this->pesanModel->viewpesan($kddesa);
+        $permohonan = $this->permohonanModel->viewpermohonan($kddesa);
+        $pendaftar = $this->pendaftarModel->totalpendaftar($kddesa);
+        $logo = $this->identitasModel->view($kddesa);
+        $penduduk = $this->pendudukModel->viewpenduduk($kddesa);
+        $pemerintahan = $this->pemerintahanModel->findAll();
+        $permohonansurat = $this->permohonanModel->approve($id);
+        $surat = $this->permohonanModel->find($id);
+        $setting = $this->settingModel->viewsetting($kddesa);
+        $db = \Config\Database::connect();
+        $data = [
+            'pemerintahan' => $pemerintahan,
+            'penduduk' => $penduduk,
+            'pesanmasuk' => $pesanmasuk,
+            'permohonan' => $permohonan,
+            'permohonansurat' => $permohonansurat,
+            'logo' => $logo,
+            'db' => $db,
+            'surat' => $surat,
+            'setting' => $setting,
+            'pendaftar' => $pendaftar,
+            'kddesa' => $kddesa,
+        ];
+        return view('admin/permohonan/surat/suratkuasa', $data);
     }
 }

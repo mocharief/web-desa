@@ -315,4 +315,53 @@ class Kk extends BaseController
 
         return view('admin/kk/anggota/kartukeluarga', $data);
     }
+    public function cetaksemua()
+    {
+        // $session = session();
+        // // Proteksi
+        // if ($session->get('username') == "") {
+        //     $session->setFlashdata('pesan', 'Anda Belum Login');
+        //     return redirect()->to(base_url('/login'));
+        // }
+        $session = session();
+        $kddesa = $session->get('kddesa');
+        $logo = $this->identitasModel->view($kddesa);
+        $kk = $this->kkModel->cetaksemua($kddesa);
+        $sensor = $this->request->getPost('sensor');
+        $db = \Config\Database::connect();
+        $data = [
+            'kk' => $kk,
+            'logo' => $logo,
+            'sensor' => $sensor,
+            'db' => $db,
+        ];
+
+        return view('admin/kk/cetak/cetaksemua', $data);
+    }
+
+
+    public function unduhsemua()
+    {
+        // $session = session();
+        // // Proteksi
+        // if ($session->get('username') == "") {
+        //     $session->setFlashdata('pesan', 'Anda Belum Login');
+        //     return redirect()->to(base_url('/login'));
+        // }
+        $session = session();
+        $kddesa = $session->get('kddesa');
+        $logo = $this->identitasModel->view($kddesa);
+        $kk = $this->kkModel->cetaksemua($kddesa);
+        $db = \Config\Database::connect();
+        $sensor = $this->request->getPost('sensor');
+        $data = [
+            'kk' => $kk,
+            'logo' => $logo,
+            'db' => $db,
+            'sensor' => $sensor,
+
+        ];
+
+        return view('admin/kk/cetak/unduh', $data);
+    }
 }

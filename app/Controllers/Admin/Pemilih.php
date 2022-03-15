@@ -78,4 +78,53 @@ class Pemilih extends BaseController
         ];
         return view('admin/pemilih/pemilih', $data);
     }
+
+
+    public function cetaksemua()
+    {
+        // $session = session();
+        // // Proteksi
+        // if ($session->get('username') == "") {
+        //     $session->setFlashdata('pesan', 'Anda Belum Login');
+        //     return redirect()->to(base_url('/login'));
+        // }
+        $session = session();
+        $kddesa = $session->get('kddesa');
+        $logo = $this->identitasModel->view($kddesa);
+        $sensor = $this->request->getPost('sensor');
+        $db = \Config\Database::connect();
+        $data = [
+            'logo' => $logo,
+            'sensor' => $sensor,
+            'db' => $db,
+            'kddesa' => $kddesa,
+
+        ];
+
+        return view('admin/pemilih/cetak/cetaksemua', $data);
+    }
+
+
+    public function unduhsemua()
+    {
+        // $session = session();
+        // // Proteksi
+        // if ($session->get('username') == "") {
+        //     $session->setFlashdata('pesan', 'Anda Belum Login');
+        //     return redirect()->to(base_url('/login'));
+        // }
+        $session = session();
+        $kddesa = $session->get('kddesa');
+        $logo = $this->identitasModel->view($kddesa);
+        $db = \Config\Database::connect();
+        $sensor = $this->request->getPost('sensor');
+        $data = [
+            'logo' => $logo,
+            'db' => $db,
+            'sensor' => $sensor,
+            'kddesa' => $kddesa,
+        ];
+
+        return view('admin/pemilih/cetak/unduh', $data);
+    }
 }

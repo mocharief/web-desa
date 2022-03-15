@@ -46,9 +46,15 @@ class Login extends BaseController
 					'id_users' => $data['id_users'],
 					'username' => $data['username'],
 					'kddesa' => $data['kddesa'],
-					'logged_in' => TRUE
+					'role' => $data['role'],
+					'admin' => TRUE
 				];
+				$data1 = [
+					'last_login' => date("Y-m-d H:i:s"),
+				];
+				$id_users = $data['id_users'];
 				$session->set($ses_data);
+				$this->akunModel->updatedata1($data1, $id_users);
 				return redirect()->to(base_url('/admin'));
 			} else {
 				$session->setFlashdata('msg', 'Password Anda Salah');
@@ -59,8 +65,6 @@ class Login extends BaseController
 			return redirect()->to(base_url('/managedesa'));
 		}
 	}
-
-
 	// Logout
 	public function logout()
 	{

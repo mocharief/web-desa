@@ -57,6 +57,7 @@ class Pendaftar extends BaseController
         $pendaftar = $this->pendaftarModel->totalpendaftar($kddesa);
         $penduduk = $this->pendudukModel->daftarpenduduk($kddesa);
         $logo = $this->identitasModel->view($kddesa);
+        $db = \Config\Database::connect();
         $data = [
             'title' => 'Tambah artikel',
             'logo' => $logo,
@@ -65,6 +66,7 @@ class Pendaftar extends BaseController
             'permohonan' => $permohonan,
             'pendaftar' => $pendaftar,
             'kddesa' => $kddesa,
+            'db' => $db,
         ];
 
         return view('admin/pendaftar/tambahpendaftar', $data);
@@ -86,16 +88,21 @@ class Pendaftar extends BaseController
         $nama = $this->request->getPost('nama');
         $pin = $this->request->getPost('pin');
         $nik = $this->request->getPost('nik');
+        $no_wa = $this->request->getPost('no_wa');
         $kddesa = $this->request->getPost('kddesa');
         $data = [
 
             'id' => $nama,
             'pin' => md5($pin),
             'nik' => $nik,
+            'no_wa' => '62' . $no_wa,
             'kddesa' => $kddesa,
+            'status' => 1,
 
         ];
-        session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan');
+        session()->setFlashdata('pesan', 'Akun dengan NIK ' . $nik . ' Sudah dibuat');
+        session()->setFlashdata('no_wa', $no_wa);
+        session()->setFlashdata('pin', $pin);
         $simpan = $this->pendaftarModel->simpan($data);
         return redirect()->to(base_url('/managependaftaran'));
     }
@@ -141,7 +148,7 @@ class Pendaftar extends BaseController
             'id' => $nama,
             'pin' => md5($pin),
             'nik' => $nik,
-            'no_wa' => $no_wa,
+            'no_wa' => '62' . $no_wa,
 
 
         ];
@@ -154,8 +161,9 @@ class Pendaftar extends BaseController
 
         ];
 
-        session()->setFlashdata('pesan', 'Data Berhasil Diubah');
-
+        session()->setFlashdata('pesan', 'Pin dengan NIK ' . $nik . ' Sudah Diatur');
+        session()->setFlashdata('no_wa', $no_wa);
+        session()->setFlashdata('pin', $pin);
         $simpan = $this->pendaftarModel->updatedata($data, $id);
         $simpan = $this->pendaftarModel->updatedata1($data1, $id);
         return redirect()->to(base_url('/managependaftaran'));
@@ -172,7 +180,7 @@ class Pendaftar extends BaseController
 
         $this->pendaftarModel->delete($id);
 
-        session()->setFlashdata('pesan', 'Data Berhasil Dihapus');
+        session()->setFlashdata('msg', 'Data Berhasil Dihapus');
         return redirect()->to(base_url('/managependaftaran'));
     }
 }
