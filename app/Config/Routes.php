@@ -42,10 +42,11 @@ $routes->get('/tambahpenduduk', 'Admin\Penduduk::tambah', ['filter' => 'authadmi
 $routes->get('/editpenduduk/(:segment)', 'Admin\Penduduk::edit/$1', ['filter' => 'authadmin']);
 $routes->add('/penduduk/update/(:num)', 'Admin\Penduduk::update/$1', ['filter' => 'authadmin']);
 $routes->delete('/deletependuduk/(:num)', 'Admin\Penduduk::delete/$1', ['filter' => 'authadmin']);
-$routes->get('/cetaksemuapenduduk', 'Admin\Penduduk::cetaksemua', ['filter' => 'authadmin']);
 $routes->get('/cetakpenduduk/(:num)', 'Admin\Penduduk::cetak/$1', ['filter' => 'authadmin']);
-$routes->get('/unduhsemuapenduduk', 'Admin\Penduduk::unduhsemua', ['filter' => 'authadmin']);
-
+$routes->add('/logpenduduk', 'Admin\Penduduk::log', ['filter' => 'authadmin']);
+$routes->get('/editlog/(:segment)', 'Admin\Penduduk::editlog/$1', ['filter' => 'authadmin']);
+$routes->add('/penduduk/updatelog/(:num)', 'Admin\Penduduk::updatelog/$1', ['filter' => 'authadmin']);
+$routes->add('/restorestatus/(:segment)', 'Admin\Penduduk::restorestatus/$1', ['filter' => 'authadmin']);
 
 // artikel
 $routes->get('/manageartikel', 'Admin\Artikel::index', ['filter' => 'authadmin']);
@@ -232,6 +233,8 @@ $routes->add('/kk/updatehubungan/(:num)', 'Admin\Kk::updatehubungan/$1', ['filte
 $routes->get('/viewkeluarga/(:segment)', 'Admin\Kk::viewkeluarga/$1', ['filter' => 'authadmin']);
 $routes->get('/editpenerima/(:segment)', 'Admin\Kk::editpenerima/$1', ['filter' => 'authadmin']);
 $routes->delete('/deletekeluarga/(:segment)', 'Admin\Kk::deletekeluarga/$1', ['filter' => 'authadmin']);
+$routes->get('/cetakkk/(:num)', 'Admin\Kk::cetak/$1', ['filter' => 'authadmin']);
+$routes->get('/unduhsemuakk', 'Admin\Kk::unduhsemua', ['filter' => 'authadmin']);
 
 
 // pengaturan
@@ -247,6 +250,29 @@ $routes->add('/syarat/update/(:num)', 'Admin\Layanansurat::updatesyarat/$1', ['f
 $routes->delete('/deletesyarat/(:num)', 'Admin\Layanansurat::deletesyarat/$1', ['filter' => 'authadmin']);
 $routes->add('/nonfavorit/(:num)', 'Admin\Layanansurat::nonfavorit/$1', ['filter' => 'authadmin']);
 $routes->add('/favorit/(:num)', 'Admin\Layanansurat::favorit/$1', ['filter' => 'authadmin']);
+
+$routes->get('/buat_surat_ket_pengantar/(:segment)', 'Admin\Layanansurat::surat_ket_pengantar/$1', ['filter' => 'authadmin']);
+$routes->get('/buat_surat_ket_jual_beli/(:segment)', 'Admin\Layanansurat::surat_ket_jual_beli/$1', ['filter' => 'authadmin']);
+$routes->get('/buat_surat_ket_catatan_kriminal/(:segment)', 'Admin\Layanansurat::surat_ket_catatan_kriminal/$1', ['filter' => 'authadmin']);
+$routes->get('/buat_surat_ket_kurang_mampu/(:segment)', 'Admin\Layanansurat::surat_ket_kurang_mampu/$1', ['filter' => 'authadmin']);
+$routes->get('/buat_surat_ket_usaha/(:segment)', 'Admin\Layanansurat::surat_ket_usaha/$1', ['filter' => 'authadmin']);
+$routes->get('/buat_surat_izin_keramaian/(:segment)', 'Admin\Layanansurat::surat_izin_keramaian/$1', ['filter' => 'authadmin']);
+$routes->get('/buat_surat_ket_kehilangan/(:segment)', 'Admin\Layanansurat::surat_ket_kehilangan/$1', ['filter' => 'authadmin']);
+$routes->get('/buat_surat_jalan/(:segment)', 'Admin\Layanansurat::surat_jalan/$1', ['filter' => 'authadmin']);
+$routes->get('/buat_surat_ket_domisili_usaha/(:segment)', 'Admin\Layanansurat::surat_ket_domisili_usaha/$1', ['filter' => 'authadmin']);
+$routes->get('/buat_surat_permohonan_akta/(:segment)', 'Admin\Layanansurat::surat_permohonan_akta/$1', ['filter' => 'authadmin']);
+$routes->get('/buat_surat_ket_kepemilikan_tanah/(:segment)', 'Admin\Layanansurat::surat_ket_kepemilikan_tanah/$1', ['filter' => 'authadmin']);
+$routes->get('/buat_surat_ket_ktp_dalam_proses/(:segment)', 'Admin\Layanansurat::surat_ket_ktp_dalam_proses/$1', ['filter' => 'authadmin']);
+$routes->get('/buat_surat_ket_beda_nama/(:segment)', 'Admin\Layanansurat::surat_ket_beda_nama/$1', ['filter' => 'authadmin']);
+$routes->get('/buat_surat_ket_jamkesos/(:segment)', 'Admin\Layanansurat::surat_ket_jamkesos/$1', ['filter' => 'authadmin']);
+$routes->get('/buat_surat_ket_kepemilikan_kendaraan/(:segment)', 'Admin\Layanansurat::surat_ket_kepemilikan_kendaraan/$1', ['filter' => 'authadmin']);
+$routes->get('/buat_surat_ket_wali_hakim/(:segment)', 'Admin\Layanansurat::surat_ket_wali_hakim/$1', ['filter' => 'authadmin']);
+$routes->get('/buat_surat_ket_lahir_mati/(:segment)', 'Admin\Layanansurat::surat_ket_lahir_mati/$1', ['filter' => 'authadmin']);
+$routes->get('/buat_surat_bio_penduduk/(:segment)', 'Admin\Layanansurat::surat_bio_penduduk/$1', ['filter' => 'authadmin']);
+$routes->get('/buat_surat_ket_pergi_kawin/(:segment)', 'Admin\Layanansurat::surat_ket_pergi_kawin/$1', ['filter' => 'authadmin']);
+$routes->get('/buat_surat_pernyataan_akta/(:segment)', 'Admin\Layanansurat::surat_pernyataan_akta/$1', ['filter' => 'authadmin']);
+$routes->get('/buat_surat_ket_cerai/(:segment)', 'Admin\Layanansurat::surat_ket_cerai/$1', ['filter' => 'authadmin']);
+$routes->get('/buat_surat_kuasa/(:segment)', 'Admin\Layanansurat::surat_kuasa/$1', ['filter' => 'authadmin']);
 
 
 // persyaratan
@@ -285,6 +311,18 @@ $routes->get('/admin_surat_ket_kehilangan/(:segment)', 'Admin\Permohonan::ket_ke
 $routes->get('/admin_surat_jalan/(:segment)', 'Admin\Permohonan::ket_jalan/$1', ['filter' => 'authadmin']);
 $routes->get('/admin_surat_ket_domisili_usaha/(:segment)', 'Admin\Permohonan::ket_domisili/$1', ['filter' => 'authadmin']);
 $routes->get('/admin_surat_permohonan_akta/(:segment)', 'Admin\Permohonan::ket_akta/$1', ['filter' => 'authadmin']);
+$routes->get('/admin_surat_ket_kepemilikan_tanah/(:segment)', 'Admin\Permohonan::ket_miliktanah/$1', ['filter' => 'authadmin']);
+$routes->get('/admin_surat_ket_ktp_dalam_proses/(:segment)', 'Admin\Permohonan::ket_ktp/$1', ['filter' => 'authadmin']);
+$routes->get('/admin_surat_ket_beda_nama/(:segment)', 'Admin\Permohonan::ket_bedanama/$1', ['filter' => 'authadmin']);
+$routes->get('/admin_surat_ket_jamkesos/(:segment)', 'Admin\Permohonan::ket_jamkesos/$1', ['filter' => 'authadmin']);
+$routes->get('/admin_surat_ket_kepemilikan_kendaraan/(:segment)', 'Admin\Permohonan::ket_milikkendaraan/$1', ['filter' => 'authadmin']);
+$routes->get('/admin_surat_ket_wali_hakim/(:segment)', 'Admin\Permohonan::ket_walihakim/$1', ['filter' => 'authadmin']);
+$routes->get('/admin_surat_ket_lahir_mati/(:segment)', 'Admin\Permohonan::ket_lahirmati/$1', ['filter' => 'authadmin']);
+$routes->get('/admin_surat_bio_penduduk/(:segment)', 'Admin\Permohonan::ket_biopenduduk/$1', ['filter' => 'authadmin']);
+$routes->get('/admin_surat_ket_pergi_kawin/(:segment)', 'Admin\Permohonan::ket_kawin/$1', ['filter' => 'authadmin']);
+$routes->get('/admin_surat_pernyataan_akta/(:segment)', 'Admin\Permohonan::ket_belumakta/$1', ['filter' => 'authadmin']);
+$routes->get('/admin_surat_ket_cerai/(:segment)', 'Admin\Permohonan::ket_cerai/$1', ['filter' => 'authadmin']);
+$routes->get('/admin_surat_kuasa/(:segment)', 'Admin\Permohonan::ket_kuasa/$1', ['filter' => 'authadmin']);
 
 // Kades
 $routes->get('/kades', 'Kades\Home::index', ['filter' => 'authkades']);
@@ -309,6 +347,18 @@ $routes->get('/view_surat_ket_kehilangan/(:segment)', 'Kades\Permohonan::ket_keh
 $routes->get('/view_surat_jalan/(:segment)', 'Kades\Permohonan::ket_jalan/$1', ['filter' => 'authkades']);
 $routes->get('/view_surat_ket_domisili_usaha/(:segment)', 'Kades\Permohonan::ket_domisili/$1', ['filter' => 'authkades']);
 $routes->get('/view_surat_permohonan_akta/(:segment)', 'Kades\Permohonan::ket_akta/$1', ['filter' => 'authkades']);
+$routes->get('/view_surat_ket_kepemilikan_tanah/(:segment)', 'Kades\Permohonan::ket_miliktanah/$1', ['filter' => 'authkades']);
+$routes->get('/view_surat_ket_ktp_dalam_proses/(:segment)', 'Kades\Permohonan::ket_ktp/$1', ['filter' => 'authkades']);
+$routes->get('/view_surat_ket_beda_nama/(:segment)', 'Kades\Permohonan::ket_bedanama/$1', ['filter' => 'authkades']);
+$routes->get('/view_surat_ket_jamkesos/(:segment)', 'Kades\Permohonan::ket_jamkesos/$1', ['filter' => 'authkades']);
+$routes->get('/view_surat_ket_kepemilikan_kendaraan/(:segment)', 'Kades\Permohonan::ket_milikkendaraan/$1', ['filter' => 'authkades']);
+$routes->get('/view_surat_ket_wali_hakim/(:segment)', 'Kades\Permohonan::ket_walihakim/$1', ['filter' => 'authkades']);
+$routes->get('/view_surat_ket_lahir_mati/(:segment)', 'Kades\Permohonan::ket_lahirmati/$1', ['filter' => 'authkades']);
+$routes->get('/view_surat_bio_penduduk/(:segment)', 'Kades\Permohonan::ket_biopenduduk/$1', ['filter' => 'authkades']);
+$routes->get('/view_surat_ket_pergi_kawin/(:segment)', 'Kades\Permohonan::ket_kawin/$1', ['filter' => 'authkades']);
+$routes->get('/view_surat_pernyataan_akta/(:segment)', 'Kades\Permohonan::ket_belumakta/$1', ['filter' => 'authkades']);
+$routes->get('/view_surat_ket_cerai/(:segment)', 'Kades\Permohonan::ket_cerai/$1', ['filter' => 'authkades']);
+$routes->get('/view_surat_kuasa/(:segment)', 'Kades\Permohonan::ket_kuasa/$1', ['filter' => 'authkades']);
 
 // profilkades
 $routes->get('/profilkades', 'Kades\Akun::index', ['filter' => 'authkades']);
@@ -355,6 +405,18 @@ $routes->get('/surat_ket_kehilangan/(:segment)', 'User\Surat::suratketkehilangan
 $routes->get('/surat_jalan/(:segment)', 'User\Surat::suratjalan/$1', ['filter' => 'auth']);
 $routes->get('/surat_ket_domisili_usaha/(:segment)', 'User\Surat::suratketdomisiliusaha/$1', ['filter' => 'auth']);
 $routes->get('/surat_permohonan_akta/(:segment)', 'User\Surat::suratpermohonanakta/$1', ['filter' => 'auth']);
+$routes->get('/surat_ket_kepemilikan_tanah/(:segment)', 'User\Surat::suratketkepemilikantanah/$1', ['filter' => 'auth']);
+$routes->get('/surat_ket_ktp_dalam_proses/(:segment)', 'User\Surat::suratketktpdalamproses/$1', ['filter' => 'auth']);
+$routes->get('/surat_ket_beda_nama/(:segment)', 'User\Surat::suratketbedanama/$1', ['filter' => 'auth']);
+$routes->get('/surat_ket_jamkesos/(:segment)', 'User\Surat::suratketjamkesos/$1', ['filter' => 'auth']);
+$routes->get('/surat_ket_kepemilikan_kendaraan/(:segment)', 'User\Surat::suratketkepemilikankendaraan/$1', ['filter' => 'auth']);
+$routes->get('/surat_ket_wali_hakim/(:segment)', 'User\Surat::suratketwalihakim/$1', ['filter' => 'auth']);
+$routes->get('/surat_ket_lahir_mati/(:segment)', 'User\Surat::suratketlahirmati/$1', ['filter' => 'auth']);
+$routes->get('/surat_bio_penduduk/(:segment)', 'User\Surat::suratketbiopenduduk/$1', ['filter' => 'auth']);
+$routes->get('/surat_ket_pergi_kawin/(:segment)', 'User\Surat::suratketpergikawin/$1', ['filter' => 'auth']);
+$routes->get('/surat_pernyataan_akta/(:segment)', 'User\Surat::suratpernyataanakta/$1', ['filter' => 'auth']);
+$routes->get('/surat_ket_cerai/(:segment)', 'User\Surat::suratketcerai/$1', ['filter' => 'auth']);
+$routes->get('/surat_kuasa/(:segment)', 'User\Surat::suratkuasa/$1', ['filter' => 'auth']);
 
 
 $routes->add('/download_surat_ket_pengantar/(:segment)', 'User\Surat::ket_pengantar/$1', ['filter' => 'auth']);
@@ -366,7 +428,18 @@ $routes->add('/download_surat_izin_keramaian/(:segment)', 'User\Surat::ket_keram
 $routes->add('/download_surat_ket_kehilangan/(:segment)', 'User\Surat::ket_kehilangan/$1', ['filter' => 'auth']);
 $routes->add('/download_surat_jalan/(:segment)', 'User\Surat::ket_jalan/$1', ['filter' => 'auth']);
 $routes->add('/download_surat_ket_domisili_usaha/(:segment)', 'User\Surat::ket_domisili/$1', ['filter' => 'auth']);
-
+$routes->add('/download_surat_ket_kepemilikan_tanah/(:segment)', 'User\Surat::ket_miliktanah/$1', ['filter' => 'auth']);
+$routes->add('/download_surat_ket_ktp_dalam_proses/(:segment)', 'User\Surat::ket_ktp/$1', ['filter' => 'auth']);
+$routes->add('/download_surat_ket_beda_nama/(:segment)', 'User\Surat::ket_bedanama/$1', ['filter' => 'auth']);
+$routes->add('/download_surat_ket_jamkesos/(:segment)', 'User\Surat::ket_jamkesos/$1', ['filter' => 'auth']);
+$routes->add('/download_surat_ket_kepemilikan_kendaraan/(:segment)', 'User\Surat::ket_milikkendaraan/$1', ['filter' => 'auth']);
+$routes->add('/download_surat_ket_wali_hakim/(:segment)', 'User\Surat::ket_walihakim/$1', ['filter' => 'auth']);
+$routes->add('/download_surat_ket_lahir_mati/(:segment)', 'User\Surat::ket_lahirmati/$1', ['filter' => 'auth']);
+$routes->add('/download_surat_bio_penduduk/(:segment)', 'User\Surat::ket_biopenduduk/$1', ['filter' => 'auth']);
+$routes->add('/download_surat_ket_pergi_kawin/(:segment)', 'User\Surat::ket_kawin/$1', ['filter' => 'auth']);
+$routes->add('/download_surat_pernyataan_akta/(:segment)', 'User\Surat::ket_belumakta/$1', ['filter' => 'auth']);
+$routes->add('/download_surat_ket_cerai/(:segment)', 'User\Surat::ket_cerai/$1', ['filter' => 'auth']);
+$routes->add('/download_surat_kuasa/(:segment)', 'User\Surat::ket_kuasa/$1', ['filter' => 'auth']);
 
 
 
