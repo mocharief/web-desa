@@ -199,7 +199,7 @@ CREATE TABLE `budaya` (
   `id_budaya` int(11) NOT NULL,
   `judul` varchar(255) NOT NULL,
   `id_kat` int(11) NOT NULL,
-  `link` int(11) NOT NULL,
+  `link` text NOT NULL,
   `tipe` int(11) NOT NULL,
   `data` text NOT NULL,
   `tgl_posting` datetime NOT NULL DEFAULT current_timestamp(),
@@ -289,7 +289,8 @@ INSERT INTO `dokumen` (`id_dokumen`, `id`, `id_syarat`, `nama_dokumen`, `slug`, 
 (8, 12, 2, 'KK', 'kk', 'infografis-badai-sitokin-pada-covid-19-1.jpeg', 1),
 (10, 13, 1, 'Surat Pengantar ', 'surat-pengantar', '4-aksi-nyata-menuju-indonesia-sehat.jpg', 1),
 (11, 13, 2, 'FC KK', 'fc-kk', 'shutterstock_140702578.jpg', 1),
-(12, 12, 3, 'KTP', 'ktp', 'Untitled.png', 1);
+(12, 12, 3, 'KTP', 'ktp', 'Untitled.png', 1),
+(14, 12, 4, 'Akta Nikah', 'akta-nikah', 'Screen-Shot-2021-08-25-at-06.51.15.png', 1);
 
 -- --------------------------------------------------------
 
@@ -530,7 +531,24 @@ CREATE TABLE `kk` (
 --
 
 INSERT INTO `kk` (`id_kk`, `id`, `no_kk`, `kddesa`) VALUES
-(1, 16, '45455454554545455', 1);
+(1, 16, '45455454554545455', 1),
+(2, 13, '12121212', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `log_penduduk`
+--
+
+CREATE TABLE `log_penduduk` (
+  `id_log` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `id_peristiwa` int(11) NOT NULL,
+  `tgl_peristiwa` date NOT NULL,
+  `tgl_lapor` date NOT NULL,
+  `catatan` text NOT NULL,
+  `kddesa` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -549,33 +567,33 @@ CREATE TABLE `log_surat` (
   `tahun` varchar(4) DEFAULT NULL,
   `no_surat` varchar(20) DEFAULT NULL,
   `file_surat` varchar(100) DEFAULT NULL,
-  `lampiran` varchar(100) DEFAULT NULL
+  `lampiran` varchar(100) DEFAULT NULL,
+  `kddesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `log_surat`
 --
 
-INSERT INTO `log_surat` (`id_log`, `id_format_surat`, `id_permohonan`, `id_pamong`, `id_user`, `tanggal`, `bulan`, `tahun`, `no_surat`, `file_surat`, `lampiran`) VALUES
-(10, 1, 1, 0, 12, '2022-02-10', 'II', '2022', '1', NULL, NULL),
-(13, 1, 2, 0, 12, '2022-02-11', 'II', '2022', '2', NULL, NULL),
-(14, 1, 3, 0, 13, '2022-02-11', 'II', '2022', '3', NULL, NULL),
-(15, 1, 3, 0, 13, '2022-02-11', 'II', '2022', '4', NULL, NULL),
-(16, 5, 4, 0, 13, '2022-02-11', 'II', '2022', '1', NULL, NULL),
-(17, 5, 4, 0, 13, '2022-02-11', 'II', '2022', '2', NULL, NULL),
-(18, 1, 3, 0, 13, '2022-02-12', 'II', '2022', '5', NULL, NULL),
-(19, 6, 5, 0, 12, '2022-02-12', 'II', '2022', '1', NULL, NULL),
-(20, 10, 6, 0, 12, '2022-02-12', 'II', '2022', '1', NULL, NULL),
-(21, 13, 7, 0, 12, '2022-02-12', 'II', '2022', '1', NULL, NULL),
-(22, 1, 8, 0, 12, '2022-02-12', 'II', '2022', '6', NULL, NULL),
-(23, 11, 9, 0, 12, '2022-02-12', 'II', '2022', '1', NULL, NULL),
-(24, 12, 10, 0, 12, '2022-02-12', 'II', '2022', '1', NULL, NULL),
-(25, 9, 11, 0, 12, '2022-02-12', 'II', '2022', '1', NULL, NULL),
-(26, 9, 11, 0, 12, '2022-02-12', 'II', '2022', '2', NULL, NULL),
-(27, 15, 12, 0, 12, '2022-02-12', 'II', '2022', '1', NULL, NULL),
-(28, 15, 1, 0, 12, '2022-02-12', 'II', '2022', '2', NULL, NULL),
-(29, 17, 2, 0, 12, '2022-02-13', 'II', '2022', '1', NULL, NULL),
-(30, 17, 2, 0, 12, '2022-02-13', 'II', '2022', '1', NULL, NULL);
+INSERT INTO `log_surat` (`id_log`, `id_format_surat`, `id_permohonan`, `id_pamong`, `id_user`, `tanggal`, `bulan`, `tahun`, `no_surat`, `file_surat`, `lampiran`, `kddesa`) VALUES
+(73, 24, 1, 0, 14, '2022-02-25', 'II', '2022', '1', NULL, NULL, 1),
+(74, 24, 2, 0, 12, '2022-02-25', 'II', '2022', '2', NULL, NULL, 1),
+(75, 21, 3, 0, 14, '2022-02-27', 'II', '2022', '1', NULL, NULL, 1),
+(76, 21, 5, 0, 12, '2022-02-27', 'II', '2022', '2', NULL, NULL, 1),
+(77, 21, 6, 0, 12, '2022-02-27', 'II', '2022', '3', NULL, NULL, 1),
+(78, 3, 7, 0, 16, '2022-02-27', 'II', '2022', '1', NULL, NULL, 1),
+(79, 3, 8, 0, 12, '2022-02-27', 'II', '2022', '2', NULL, NULL, 1),
+(80, 23, 9, 0, 12, '2022-02-28', 'II', '2022', '1', NULL, NULL, 1),
+(81, 23, 10, 0, 12, '2022-02-28', 'II', '2022', '2', NULL, NULL, 1),
+(82, 18, 11, 0, 12, '2022-02-28', 'II', '2022', '1', NULL, NULL, 1),
+(83, 18, 12, 0, 12, '2022-02-28', 'II', '2022', '2', NULL, NULL, 1),
+(84, 26, 13, 0, 12, '2022-02-28', 'II', '2022', '1', NULL, NULL, 1),
+(85, 26, 14, 0, 14, '2022-02-28', 'II', '2022', '2', NULL, NULL, 1),
+(86, 26, 15, 0, 12, '2022-02-28', 'II', '2022', '3', NULL, NULL, 1),
+(87, 26, 16, 0, 12, '2022-02-28', 'II', '2022', '4', NULL, NULL, 1),
+(88, 41, 1, 0, 12, '2022-03-01', 'II', '2022', '1', NULL, NULL, 1),
+(89, 41, 2, 0, 12, '2022-03-01', 'II', '2022', '2', NULL, NULL, 1),
+(90, 41, 3, 0, 12, '2022-03-01', 'II', '2022', '3', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -706,7 +724,7 @@ CREATE TABLE `pendaftar` (
 
 INSERT INTO `pendaftar` (`id_pendaftar`, `id`, `nik`, `pin`, `tgl_buat`, `status`, `no_wa`, `kddesa`) VALUES
 (2, 12, '3332323232', '96e79218965eb72c92a549dd5a330112', '2022-02-08', 1, '', 1),
-(5, 13, '2222222222222222', 'a8f5f167f44f4964e6c998dee827110c', '2022-02-08', 1, '', 1);
+(11, 18, '2222222222221245', '7e2ecbca6d8968d4d4cd54f8ac628cf2', '2022-02-27', 1, '6289646619071', 1);
 
 -- --------------------------------------------------------
 
@@ -842,10 +860,11 @@ CREATE TABLE `penduduk` (
 
 INSERT INTO `penduduk` (`id`, `nama`, `nik`, `id_kk`, `kk_level`, `sex`, `tempatlahir`, `tanggallahir`, `id_dusun`, `id_rw`, `id_rt`, `agama_id`, `id_pendidikan_kk`, `pendidikan_sedang_id`, `id_pekerjaan`, `status_kawin`, `warganegara_id`, `dokumen_pasport`, `dokumen_kitas`, `ayah_nik`, `ibu_nik`, `nama_ayah`, `nama_ibu`, `foto`, `id_golongan`, `id_cluster`, `status`, `alamat_sebelumnya`, `alamat_sekarang`, `status_dasar`, `hamil`, `cacat_id`, `sakit_menahun_id`, `akta_lahir`, `akta_perkawinan`, `tanggalperkawinan`, `akta_perceraian`, `tanggalperceraian`, `cara_kb_id`, `telepon`, `tanggal_akhir_paspor`, `ktp_el`, `status_rekam`, `waktu_lahir`, `tempat_dilahirkan`, `jenis_kelahiran`, `kelahiran_anak_ke`, `penolong_kelahiran`, `berat_lahir`, `panjang_lahir`, `tag_id_card`, `created_at`, `created_by`, `updated_at`, `updated_by`, `email`, `kddesa`) VALUES
 (12, 'Arie Rukmana', '3332323232', 1, 2, 1, 'c', '2013-02-14', 18, 13, 7, 1, 1, 15, 16, 1, 1, '', '', '1', '2', 'A', 'B', '', 2, 0, 1, '', '', 1, NULL, 3, 7, '1222222222222221', '', '0000-00-00', '', '0000-00-00', NULL, '', '0000-00-00', NULL, NULL, '16:15', 1, 1, 1, 1, 0, '', NULL, '2022-02-06 09:11:45', 0, '2022-02-06 09:11:45', NULL, '', 1),
-(13, 'mimii', '2222222222222222', 1, 4, 2, 'sds', '2004-02-09', 18, 13, 7, 2, 1, 16, 11, 2, 1, '', '', '', '', '', '', '', 9, 0, 1, '', '', 1, 0, 5, 8, '', '', '0000-00-00', '', '0000-00-00', NULL, '02254544545', '0000-00-00', NULL, NULL, '16:15', 3, 2, 3, 2, 0, '', NULL, '2022-02-06 09:13:18', 0, '2022-02-06 09:13:18', NULL, '', 1),
-(14, 'mana', '1234567891234567', 0, 1, 2, 'sds', '2004-02-09', 18, 13, 7, 2, 1, 16, 11, 2, 1, '', '', '', '', '', '', '', 9, 0, 1, '', '', 1, 0, 5, 8, '', '', '0000-00-00', '', '0000-00-00', NULL, '02254544545', '0000-00-00', NULL, NULL, '16:15', 3, 2, 3, 2, 0, '', NULL, '2022-02-06 09:13:18', 0, '2022-02-06 09:13:18', NULL, '', 2),
-(16, 'asdsadasdas', '2222222222221245', 1, 1, 1, 'Suemdnag', '1994-02-08', 18, 13, 7, 1, 2, 3, 2, 1, 1, '', '', '1222222222222222', '1333333333333333', '', '', '', 1, 0, 1, '', '1', 1, 0, 1, 1, '', '', '0000-00-00', '', '0000-00-00', NULL, '', '0000-00-00', NULL, NULL, '15:30', 0, 0, 0, 0, 0, '', NULL, '2022-02-16 08:18:50', 0, '2022-02-16 08:18:50', NULL, '', 1),
+(13, 'mimii', '2222222222222222', 2, 1, 2, 'sds', '2004-02-09', 18, 13, 7, 2, 1, 16, 11, 2, 1, '', '', '', '', '', '', '', 9, 0, 1, '', '', 1, 0, 5, 8, '', '', '0000-00-00', '', '0000-00-00', NULL, '02254544545', '0000-00-00', NULL, NULL, '16:15', 3, 2, 3, 2, 0, '', NULL, '2022-02-06 09:13:18', 0, '2022-02-06 09:13:18', NULL, '', 1),
+(14, 'mana', '1234567891234567', 1, 1, 2, 'sds', '2004-02-09', 18, 13, 7, 2, 1, 16, 11, 2, 1, '', '', '', '', '', '', '', 9, 0, 1, '', '', 1, 0, 5, 8, '', '', '0000-00-00', '', '0000-00-00', NULL, '02254544545', '0000-00-00', NULL, NULL, '16:15', 3, 2, 3, 2, 0, '', NULL, '2022-02-06 09:13:18', 0, '2022-02-06 09:13:18', NULL, '', 1),
+(16, 'asdsadasdas', '2222222222221245', 1, 1, 1, 'Suemdnag', '1994-02-08', 18, 13, 7, 1, 2, 3, 2, 1, 1, '', '', '1222222222222222', '1333333333333333', '', '', '', 1, 0, 1, '', 'Sumedang Utara', 1, 0, 1, 1, '', '', '0000-00-00', '', '0000-00-00', NULL, '', '0000-00-00', NULL, NULL, '15:30', 0, 0, 0, 0, 0, '', NULL, '2022-02-16 08:18:50', 0, '2022-02-16 08:18:50', NULL, '', 1),
 (17, 'Rohmat Rohim', '3211234124143422', 0, 1, 1, 'Sumedang', '1992-12-02', 18, 13, 6, 1, 6, 18, 12, 2, 1, '', '', '4213625234234242', '4121232342356153', 'Rudi', 'Sartini', '', 4, 0, 1, '', 'Jalanin aja dulu', 1, 1, 7, 1, '514322', '45343243', '2021-12-12', '', '0000-00-00', NULL, '0584735344123', '0000-00-00', NULL, NULL, '20:00', 3, 1, 1, 1, 2700, '30', NULL, '2022-03-01 12:54:49', 0, '2022-03-01 12:54:49', NULL, '', 1);
+(18, 'asdsadasdas', '2222222222221245', 1, 1, 1, 'Suemdnag', '1994-02-08', 18, 13, 7, 1, 2, 3, 2, 1, 1, '', '', '1222222222222222', '1333333333333333', '', '', '', 1, 0, 1, '', 'Sumedang Utara', 1, 0, 1, 1, '', '', '0000-00-00', '', '0000-00-00', NULL, '', '0000-00-00', NULL, NULL, '15:30', 0, 0, 0, 0, 0, '', NULL, '2022-02-16 08:18:50', 0, '2022-02-16 08:18:50', NULL, '', 1);
 
 -- --------------------------------------------------------
 
@@ -883,8 +902,9 @@ CREATE TABLE `permohonan_surat` (
 --
 
 INSERT INTO `permohonan_surat` (`id_permohonan`, `id`, `id_surat`, `status`, `created`, `updated`, `kddesa`) VALUES
-(1, 12, 15, 3, '2022-02-12', '2022-02-12', 1),
-(2, 12, 17, 4, '2022-02-13', '2022-02-13', 0);
+(1, 12, 41, 3, '2022-03-01', '2022-03-01', 1),
+(2, 12, 41, 4, '2022-03-01', '2022-03-01', 1),
+(3, 12, 41, 3, '2022-03-01', '2022-03-01', 1);
 
 -- --------------------------------------------------------
 
@@ -915,13 +935,6 @@ CREATE TABLE `pesanmasuk` (
   `tgl_kirim` date NOT NULL DEFAULT current_timestamp(),
   `kddesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `pesanmasuk`
---
-
-INSERT INTO `pesanmasuk` (`id_pesan`, `id`, `pesan`, `status`, `tgl_kirim`, `kddesa`) VALUES
-(7, 13, 'kkjkk', 1, '2022-02-15', 3);
 
 -- --------------------------------------------------------
 
@@ -982,36 +995,47 @@ INSERT INTO `rw` (`id_rw`, `rw`, `id_dusun`, `kepala_rw`, `kddesa`) VALUES
 CREATE TABLE `setting_syarat` (
   `id_setting` int(11) NOT NULL,
   `id_surat` int(11) NOT NULL,
-  `id_syarat` int(11) NOT NULL
+  `id_syarat` int(11) NOT NULL,
+  `kddesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `setting_syarat`
 --
 
-INSERT INTO `setting_syarat` (`id_setting`, `id_surat`, `id_syarat`) VALUES
-(109, 2, 10),
-(110, 2, 11),
-(111, 2, 12),
-(112, 3, 4),
-(113, 3, 5),
-(123, 5, 1),
-(124, 5, 2),
-(127, 1, 1),
-(128, 1, 2),
-(129, 6, 1),
-(130, 6, 2),
-(131, 10, 1),
-(132, 10, 2),
-(133, 10, 3),
-(134, 13, 1),
-(135, 13, 2),
-(136, 11, 1),
-(137, 11, 2),
-(138, 12, 3),
-(139, 9, 1),
-(140, 15, 1),
-(141, 17, 1);
+INSERT INTO `setting_syarat` (`id_setting`, `id_surat`, `id_syarat`, `kddesa`) VALUES
+(109, 2, 10, 1),
+(110, 2, 11, 1),
+(111, 2, 12, 1),
+(123, 5, 1, 1),
+(124, 5, 2, 1),
+(129, 6, 1, 1),
+(130, 6, 2, 1),
+(131, 10, 1, 1),
+(132, 10, 2, 1),
+(133, 10, 3, 1),
+(134, 13, 1, 1),
+(135, 13, 2, 1),
+(136, 11, 1, 1),
+(137, 11, 2, 1),
+(138, 12, 3, 1),
+(139, 9, 1, 1),
+(140, 15, 1, 1),
+(141, 17, 1, 1),
+(155, 1, 1, 1),
+(156, 43, 1, 1),
+(158, 8, 1, 1),
+(159, 14, 1, 1),
+(160, 42, 1, 1),
+(163, 7, 1, 1),
+(164, 24, 2, 1),
+(165, 24, 3, 1),
+(166, 21, 1, 1),
+(169, 3, 1, 1),
+(170, 23, 1, 1),
+(171, 18, 1, 1),
+(172, 26, 1, 1),
+(173, 41, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1098,15 +1122,78 @@ CREATE TABLE `surat_akta` (
   `nama_ayahanak` varchar(100) NOT NULL,
   `nama_ibuanak` varchar(100) NOT NULL,
   `alamat_orangtua` text NOT NULL,
-  `jkanak` varchar(20) NOT NULL
+  `jkanak` varchar(20) NOT NULL,
+  `kddesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `surat_akta`
+-- Table structure for table `surat_bedaidentitas`
 --
 
-INSERT INTO `surat_akta` (`id_akta`, `id_permohonan`, `id_surat`, `id`, `nama_anak`, `tempatlahiranak`, `tgl_anak`, `hari_lahir`, `alamat_anak`, `nama_ayahanak`, `nama_ibuanak`, `alamat_orangtua`, `jkanak`) VALUES
-(1, 2, 17, 12, 'Arie', 'Sumedang', '2022-02-23', 'Senin', 'Sumedanng', 'Aruk c', 'Rukmi', 'Sumedang', 'Laki - Laki');
+CREATE TABLE `surat_bedaidentitas` (
+  `id_bedaidentitas` int(11) NOT NULL,
+  `id_permohonan` int(11) NOT NULL,
+  `id_surat` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `identitas` varchar(255) NOT NULL,
+  `no_bedaidentitas` varchar(255) NOT NULL,
+  `nama_bedaidentitas` varchar(255) NOT NULL,
+  `tempat_bedaidentitas` varchar(255) NOT NULL,
+  `tgl_bedaidentitas` date NOT NULL,
+  `jk_bedaidentitas` varchar(20) NOT NULL,
+  `alamat_bedaidentitas` text NOT NULL,
+  `agama_bedaidentitas` varchar(20) NOT NULL,
+  `pekerjaan_bedaidentitas` varchar(255) NOT NULL,
+  `keterangan_bedaidentitas` text NOT NULL,
+  `perbedaan` varchar(255) NOT NULL,
+  `kddesa` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surat_belumakta`
+--
+
+CREATE TABLE `surat_belumakta` (
+  `id_belumakta` int(11) NOT NULL,
+  `id_permohonan` int(11) NOT NULL,
+  `id_surat` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `kddesa` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surat_bio`
+--
+
+CREATE TABLE `surat_bio` (
+  `id_bio` int(11) NOT NULL,
+  `id_permohonan` int(11) NOT NULL,
+  `id_surat` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `kddesa` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surat_cerai`
+--
+
+CREATE TABLE `surat_cerai` (
+  `id_cerai` int(11) NOT NULL,
+  `id_permohonan` int(11) NOT NULL,
+  `id_surat` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `tglcerai` date DEFAULT NULL,
+  `sebab` varchar(255) NOT NULL,
+  `kddesa` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -1120,15 +1207,16 @@ CREATE TABLE `surat_domisili_usaha` (
   `id_surat` int(11) NOT NULL,
   `id` int(11) NOT NULL,
   `nama_usaha` varchar(255) NOT NULL,
-  `alamat_usaha` varchar(255) NOT NULL
+  `alamat_usaha` varchar(255) NOT NULL,
+  `kddesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `surat_domisili_usaha`
 --
 
-INSERT INTO `surat_domisili_usaha` (`id_domisili`, `id_permohonan`, `id_surat`, `id`, `nama_usaha`, `alamat_usaha`) VALUES
-(2, 1, 15, 12, 'Usaha Ikan Lele', 'S');
+INSERT INTO `surat_domisili_usaha` (`id_domisili`, `id_permohonan`, `id_surat`, `id`, `nama_usaha`, `alamat_usaha`, `kddesa`) VALUES
+(2, 1, 15, 12, 'Usaha Ikan Lele', 'S', 1);
 
 -- --------------------------------------------------------
 
@@ -1142,6 +1230,7 @@ CREATE TABLE `surat_format` (
   `url_surat` varchar(100) NOT NULL,
   `url_kades` varchar(50) NOT NULL,
   `url_admin` varchar(255) NOT NULL,
+  `url_buatsurat` varchar(255) NOT NULL,
   `url_download` varchar(255) NOT NULL,
   `kode_surat` varchar(10) DEFAULT NULL,
   `lampiran` varchar(100) DEFAULT NULL,
@@ -1159,49 +1248,40 @@ CREATE TABLE `surat_format` (
 -- Dumping data for table `surat_format`
 --
 
-INSERT INTO `surat_format` (`id_format_surat`, `nama_surat`, `url_surat`, `url_kades`, `url_admin`, `url_download`, `kode_surat`, `lampiran`, `kunci`, `favorit`, `jenis`, `mandiri`, `masa_berlaku`, `satuan_masa_berlaku`, `qr_code`, `kddesa`) VALUES
-(1, 'Keterangan Pengantar', 'surat_ket_pengantar', 'view_surat_ket_pengantar', 'admin_surat_ket_pengantar', 'download_surat_ket_pengantar', 'S-01', NULL, 0, 0, 1, 1, 1, 'DAY', 0, 0),
-(2, 'Keterangan Penduduk', 'surat_ket_penduduk', 'view_surat_ket_penduduk', 'admin_surat_ket_penduduk', 'download_surat_ket_penduduk', 'S-02', NULL, 0, 0, 1, 1, 1, 'MONTH', 0, 0),
-(3, 'Biodata Penduduk', 'surat_bio_penduduk', 'view_surat_bio_penduduk', 'admin_surat_bio_penduduk', 'download_surat_bio_penduduk', 'S-03', 'f-1.01.php', 0, 0, 1, 0, 1, 'MONTH', 0, 0),
-(4, 'Keterangan Pindah Penduduk', 'surat_ket_pindah_penduduk', 'view_surat_ket_pindah_penduduk', 'admin_surat_ket_pindah_penduduk', 'download_surat_ket_pindah_penduduk', 'S-04', 'f-1.08.php,f-1.25.php', 0, 0, 1, 1, 1, 'MONTH', 0, 0),
-(5, 'Keterangan Jual Beli', 'surat_ket_jual_beli', 'view_surat_ket_jual_beli', 'admin_surat_ket_jual_beli', 'download_surat_ket_jual_beli', 'S-05', NULL, 0, 0, 1, 1, 1, 'MONTH', 0, 0),
-(6, 'Pengantar Surat Keterangan Catatan Kepolisian', 'surat_ket_catatan_kriminal', 'view_surat_ket_catatan_kriminal', 'admin_surat_ket_catatan_kriminal', 'download_surat_ket_catatan_kriminal', 'S-06', NULL, 0, 0, 1, 1, 1, 'WEEK', 0, 0),
-(7, 'Keterangan KTP dalam Proses', 'surat_ket_ktp_dalam_proses', 'view_surat_ket_ktp_dalam_proses', 'admin_surat_ket_ktp_dalam_proses', 'download_surat_ket_ktp_dalam_proses', 'S-08', NULL, 0, 0, 1, 0, 1, 'WEEK', 0, 0),
-(8, 'Keterangan Beda Identitas', 'surat_ket_beda_nama', 'view_surat_ket_beda_nama', 'admin_surat_ket_beda_nama', 'download_surat_ket_beda_nama', 'S-09', NULL, 0, 0, 1, 0, 1, 'MONTH', 0, 0),
-(9, 'Keterangan Bepergian / Jalan', 'surat_jalan', 'view_surat_jalan', 'admin_surat_jalan', 'download_surat_jalan', 'S-10', NULL, 0, 0, 1, 1, 1, 'WEEK', 0, 0),
-(10, 'Keterangan Kurang Mampu', 'surat_ket_kurang_mampu', 'view_surat_ket_kurang_mampu', 'admin_surat_ket_kurang_mampu', 'download_surat_ket_kurang_mampu', 'S-11', NULL, 0, 0, 1, 1, 1, 'MONTH', 0, 0),
-(11, 'Pengantar Izin Keramaian', 'surat_izin_keramaian', 'view_surat_izin_keramaian', 'admin_surat_izin_keramaian', 'download_surat_izin_keramaian', 'S-12', NULL, 0, 0, 1, 1, 1, 'MONTH', 0, 0),
-(12, 'Pengantar Laporan Kehilangan', 'surat_ket_kehilangan', 'view_surat_ket_kehilangan', 'admin_surat_ket_kehilangan', 'download_surat_ket_kehilangan', 'S-13', NULL, 0, 0, 1, 1, 1, 'WEEK', 0, 0),
-(13, 'Keterangan Usaha', 'surat_ket_usaha', 'view_surat_ket_usaha', 'admin_surat_ket_usaha', 'download_surat_ket_usaha', 'S-14', NULL, 0, 0, 1, 1, 1, 'MONTH', 0, 0),
-(14, 'Keterangan JAMKESOS', 'surat_ket_jamkesos', 'view_surat_ket_jamkesos', 'admin_surat_ket_jamkesos', 'download_surat_ket_jamkesos', 'S-15', NULL, 0, 0, 1, 0, 1, 'MONTH', 0, 0),
-(15, 'Keterangan Domisili Usaha', 'surat_ket_domisili_usaha', 'view_surat_ket_domisili_usaha', 'admin_surat_ket_domisili_usaha', 'download_surat_ket_domisili_usaha', 'S-16', NULL, 0, 0, 1, 1, 1, 'WEEK', 0, 0),
-(16, 'Keterangan Kelahiran', 'surat_ket_kelahiran', 'view_surat_ket_kelahiran', 'admin_surat_ket_kelahiran', 'download_surat_ket_kelahiran', 'S-17', 'f-kelahiran.php', 0, 0, 1, 0, 1, 'MONTH', 0, 0),
-(17, 'Permohonan Akta Lahir', 'surat_permohonan_akta', 'view_surat_permohonan_akta', 'admin_surat_permohonan_akta', 'download_surat_permohonan_akta', 'S-18', NULL, 0, 0, 1, 1, 1, 'DAY', 0, 0),
-(18, 'Pernyataan Belum Memiliki Akta Lahir', 'surat_pernyataan_akta', 'view_surat_pernyataan_akta', 'admin_surat_pernyataan_akta', 'download_surat_pernyataan_akta', 'S-19', NULL, 0, 0, 1, 0, 1, 'MONTH', 0, 0),
-(19, 'Permohonan Duplikat Kelahiran', 'surat_permohonan_duplikat_kelahiran', 'view_surat_permohonan_duplikat_kelahiran', 'admin_surat_permohonan_duplikat_kelahiran', 'download_surat_permohonan_duplikat_kelahiran', 'S-20', NULL, 0, 0, 1, 0, 1, 'MONTH', 0, 0),
-(20, 'Keterangan Kematian', 'surat_ket_kematian', 'view_surat_ket_kematian', 'admin_surat_ket_kematian', 'download_surat_ket_kematian', 'S-21', 'f-2.29.php', 0, 0, 1, 0, 1, 'MONTH', 0, 0),
-(21, 'Keterangan Lahir Mati', 'surat_ket_lahir_mati', 'view_surat_ket_lahir_mati', 'admin_surat_ket_lahir_mati', 'download_surat_ket_lahir_mati', 'S-22', NULL, 0, 0, 1, 0, 1, 'MONTH', 0, 0),
-(22, 'Keterangan Untuk Nikah (N-1 s/d N-7)', 'surat_ket_nikah', 'view_surat_ket_nikah', 'admin_surat_ket_nikah', 'download_surat_ket_nikah', 'S-23', NULL, 0, 0, 1, 0, 1, 'MONTH', 0, 0),
-(23, 'Keterangan Pergi Kawin', 'surat_ket_pergi_kawin', 'view_surat_ket_pergi_kawin', 'admin_surat_ket_pergi_kawin', 'download_surat_ket_pergi_kawin', 'S-30', NULL, 0, 0, 1, 0, 1, 'MONTH', 0, 0),
-(24, 'Keterangan Wali Hakim', 'surat_ket_wali_hakim', 'view_surat_ket_wali_hakim', 'admin_surat_ket_wali_hakim', 'download_surat_ket_wali_hakim', 'S-32', NULL, 0, 0, 1, 0, 1, 'MONTH', 0, 0),
-(25, 'Permohonan Duplikat Surat Nikah', 'surat_permohonan_duplikat_surat_nikah', 'view_surat_permohonan_duplikat_surat_nikah\n\n', '', '', 'S-33', NULL, 0, 0, 1, 0, 1, 'MONTH', 0, 0),
-(26, 'Permohonan Cerai', 'surat_permohonan_cerai', '0', '', '', 'S-34', NULL, 0, 0, 1, 0, 1, 'M', 0, 0),
-(27, 'Keterangan Pengantar Rujuk/Cerai', 'surat_ket_rujuk_cerai', '0', '', '', 'S-35', NULL, 0, 0, 1, 0, 1, 'M', 0, 0),
-(28, 'Permohonan Kartu Keluarga', 'surat_permohonan_kartu_keluarga', '0', '', '', 'S-36', 'f-1.15.php,f-1.01.php', 0, 0, 1, 0, 1, 'M', 0, 0),
-(29, 'Domisili Usaha Non-Warga', 'surat_domisili_usaha_non_warga', '0', '', '', 'S-37', NULL, 0, 0, 1, 0, 1, 'M', 0, 0),
-(30, 'Keterangan Beda Identitas KIS', 'surat_ket_beda_identitas_kis', '0', '', '', 'S-38', NULL, 0, 0, 1, 0, 1, 'M', 0, 0),
-(32, 'Pernyataan Penguasaan Fisik Bidang Tanah (SPORADIK)', 'surat_sporadik', '0', '', '', 'S-40', NULL, 0, 0, 1, 0, 1, 'M', 0, 0),
-(33, 'Permohonan Perubahan Kartu Keluarga', 'surat_permohonan_perubahan_kartu_keluarga', '0', '', '', 'S-41', 'f-1.16.php,f-1.01.php', 0, 0, 1, 0, 1, 'M', 0, 0),
-(34, 'Non Warga', 'surat_non_warga', '0', '', '', '', NULL, 0, 0, 2, 0, 1, 'M', 0, 0),
-(35, 'Keterangan Domisili', 'surat_ket_domisili', '0', '', '', 'S-41', NULL, 0, 0, 1, 0, 1, 'M', 0, 0),
-(36, 'Keterangan Penghasilan Orangtua', 'surat_ket_penghasilan_orangtua', '0', '', '', 'S-42', NULL, 0, 0, 1, 0, 1, 'M', 0, 0),
-(37, 'Pengantar Permohonan Penerbitan Buku Pas Lintas', 'surat_permohonan_penerbitan_buku_pas_lintas', '0', '', '', 'S-43', NULL, 0, 0, 1, 0, 1, 'M', 0, 0),
-(38, 'Keterangan Penghasilan Ayah', 'surat_ket_penghasilan_ayah', '0', '', '', 'S-44', NULL, 0, 0, 1, 0, 1, 'M', 0, 0),
-(39, 'Keterangan Penghasilan Ibu', 'surat_ket_penghasilan_ibu', '0', '', '', 'S-45', NULL, 0, 0, 1, 0, 1, 'M', 0, 0),
-(40, 'Perintah Perjalanan Dinas', 'surat_perintah_perjalanan_dinas', '0', '', '', 'S-46', NULL, 0, 0, 1, 0, 1, 'M', 0, 0),
-(41, 'Kuasa', 'surat_kuasa', '0', '', '', 'S-47', NULL, 0, 0, 1, 0, 1, 'M', 0, 0),
-(42, 'Keterangan Kepemilikan Kendaraan', 'surat_ket_kepemilikan_kendaraan', '0', '', '', 'S-48', NULL, 0, 0, 1, 0, 1, 'M', 0, 0),
-(43, 'Keterangan Kepemilikan Tanah', 'surat_ket_kepemilikan_tanah', '0', '', '', 'S-49', NULL, 0, 0, 1, 1, 1, 'M', 0, 0);
+INSERT INTO `surat_format` (`id_format_surat`, `nama_surat`, `url_surat`, `url_kades`, `url_admin`, `url_buatsurat`, `url_download`, `kode_surat`, `lampiran`, `kunci`, `favorit`, `jenis`, `mandiri`, `masa_berlaku`, `satuan_masa_berlaku`, `qr_code`, `kddesa`) VALUES
+(1, 'Keterangan Pengantar', 'surat_ket_pengantar', 'view_surat_ket_pengantar', 'admin_surat_ket_pengantar', 'buat_surat_ket_pengantar', 'download_surat_ket_pengantar', 'S-011', NULL, 0, 0, 1, 0, 1, 'DAY', 0, 1),
+(3, 'Biodata Penduduk', 'surat_bio_penduduk', 'view_surat_bio_penduduk', 'admin_surat_bio_penduduk', 'buat_surat_bio_penduduk', 'download_surat_bio_penduduk', 'S-03', NULL, 0, 0, 1, 1, 1, 'WEEK', 0, 1),
+(4, 'Keterangan Pindah Penduduk', 'surat_ket_pindah_penduduk', 'view_surat_ket_pindah_penduduk', 'admin_surat_ket_pindah_penduduk', '', 'download_surat_ket_pindah_penduduk', 'S-04', 'f-1.08.php,f-1.25.php', 0, 1, 1, 1, 1, 'MONTH', 0, 1),
+(5, 'Keterangan Jual Beli', 'surat_ket_jual_beli', 'view_surat_ket_jual_beli', 'admin_surat_ket_jual_beli', 'buat_surat_ket_jual_beli', 'download_surat_ket_jual_beli', 'S-05', NULL, 0, 0, 1, 1, 1, 'MONTH', 0, 1),
+(6, 'Pengantar Surat Keterangan Catatan Kepolisian', 'surat_ket_catatan_kriminal', 'view_surat_ket_catatan_kriminal', 'admin_surat_ket_catatan_kriminal', 'buat_surat_ket_catatan_kriminal', 'download_surat_ket_catatan_kriminal', 'S-06', NULL, 0, 0, 1, 1, 1, 'WEEK', 0, 1),
+(7, 'Keterangan KTP dalam Proses', 'surat_ket_ktp_dalam_proses', 'view_surat_ket_ktp_dalam_proses', 'admin_surat_ket_ktp_dalam_proses', 'buat_surat_ket_ktp_dalam_proses', 'download_surat_ket_ktp_dalam_proses', 'S-08', NULL, 0, 0, 1, 0, 1, 'DAY', 0, 1),
+(8, 'Keterangan Beda Identitas', 'surat_ket_beda_nama', 'view_surat_ket_beda_nama', 'admin_surat_ket_beda_nama', 'buat_surat_ket_beda_nama', 'download_surat_ket_beda_nama', 'S-09', NULL, 0, 0, 1, 1, 1, 'DAY', 0, 1),
+(9, 'Keterangan Bepergian / Jalan', 'surat_jalan', 'view_surat_jalan', 'admin_surat_jalan', 'buat_surat_jalan', 'download_surat_jalan', 'S-10', NULL, 0, 0, 1, 1, 1, 'WEEK', 0, 1),
+(10, 'Keterangan Kurang Mampu', 'surat_ket_kurang_mampu', 'view_surat_ket_kurang_mampu', 'admin_surat_ket_kurang_mampu', 'buat_surat_ket_kurang_mampu', 'download_surat_ket_kurang_mampu', 'S-11', NULL, 0, 0, 1, 1, 1, 'MONTH', 0, 1),
+(11, 'Pengantar Izin Keramaian', 'surat_izin_keramaian', 'view_surat_izin_keramaian', 'admin_surat_izin_keramaian', 'buat_surat_izin_keramaian', 'download_surat_izin_keramaian', 'S-12', NULL, 0, 0, 1, 1, 1, 'MONTH', 0, 1),
+(12, 'Pengantar Laporan Kehilangan', 'surat_ket_kehilangan', 'view_surat_ket_kehilangan', 'admin_surat_ket_kehilangan', 'buat_surat_ket_kehilangan', 'download_surat_ket_kehilangan', 'S-13', NULL, 0, 0, 1, 1, 1, 'WEEK', 0, 1),
+(13, 'Keterangan Usaha', 'surat_ket_usaha', 'view_surat_ket_usaha', 'admin_surat_ket_usaha', 'buat_surat_ket_usaha', 'download_surat_ket_usaha', 'S-14', NULL, 0, 0, 1, 1, 1, 'MONTH', 0, 1),
+(14, 'Keterangan JAMKESOS', 'surat_ket_jamkesos', 'view_surat_ket_jamkesos', 'admin_surat_ket_jamkesos', 'buat_surat_ket_jamkesos', 'download_surat_ket_jamkesos', 'S-15', NULL, 0, 0, 1, 1, 1, 'MONTH', 0, 1),
+(15, 'Keterangan Domisili Usaha', 'surat_ket_domisili_usaha', 'view_surat_ket_domisili_usaha', 'admin_surat_ket_domisili_usaha', 'buat_surat_ket_domisili_usaha', 'download_surat_ket_domisili_usaha', 'S-16', NULL, 0, 0, 1, 1, 1, 'WEEK', 0, 1),
+(16, 'Keterangan Kelahiran', 'surat_ket_kelahiran', 'view_surat_ket_kelahiran', 'admin_surat_ket_kelahiran', '', 'download_surat_ket_kelahiran', 'S-17', 'f-kelahiran.php', 0, 1, 1, 0, 1, 'MONTH', 0, 1),
+(17, 'Permohonan Akta Lahir', 'surat_permohonan_akta', 'view_surat_permohonan_akta', 'admin_surat_permohonan_akta', 'buat_surat_permohonan_akta', 'download_surat_permohonan_akta', 'S-18', NULL, 0, 0, 1, 1, 1, 'DAY', 0, 1),
+(18, 'Pernyataan Belum Memiliki Akta Lahir', 'surat_pernyataan_akta', 'view_surat_pernyataan_akta', 'admin_surat_pernyataan_akta', 'buat_surat_pernyataan_akta', 'download_surat_pernyataan_akta', 'S-19', NULL, 0, 0, 1, 1, 1, 'MONTH', 0, 1),
+(20, 'Keterangan Kematian', 'surat_ket_kematian', 'view_surat_ket_kematian', 'admin_surat_ket_kematian', '', 'download_surat_ket_kematian', 'S-21', 'f-2.29.php', 0, 1, 1, 0, 1, 'MONTH', 0, 1),
+(21, 'Keterangan Lahir Mati', 'surat_ket_lahir_mati', 'view_surat_ket_lahir_mati', 'admin_surat_ket_lahir_mati', 'buat_surat_ket_lahir_mati', 'download_surat_ket_lahir_mati', 'S-22', NULL, 0, 0, 1, 1, 1, 'DAY', 0, 1),
+(22, 'Keterangan Untuk Nikah (N-1 s/d N-7)', 'surat_ket_nikah', 'view_surat_ket_nikah', 'admin_surat_ket_nikah', '', 'download_surat_ket_nikah', 'S-23', NULL, 0, 1, 1, 0, 1, 'MONTH', 0, 1),
+(23, 'Keterangan Pergi Kawin', 'surat_ket_pergi_kawin', 'view_surat_ket_pergi_kawin', 'admin_surat_ket_pergi_kawin', 'buat_surat_ket_pergi_kawin', 'download_surat_ket_pergi_kawin', 'S-30', NULL, 0, 0, 1, 1, 1, 'MONTH', 0, 1),
+(24, 'Keterangan Wali Hakim', 'surat_ket_wali_hakim', 'view_surat_ket_wali_hakim', 'admin_surat_ket_wali_hakim', 'buat_surat_ket_wali_hakim', 'download_surat_ket_wali_hakim', 'S-32', NULL, 0, 0, 1, 0, 1, 'MONTH', 0, 1),
+(26, 'Keterangan Cerai', 'surat_ket_cerai', 'view_surat_ket_cerai', 'admin_surat_ket_cerai', 'buat_surat_ket_cerai', 'download_surat_ket_cerai', 'S-34', NULL, 0, 0, 1, 1, 1, 'MONTH', 0, 1),
+(27, 'Keterangan Pengantar Rujuk/Cerai', 'surat_ket_rujuk_cerai', '0', '', '', '', 'S-35', NULL, 0, 1, 1, 0, 1, 'MONTH', 0, 1),
+(28, 'Permohonan Kartu Keluarga', 'surat_permohonan_kartu_keluarga', '0', '', '', '', 'S-36', 'f-1.15.php,f-1.01.php', 0, 1, 1, 0, 1, 'MONTH', 0, 1),
+(30, 'Keterangan Beda Identitas KIS', 'surat_ket_beda_identitas_kis', '0', '', '', '', 'S-38', NULL, 0, 1, 1, 0, 1, 'MONTH', 0, 1),
+(33, 'Permohonan Perubahan Kartu Keluarga', 'surat_permohonan_perubahan_kartu_keluarga', '0', '', '', '', 'S-41', 'f-1.16.php,f-1.01.php', 0, 1, 1, 0, 1, 'MONTH', 0, 1),
+(35, 'Keterangan Domisili', 'surat_ket_domisili', '0', '', '', '', 'S-41', NULL, 0, 0, 1, 0, 1, 'MONTH', 0, 1),
+(36, 'Keterangan Penghasilan Orangtua', 'surat_ket_penghasilan_orangtua', '0', '', '', '', 'S-42', NULL, 0, 1, 1, 0, 1, 'MONTH', 0, 1),
+(40, 'Perintah Perjalanan Dinas', 'surat_perintah_perjalanan_dinas', '0', '', '', '', 'S-46', NULL, 0, 1, 1, 0, 1, 'MONTH', 0, 1),
+(41, 'Kuasa', 'surat_kuasa', 'view_surat_kuasa', 'admin_surat_kuasa', 'buat_surat_kuasa', 'download_surat_kuasa', 'S-47', NULL, 0, 0, 1, 1, 1, 'MONTH', 0, 1),
+(42, 'Keterangan Kepemilikan Kendaraan', 'surat_ket_kepemilikan_kendaraan', 'view_surat_ket_kepemilikan_kendaraan', 'admin_surat_ket_kepemilikan_kendaraan', 'buat_surat_ket_kepemilikan_kendaraan', '', 'S-48', NULL, 0, 0, 1, 1, 1, 'MONTH', 0, 1),
+(43, 'Keterangan Kepemilikan Tanah', 'surat_ket_kepemilikan_tanah', 'view_surat_ket_kepemilikan_tanah', 'admin_surat_ket_kepemilikan_tanah', 'buat_surat_ket_kepemilikan_tanah', 'download_surat_ket_kepemilikan_tanah', 'S-49', NULL, 0, 0, 1, 1, 1, 'DAY', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -1215,7 +1295,8 @@ CREATE TABLE `surat_izin_keramaian` (
   `id_surat` int(11) NOT NULL,
   `id` int(11) NOT NULL,
   `jenis_acara` varchar(255) NOT NULL,
-  `keperluan` varchar(255) NOT NULL
+  `keperluan` varchar(255) NOT NULL,
+  `kddesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -1229,7 +1310,24 @@ CREATE TABLE `surat_jalan` (
   `id_permohonan` int(11) NOT NULL,
   `id_surat` int(11) NOT NULL,
   `id` int(11) NOT NULL,
-  `keperluan` varchar(255) NOT NULL
+  `keperluan` varchar(255) NOT NULL,
+  `kddesa` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surat_jamkesos`
+--
+
+CREATE TABLE `surat_jamkesos` (
+  `id_jamkesos` int(11) NOT NULL,
+  `id_permohonan` int(11) NOT NULL,
+  `id_surat` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `no_jamkesos` varchar(255) NOT NULL,
+  `keperluan` varchar(255) NOT NULL,
+  `kddesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -1252,7 +1350,24 @@ CREATE TABLE `surat_jualbeli` (
   `jkpembeli` varchar(20) NOT NULL,
   `alamat_pembeli` text NOT NULL,
   `pekerjaan_pembeli` varchar(255) NOT NULL,
-  `keterangan` text NOT NULL
+  `keterangan` text NOT NULL,
+  `kddesa` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surat_kawin`
+--
+
+CREATE TABLE `surat_kawin` (
+  `id_kawin` int(11) NOT NULL,
+  `id_permohonan` int(11) NOT NULL,
+  `id_surat` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `tujuan` varchar(255) NOT NULL,
+  `keperluan` varchar(255) NOT NULL,
+  `kddesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -1268,7 +1383,8 @@ CREATE TABLE `surat_kehilangan` (
   `id` int(11) NOT NULL,
   `barang` varchar(255) NOT NULL,
   `rincian_barang` varchar(255) NOT NULL,
-  `kejadian` varchar(255) NOT NULL
+  `kejadian` varchar(255) NOT NULL,
+  `kddesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -1282,7 +1398,127 @@ CREATE TABLE `surat_kriminal` (
   `id_permohonan` int(11) NOT NULL,
   `id_surat` int(11) NOT NULL,
   `id` int(11) NOT NULL,
-  `keperluan` varchar(255) NOT NULL
+  `keperluan` varchar(255) NOT NULL,
+  `kddesa` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surat_ktp`
+--
+
+CREATE TABLE `surat_ktp` (
+  `id_kriminal` int(11) NOT NULL,
+  `id_permohonan` int(11) NOT NULL,
+  `id_surat` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `kddesa` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surat_kuasa`
+--
+
+CREATE TABLE `surat_kuasa` (
+  `id_kuasa` int(11) NOT NULL,
+  `id_permohonan` int(11) NOT NULL,
+  `id_surat` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `nama_penerima` varchar(255) NOT NULL,
+  `nik_penerima` varchar(255) NOT NULL,
+  `jk_penerima` varchar(20) NOT NULL,
+  `tempatlahirpenerima` varchar(255) NOT NULL,
+  `tgllahirpenerima` date NOT NULL,
+  `id_pekerjaan` int(11) NOT NULL,
+  `alamat_penerima` text NOT NULL,
+  `desa_penerima` varchar(255) NOT NULL,
+  `kec_penerima` varchar(255) NOT NULL,
+  `kab_penerima` varchar(255) NOT NULL,
+  `prov_penerima` varchar(255) NOT NULL,
+  `keperluan` varchar(255) NOT NULL,
+  `kddesa` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `surat_kuasa`
+--
+
+INSERT INTO `surat_kuasa` (`id_kuasa`, `id_permohonan`, `id_surat`, `id`, `nama_penerima`, `nik_penerima`, `jk_penerima`, `tempatlahirpenerima`, `tgllahirpenerima`, `id_pekerjaan`, `alamat_penerima`, `desa_penerima`, `kec_penerima`, `kab_penerima`, `prov_penerima`, `keperluan`, `kddesa`) VALUES
+(1, 1, 41, 12, 'ASWd', '12', 'Laki - Laki', '', '0000-00-00', 17, '12', '12', '21', '12', '1', '1212', 1),
+(2, 2, 41, 12, 'asd', 'asd', 'Laki - Laki', 'asd', '2022-03-09', 17, 'jalan cikandung ', 'cikandung', 'cimalkan', 'sumedgang', 'Jawa brat', 'pemberian kuasa untuk proyej pembangunan', 1),
+(3, 3, 41, 12, 'A', '4555555555555555', 'Laki - Laki', 'A', '2022-03-29', 18, 'as', 'as', 'asas', 'as', 'as', 'as', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surat_lahirmati`
+--
+
+CREATE TABLE `surat_lahirmati` (
+  `id_lahirmati` int(11) NOT NULL,
+  `id_permohonan` int(11) NOT NULL,
+  `id_surat` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `hari` varchar(20) NOT NULL,
+  `tglmati` date NOT NULL,
+  `tempatmeninggal` varchar(255) NOT NULL,
+  `ibu` varchar(255) NOT NULL,
+  `lamakandungan` varchar(20) NOT NULL,
+  `hubungan` varchar(255) NOT NULL,
+  `kddesa` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surat_milikkendaraan`
+--
+
+CREATE TABLE `surat_milikkendaraan` (
+  `id_milikkendaraan` int(11) NOT NULL,
+  `id_permohonan` int(11) NOT NULL,
+  `id_surat` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `merk` varchar(100) NOT NULL,
+  `tahun_penerbitan` text NOT NULL,
+  `warna` varchar(20) NOT NULL,
+  `nopol` varchar(255) NOT NULL,
+  `no_mesin` varchar(255) NOT NULL,
+  `no_rangka` varchar(100) NOT NULL,
+  `no_bpkb` varchar(20) NOT NULL,
+  `bahan_bakar` varchar(255) NOT NULL,
+  `silinder` varchar(255) NOT NULL,
+  `atas_milik` varchar(255) NOT NULL,
+  `keperluan` text NOT NULL,
+  `kddesa` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surat_miliktanah`
+--
+
+CREATE TABLE `surat_miliktanah` (
+  `id_miliktanah` int(11) NOT NULL,
+  `id_permohonan` int(11) NOT NULL,
+  `id_surat` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `jenis_tanah` varchar(255) NOT NULL,
+  `luas_tanah` varchar(20) NOT NULL,
+  `bukti_kepemilikan` varchar(100) NOT NULL,
+  `no_buktikepemilikan` varchar(255) NOT NULL,
+  `atas_nama` varchar(255) NOT NULL,
+  `asal_kepemilikan_tanah` varchar(255) NOT NULL,
+  `bukti_pendukung` varchar(255) NOT NULL,
+  `batas_utara` varchar(255) NOT NULL,
+  `batas_barat` varchar(255) NOT NULL,
+  `batas_timur` varchar(255) NOT NULL,
+  `batas_selatan` varchar(255) NOT NULL,
+  `kddesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -1297,7 +1533,8 @@ CREATE TABLE `surat_pengantar` (
   `id_surat` int(11) NOT NULL,
   `id` int(11) NOT NULL,
   `keperluan` varchar(255) NOT NULL,
-  `keterangan` text NOT NULL
+  `keterangan` text NOT NULL,
+  `kddesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -1311,7 +1548,8 @@ CREATE TABLE `surat_tidakmampu` (
   `id_permohonan` int(11) NOT NULL,
   `id_surat` int(11) NOT NULL,
   `id` int(11) NOT NULL,
-  `keperluan` varchar(255) NOT NULL
+  `keperluan` varchar(255) NOT NULL,
+  `kddesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -1326,7 +1564,22 @@ CREATE TABLE `surat_usaha` (
   `id_surat` int(11) NOT NULL,
   `id` int(11) NOT NULL,
   `nama_usaha` varchar(255) NOT NULL,
-  `keperluan` varchar(255) NOT NULL
+  `keperluan` varchar(255) NOT NULL,
+  `kddesa` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surat_walihakim`
+--
+
+CREATE TABLE `surat_walihakim` (
+  `id_walihakim` int(11) NOT NULL,
+  `id_permohonan` int(11) NOT NULL,
+  `id_surat` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `kddesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -1415,16 +1668,18 @@ CREATE TABLE `tweb_users` (
   `nama` varchar(255) NOT NULL,
   `nik` varchar(16) NOT NULL,
   `status` int(11) NOT NULL,
-  `kddesa` varchar(20) NOT NULL
+  `kddesa` varchar(20) NOT NULL,
+  `last_login` datetime DEFAULT NULL,
+  `role` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tweb_users`
 --
 
-INSERT INTO `tweb_users` (`id_users`, `username`, `password`, `nama`, `nik`, `status`, `kddesa`) VALUES
-(1, 'aku', '24c9e15e52afc47c225b757e7bee1f9d', 'Admin Desa 1', '3', 1, '1'),
-(2, 'user2', '7e58d63b60197ceb55a1c487989a3720', 'Admin Desa ', '3222212121212', 1, '2');
+INSERT INTO `tweb_users` (`id_users`, `username`, `password`, `nama`, `nik`, `status`, `kddesa`, `last_login`, `role`) VALUES
+(1, 'aku', '24c9e15e52afc47c225b757e7bee1f9d', 'Admin Desa 1', '3', 1, '1', '2022-03-01 04:45:18', 'admin'),
+(2, 'user2', '7e58d63b60197ceb55a1c487989a3720', 'Admin Desa ', '3222212121212', 1, '2', NULL, 'admin');
 
 -- --------------------------------------------------------
 
@@ -1585,6 +1840,12 @@ ALTER TABLE `kk`
   ADD PRIMARY KEY (`id_kk`);
 
 --
+-- Indexes for table `log_penduduk`
+--
+ALTER TABLE `log_penduduk`
+  ADD PRIMARY KEY (`id_log`);
+
+--
 -- Indexes for table `log_surat`
 --
 ALTER TABLE `log_surat`
@@ -1692,6 +1953,30 @@ ALTER TABLE `surat_akta`
   ADD PRIMARY KEY (`id_akta`);
 
 --
+-- Indexes for table `surat_bedaidentitas`
+--
+ALTER TABLE `surat_bedaidentitas`
+  ADD PRIMARY KEY (`id_bedaidentitas`);
+
+--
+-- Indexes for table `surat_belumakta`
+--
+ALTER TABLE `surat_belumakta`
+  ADD PRIMARY KEY (`id_belumakta`);
+
+--
+-- Indexes for table `surat_bio`
+--
+ALTER TABLE `surat_bio`
+  ADD PRIMARY KEY (`id_bio`);
+
+--
+-- Indexes for table `surat_cerai`
+--
+ALTER TABLE `surat_cerai`
+  ADD PRIMARY KEY (`id_cerai`);
+
+--
 -- Indexes for table `surat_domisili_usaha`
 --
 ALTER TABLE `surat_domisili_usaha`
@@ -1717,10 +2002,22 @@ ALTER TABLE `surat_jalan`
   ADD PRIMARY KEY (`id_jalan`);
 
 --
+-- Indexes for table `surat_jamkesos`
+--
+ALTER TABLE `surat_jamkesos`
+  ADD PRIMARY KEY (`id_jamkesos`);
+
+--
 -- Indexes for table `surat_jualbeli`
 --
 ALTER TABLE `surat_jualbeli`
   ADD PRIMARY KEY (`id_jualbeli`);
+
+--
+-- Indexes for table `surat_kawin`
+--
+ALTER TABLE `surat_kawin`
+  ADD PRIMARY KEY (`id_kawin`);
 
 --
 -- Indexes for table `surat_kehilangan`
@@ -1733,6 +2030,36 @@ ALTER TABLE `surat_kehilangan`
 --
 ALTER TABLE `surat_kriminal`
   ADD PRIMARY KEY (`id_kriminal`);
+
+--
+-- Indexes for table `surat_ktp`
+--
+ALTER TABLE `surat_ktp`
+  ADD PRIMARY KEY (`id_kriminal`);
+
+--
+-- Indexes for table `surat_kuasa`
+--
+ALTER TABLE `surat_kuasa`
+  ADD PRIMARY KEY (`id_kuasa`);
+
+--
+-- Indexes for table `surat_lahirmati`
+--
+ALTER TABLE `surat_lahirmati`
+  ADD PRIMARY KEY (`id_lahirmati`);
+
+--
+-- Indexes for table `surat_milikkendaraan`
+--
+ALTER TABLE `surat_milikkendaraan`
+  ADD PRIMARY KEY (`id_milikkendaraan`);
+
+--
+-- Indexes for table `surat_miliktanah`
+--
+ALTER TABLE `surat_miliktanah`
+  ADD PRIMARY KEY (`id_miliktanah`);
 
 --
 -- Indexes for table `surat_pengantar`
@@ -1751,6 +2078,12 @@ ALTER TABLE `surat_tidakmampu`
 --
 ALTER TABLE `surat_usaha`
   ADD PRIMARY KEY (`id_usaha`);
+
+--
+-- Indexes for table `surat_walihakim`
+--
+ALTER TABLE `surat_walihakim`
+  ADD PRIMARY KEY (`id_walihakim`);
 
 --
 -- Indexes for table `syarat_surat`
@@ -1809,7 +2142,7 @@ ALTER TABLE `allsetting`
 -- AUTO_INCREMENT for table `anggotaumkm`
 --
 ALTER TABLE `anggotaumkm`
-  MODIFY `id_anggota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_anggota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `aparat`
@@ -1821,7 +2154,7 @@ ALTER TABLE `aparat`
 -- AUTO_INCREMENT for table `artikel`
 --
 ALTER TABLE `artikel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `bantuan`
@@ -1845,13 +2178,13 @@ ALTER TABLE `covid_pantau`
 -- AUTO_INCREMENT for table `covid_pemudik`
 --
 ALTER TABLE `covid_pemudik`
-  MODIFY `id_terdata` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_terdata` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `dokumen`
 --
 ALTER TABLE `dokumen`
-  MODIFY `id_dokumen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_dokumen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `dusun`
@@ -1863,7 +2196,7 @@ ALTER TABLE `dusun`
 -- AUTO_INCREMENT for table `galeri`
 --
 ALTER TABLE `galeri`
-  MODIFY `id_galeri` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_galeri` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `golongan_darah`
@@ -1887,7 +2220,7 @@ ALTER TABLE `kat_album`
 -- AUTO_INCREMENT for table `kat_artikel`
 --
 ALTER TABLE `kat_artikel`
-  MODIFY `id_kat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_kat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `kat_budaya`
@@ -1902,10 +2235,16 @@ ALTER TABLE `kat_umkm`
   MODIFY `id_kat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `log_penduduk`
+--
+ALTER TABLE `log_penduduk`
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `log_surat`
 --
 ALTER TABLE `log_surat`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT for table `pekerjaan`
@@ -1917,7 +2256,7 @@ ALTER TABLE `pekerjaan`
 -- AUTO_INCREMENT for table `pendaftar`
 --
 ALTER TABLE `pendaftar`
-  MODIFY `id_pendaftar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_pendaftar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `pendidikan`
@@ -1935,7 +2274,7 @@ ALTER TABLE `pendidikan_kk`
 -- AUTO_INCREMENT for table `penduduk`
 --
 ALTER TABLE `penduduk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `penerima`
@@ -1947,13 +2286,13 @@ ALTER TABLE `penerima`
 -- AUTO_INCREMENT for table `pesankeluar`
 --
 ALTER TABLE `pesankeluar`
-  MODIFY `id_pesankeluar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_pesankeluar` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pesanmasuk`
 --
 ALTER TABLE `pesanmasuk`
-  MODIFY `id_pesan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_pesan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `rt`
@@ -1971,7 +2310,7 @@ ALTER TABLE `rw`
 -- AUTO_INCREMENT for table `setting_syarat`
 --
 ALTER TABLE `setting_syarat`
-  MODIFY `id_setting` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
+  MODIFY `id_setting` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
 
 --
 -- AUTO_INCREMENT for table `setting_web`
@@ -1983,7 +2322,7 @@ ALTER TABLE `setting_web`
 -- AUTO_INCREMENT for table `slider`
 --
 ALTER TABLE `slider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sosmed`
@@ -1995,13 +2334,37 @@ ALTER TABLE `sosmed`
 -- AUTO_INCREMENT for table `surat_akta`
 --
 ALTER TABLE `surat_akta`
-  MODIFY `id_akta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_akta` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `surat_bedaidentitas`
+--
+ALTER TABLE `surat_bedaidentitas`
+  MODIFY `id_bedaidentitas` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `surat_belumakta`
+--
+ALTER TABLE `surat_belumakta`
+  MODIFY `id_belumakta` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `surat_bio`
+--
+ALTER TABLE `surat_bio`
+  MODIFY `id_bio` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `surat_cerai`
+--
+ALTER TABLE `surat_cerai`
+  MODIFY `id_cerai` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `surat_domisili_usaha`
 --
 ALTER TABLE `surat_domisili_usaha`
-  MODIFY `id_domisili` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_domisili` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `surat_format`
@@ -2013,49 +2376,97 @@ ALTER TABLE `surat_format`
 -- AUTO_INCREMENT for table `surat_izin_keramaian`
 --
 ALTER TABLE `surat_izin_keramaian`
-  MODIFY `id_keramaian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_keramaian` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `surat_jalan`
 --
 ALTER TABLE `surat_jalan`
-  MODIFY `id_jalan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_jalan` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `surat_jamkesos`
+--
+ALTER TABLE `surat_jamkesos`
+  MODIFY `id_jamkesos` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `surat_jualbeli`
 --
 ALTER TABLE `surat_jualbeli`
-  MODIFY `id_jualbeli` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_jualbeli` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `surat_kawin`
+--
+ALTER TABLE `surat_kawin`
+  MODIFY `id_kawin` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `surat_kehilangan`
 --
 ALTER TABLE `surat_kehilangan`
-  MODIFY `id_kehilangan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_kehilangan` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `surat_kriminal`
 --
 ALTER TABLE `surat_kriminal`
-  MODIFY `id_kriminal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_kriminal` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `surat_ktp`
+--
+ALTER TABLE `surat_ktp`
+  MODIFY `id_kriminal` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `surat_kuasa`
+--
+ALTER TABLE `surat_kuasa`
+  MODIFY `id_kuasa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `surat_lahirmati`
+--
+ALTER TABLE `surat_lahirmati`
+  MODIFY `id_lahirmati` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `surat_milikkendaraan`
+--
+ALTER TABLE `surat_milikkendaraan`
+  MODIFY `id_milikkendaraan` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `surat_miliktanah`
+--
+ALTER TABLE `surat_miliktanah`
+  MODIFY `id_miliktanah` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `surat_pengantar`
 --
 ALTER TABLE `surat_pengantar`
-  MODIFY `id_pengantar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_pengantar` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `surat_tidakmampu`
 --
 ALTER TABLE `surat_tidakmampu`
-  MODIFY `id_tidakmampu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_tidakmampu` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `surat_usaha`
 --
 ALTER TABLE `surat_usaha`
-  MODIFY `id_usaha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_usaha` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `surat_walihakim`
+--
+ALTER TABLE `surat_walihakim`
+  MODIFY `id_walihakim` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `syarat_surat`
@@ -2067,7 +2478,7 @@ ALTER TABLE `syarat_surat`
 -- AUTO_INCREMENT for table `text_berjalan`
 --
 ALTER TABLE `text_berjalan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tweb_kades`
