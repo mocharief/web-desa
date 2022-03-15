@@ -12,7 +12,7 @@
             </button>
 
         </a>
-     
+
 
 
         <br> <br>
@@ -36,6 +36,7 @@
 
                     <input type="hidden" class="form-control" id="id_surat" name="id_surat" value="<?= $surat['id_format_surat']; ?>" required>
 
+                    <input type="hidden" class="form-control" id="kddesa" name="kddesa" value="<?= $kddesa; ?>" autocomplete="off" required>
 
                     <div class="form-group row">
                         <label for="inputEmail3" class="col-3 col-form-label">Tempat Tanggal Lahir</label>
@@ -103,7 +104,7 @@
 
                     <div class="form-group mb-0 justify-content-end row">
                         <div class="col-9">
-                            <button type="submit" class="btn btn-success waves-effect waves-light">Simpan</button>
+                            <button type="submit" class="btn btn-success waves-effect waves-light">Kirim Permohonan</button>
                         </div>
                     </div>
                 </div>

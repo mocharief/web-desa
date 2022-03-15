@@ -25,11 +25,75 @@
     <div class="row">
       <div class="col-12">
         <div class="card-box table-responsive">
-          <form method="get">
-            <label>PILIH TANGGAL</label>
-            <input type="date" name="tanggal">
-            <input type="submit" value="FILTER">
-          </form>
+          <button type="button" class="btn btn-purple btn-sm waves-effect waves-light" data-toggle="modal" data-target="#con-close-modal"> <i class="fas fa-print"></i> &nbsp; Cetak</button>
+          <div id="con-close-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <form action="<?php echo base_url('admin/pemilih/cetaksemua'); ?>" method="post" class="form-horizontal" target="_blank">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Cetak Data Pemilih</h4>
+                  </div>
+                  <div class="modal-body">
+
+                    <div class="row">
+                      <div class="col-md-12">
+
+                        <div class="form-group">
+
+                          <label for="field-1" class="control-label">Centang kotak berikut apabila NIK/No. KK ingin disensor</label>
+                          <div class="col-10">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input" id="customCheck1" name="sensor" value="1">
+                              <label class="custom-control-label" for="customCheck1">Sensor No KK / NIK</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-info waves-effect waves-light">Cetak</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-info btn-sm waves-effect waves-light" data-toggle="modal" data-target="#unduh"> <i class="fas fa-download"></i> &nbsp; Unduh</button>
+          <div id="unduh" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <form action="<?php echo base_url('admin/pemilih/unduhsemua'); ?>" method="post" class="form-horizontal" target="_blank">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Unduh Data Pemilih</h4>
+                  </div>
+                  <div class="modal-body">
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+
+                          <label for="field-1" class="control-label">Centang kotak berikut apabila NIK/No. KK ingin disensor</label>
+                          <div class="col-10">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input" id="customCheck2" name="sensor" value="1">
+                              <label class="custom-control-label" for="customCheck2">Sensor No KK / NIK</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-info waves-effect waves-light">Unduh</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
 
           <h4 class="page-title" style="text-align: center;">Data Calon Pemilih pada tanggal <span id="tanggalwaktu"></h4>
           <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">

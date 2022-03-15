@@ -46,6 +46,29 @@
                 </select>
               </div>
             </div>
+
+            <div class="form-group row">
+              <label for="inputEmail3" class="col-3 col-form-label">File Upload</label>
+              <div class="col-9">
+                <div class="mt-3">
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" onclick="alamat_url();">
+                    <label class="custom-control-label" for="customRadio1">Link URL</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" onclick="file();">
+                    <label class="custom-control-label" for="customRadio2">File</label>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputEmail3" class="col-3 col-form-label">Link URL </label>
+              <div class="col-9">
+                <input type="text" class="form-control" id="link" name="link" placeholder="Link URL" required>
+              </div>
+            </div>
             <div class="form-group row">
               <label for="inputEmail3" class="col-3 col-form-label">Tipe File* </label>
               <div class="col-9">
@@ -58,7 +81,7 @@
             <div class="form-group row">
               <label for="inputEmail3" class="col-3 col-form-label">File* </label>
               <div class="col-9">
-                <input type="file" name="data" class="form-control" required>
+                <input type="file" name="data" id="data" class="form-control" required>
                 <h6>Extensi yang diizinkan Image (jpg, png, gif, jpeg), Video (mp4)</h6>
               </div>
             </div>
@@ -84,7 +107,41 @@
   </div>
 </div>
 
+<script type="text/javascript">
+  function alamat_url() {
+    var cb = document.getElementById("link");
+    var cb1 = document.getElementById("tipe");
+    var cb2 = document.getElementById("data");
 
+    if (document.getElementById("customRadio1").checked == true) {
+      cb.disabled = false;
+      cb1.disabled = true;
+      cb2.disabled = true;
+    } else {
+      cb.disabled = true;
+      cb1.disabled = false;
+      cb2.disabled = false;
+    }
+
+  }
+
+  function file() {
+    var cb = document.getElementById("link");
+    var cb1 = document.getElementById("tipe");
+    var cb2 = document.getElementById("data");
+
+    if (document.getElementById("customRadio2").checked == true) {
+      cb.disabled = true;
+      cb1.disabled = false;
+      cb2.disabled = false;
+    } else {
+      cb.disabled = true;
+      cb1.disabled = false;
+      cb2.disabled = false;
+    }
+
+  }
+</script>
 
 
 <?php $this->Endsection(); ?>

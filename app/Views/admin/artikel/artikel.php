@@ -48,9 +48,10 @@
             <thead>
               <tr>
                 <th style="width: 2%;">No</th>
-                <th>Aksi</th>
-                <th>Judul</th>
-                <th>Tanggal Posting</th>
+                <th style="width: 10%;">Aksi</th>
+                <th style="text-align: center;">Judul</th>
+                <th style="width: 15%; text-align: center;">Tanggal Posting</th>
+
 
 
               </tr>
@@ -79,8 +80,7 @@
 
 
                   <td style="vertical-align: middle;"> <?= $p['judul']; ?></td>
-                  <td style="vertical-align: middle;"> <?= $p['tgl_upload']; ?></td>
-
+                  <td style="vertical-align: middle; text-align: center;"> <?= date('d-m-Y h:i:s', strtotime($p['tgl_upload'])); ?></td>
 
                 </tr>
               <?php endforeach; ?>

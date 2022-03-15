@@ -24,6 +24,17 @@
       <div class="col-md-12">
         <div class="card-box table-responsive">
 
+          <br> <br>
+          <?php if (session()->getFlashdata('pesan')) : ?>
+            <div class="alert alert-icon alert-success text-success alert-dismissible fade show" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <i class="mdi mdi-check-all mr-2"></i>
+              <?= session()->getFlashdata('pesan'); ?>
+            </div>
+
+          <?php endif; ?>
 
           <br>
           <table id="datatable" class="table table-striped table-bordered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">

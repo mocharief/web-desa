@@ -86,6 +86,7 @@
                         <a href=""><button type="button" class="btn btn-success btn-xs waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="" data-original-title="Klik Jika akta Sudah Selesai" disabled>
                             <span><i class="dripicons-checkmark"></i></span> Akta Selesai
                           </button></a>
+
                       <?php } else {
                       ?>
                         <a href=""><button type="button" class="btn btn-success btn-xs waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sudah Diambil" disabled>

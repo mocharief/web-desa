@@ -12,7 +12,7 @@
             </button>
 
         </a>
-  
+
         <br> <br>
         <div class="row">
             <?php foreach ($layanan as $p) : ?>
@@ -50,7 +50,7 @@
 
                                         <tbody>
                                             <?php $i = 1; ?>
-                                            <?php $query   = $db->query('SELECT * FROM setting_syarat JOIN syarat_surat ON setting_syarat.id_syarat = syarat_surat.ref_syarat_id where setting_syarat.id_surat =' . $p['id_format_surat']);
+                                            <?php $query   = $db->query('SELECT * FROM setting_syarat JOIN syarat_surat ON setting_syarat.id_syarat = syarat_surat.ref_syarat_id where setting_syarat.kddesa=' . $kddesa . ' AND setting_syarat.id_surat =' . $p['id_format_surat']);
                                             $results = $query->getResultArray();
                                             foreach ($results as $j) : ?>
 
@@ -65,7 +65,7 @@
 
                                                         <select name="hubungan" id="hubungan" class="form-control" required autofocus>
                                                             <option value="">Pilih Data</option>
-                                                            <?php $query   = $db->query('SELECT * FROM dokumen JOIN syarat_surat ON dokumen.id_syarat = syarat_surat.ref_syarat_id where id =' . session()->get('id') . ' AND dokumen.id_syarat =' . $j['ref_syarat_id']);
+                                                            <?php $query   = $db->query('SELECT * FROM dokumen JOIN syarat_surat ON dokumen.id_syarat = syarat_surat.ref_syarat_id where id =' . session()->get('id') . ' AND  dokumen.kddesa=' . $kddesa . ' AND dokumen.id_syarat =' . $j['ref_syarat_id']);
                                                             $results = $query->getResultArray();
                                                             foreach ($results as $d) : ?>
                                                                 <option value="<?= $d['id_syarat']; ?>"><?= $d['nama_dokumen']; ?></option>

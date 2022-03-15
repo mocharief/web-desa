@@ -70,7 +70,7 @@
                         <h4 style="text-transform: uppercase; padding-top: 2px; font-size: 28px;">PEMERINTAH KABUPATEN <?= $logo['nama_kabupaten']; ?> </h4>
                         <h4 style="text-transform: uppercase; padding-top: 2px; font-size: 28px;">KECAMATAN <?= $logo['nama_kecamatan']; ?></h4>
                         <h4 style="text-transform: uppercase; padding-top: 2px; font-size: 28px;">Desa <?= $logo['nama_desa']; ?></h4>
-                        <h4 style="text-transform: uppercase;padding-top: 2px; font-size: 18px;"><?= $logo['alamat_kantor']; ?></h4>
+                        <h4 style="text-transform: uppercase;padding-top: 2px; font-size: 16px;"><?= $logo['alamat_kantor']; ?> Kode Pos : <?= $logo['kode_pos']; ?></h4>
                       </td>
 
                     </tr>
@@ -345,7 +345,7 @@
                           ?>
                             <?php $gambar = base64_decode($setting['file']);
                             ?>
-                            <img src='<?php echo base_url('public/admin/images/file/3/2/' . $gambar); ?>' width="50%">
+                            <img src='<?php echo base_url('public/admin/images/file/3/2/' . $kddesa . '/' . $gambar); ?>' width="50%">
                           <?php } else {
                             echo " <br><br> <br><br><br><br><br>";
                           } ?>

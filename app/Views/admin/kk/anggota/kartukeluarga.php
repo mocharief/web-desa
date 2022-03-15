@@ -28,9 +28,23 @@
           <a href="<?php echo base_url('managekeluarga'); ?>"><button type="button" class="btn btn-primary btn-sm waves-effect waves-light">
               <i class="fas fa-arrow-left"></i> &nbsp; Kembali Ke Daftar Kepala Keluarga
             </button></a>
+          <button type="button" class="btn btn-purple btn-sm waves-effect waves-light" onclick="printDiv('printMe')">
+            <i class="fas fa-print"></i> &nbsp; Cetak
+          </button>
+          <script type="text/javascript">
+            function printDiv(divName) {
+
+              var printContents = document.getElementById(divName).innerHTML;
+              var originalContens = document.body.innerHTML;
+              document.body.innerHTML = printContents;
+              window.print();
+              document.body.innerHTML = originalContens;
+
+            }
+          </script>
         </div>
       </div>
-      <div class="col-md-12">
+      <div class="col-md-12" id="printMe">
         <div class="card-box">
           <h3 style="text-align: center; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">SALINAN KARTU KELUARGA</h3>
           <h5 style="text-align: center; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">No. <?= $kk['no_kk']; ?></h5>

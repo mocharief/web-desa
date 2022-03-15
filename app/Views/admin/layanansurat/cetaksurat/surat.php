@@ -25,13 +25,25 @@
         <div class="card-box table-responsive">
           <div class="form-group col-md-6">
             <label for="inputPassword4" class="col-form-label">Judul Surat</label>
-            <select name="hubungan" id="hubungan" class="form-control" required autofocus data-toggle="select2">
+            <select name="hubungan" id="hubungan" class="form-control" required autofocus data-toggle="select2" onchange="location = this.value;">
               <option value="">-- Pilih Judul Surat --</option>
               <?php foreach ($pengaturan as $d) : ?>
-                <option value="<?= $d['id_format_surat']; ?>"><?= $d['nama_surat']; ?></option>
+                <option value="<?php echo base_url('' . $d['url_buatsurat'] . '/' . $d['id_format_surat']); ?>"> <?= $d['nama_surat']; ?></option>
               <?php endforeach; ?>
             </select>
           </div>
+          <br> <br>
+          <?php if (session()->getFlashdata('pesan')) : ?>
+            <div class="alert alert-icon alert-success text-success alert-dismissible fade show" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <i class="mdi mdi-check-all mr-2"></i>
+              <?= session()->getFlashdata('pesan'); ?>
+            </div>
+
+          <?php endif; ?>
+
           <br>
           <table id="datatable" class="table table-striped table-bordered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
 
@@ -54,7 +66,7 @@
                 <tr>
                   <td style="vertical-align: middle;"><?= $i++; ?></td>
                   <td style="vertical-align: middle;">
-                    <a href="<?php echo base_url('buatsurat/' . $p['id_format_surat']); ?>"><button type="button" class="btn btn-purple btn-xs waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="" data-original-title="Buat Surat">
+                    <a href="<?php echo base_url('' . $p['url_buatsurat'] . '/' . $p['id_format_surat']); ?>"><button type="button" class="btn btn-purple btn-xs waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="" data-original-title="Buat Surat">
                         <i class="mdi mdi-file-word-box"></i> Buat Surat
                       </button></a>
                     <a href="<?php echo base_url('nonfavorit/' . $p['id_format_surat']); ?>"><button type="button" class="btn btn-purple btn-xs waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="" data-original-title="Non Favorit">
@@ -93,7 +105,7 @@
                 <tr>
                   <td style="vertical-align: middle;"><?= $i++; ?></td>
                   <td style="vertical-align: middle;">
-                    <a href="<?php echo base_url('buatsurat/' . $p['id_format_surat']); ?>"><button type="button" class="btn btn-purple btn-xs waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="" data-original-title="Buat Surat">
+                    <a href="<?php echo base_url('' . $p['url_buatsurat'] . '/' . $p['id_format_surat']); ?>"><button type="button" class="btn btn-purple btn-xs waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="" data-original-title="Buat Surat">
                         <i class="mdi mdi-file-word-box"></i> Buat Surat
                       </button></a>
                     <a href="<?php echo base_url('favorit/' . $p['id_format_surat']); ?>"><button type="button" class="btn btn-purple btn-xs waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="" data-original-title="Favorit">

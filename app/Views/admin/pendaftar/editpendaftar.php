@@ -34,7 +34,7 @@
               <label for="inputEmail3" class="col-3 col-form-label">Nama Penduduk</label>
               <div class="col-9">
                 <input type="hidden" name="namalama" class="form-control" value="<?= $pendaftaran['id']; ?>" readonly>
-                <input type="text" class="form-control" value=" <?php foreach ($penduduk as $d) : ?><?php if ($pendaftaran['id'] == $d['id']) { ?>  <?= $d['nama']; ?> - <?= $d['nik']; ?> <?php } ?> <?php endforeach; ?>" readonly>
+                <input type="text" class="form-control" value="<?php foreach ($penduduk as $d) : ?><?php if ($pendaftaran['id'] == $d['id']) { ?>  <?= $d['nama']; ?> - <?= $d['nik']; ?> <?php } ?> <?php endforeach; ?>" readonly>
 
 
               </div>
@@ -42,7 +42,13 @@
             <div class=" form-group row">
               <label for="inputEmail3" class="col-3 col-form-label">No Wa</label>
               <div class="col-9">
-                <input type="text" class="form-control" value="<?= $pendaftaran['no_wa']; ?>">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">+62</span>
+                  </div>
+                  <input type="text" class="form-control" name="no_wa" id="no_wa" value="<?php echo substr($pendaftaran['no_wa'], 2, 14); ?>" maxlength="13">
+                </div>
+
 
 
               </div>

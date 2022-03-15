@@ -127,7 +127,13 @@
                     echo   $dt[2] . ' ' . $month . ' ' . $dt[0];
 
                     ?></td>
-                  <td style="vertical-align: middle;"> <?= $p['pamong_sex']; ?></td>
+                  <td style="vertical-align: middle;">
+                    <?php if ($p['pamong_sex'] == 1) {
+                      echo 'Laki - Laki';
+                    } ?>
+                    <?php if ($p['pamong_sex'] == 2) {
+                      echo 'Perempuan';
+                    } ?> </td>
                   <td style="vertical-align: middle;"> <?= $p['jabatan']; ?></td>
                   <td style="vertical-align: middle;"> <?= $p['pamong_pangkat']; ?></td>
                   <td style="vertical-align: middle;"> <?= $p['pamong_pendidikan']; ?></td>

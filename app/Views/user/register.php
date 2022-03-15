@@ -3,20 +3,14 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Pengajuan Layanan Mandiri <?= $logo['nama_desa']; ?></title>
+    <title>Pengajuan Layanan Mandiri </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- App favicon -->
-    <?php if ($logo['logo'] == '') {
-    ?>
-        <link rel="shortcut icon" href="<?= base_url('public/admin/images/identitas/sumedang.png'); ?>">
-    <?php } else {
+    <link rel="shortcut icon" href="<?= base_url('public/admin/images/identitas/sumedang.png'); ?>">
 
-    ?>
-        <link rel="shortcut icon" href="<?= base_url('public/admin/images/identitas/' . $logo['logo']); ?>">
-    <?php } ?>
 
     <!-- App css -->
     <link href="<?= base_url('public/admin/css/bootstrap.min.css '); ?>" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
@@ -44,25 +38,12 @@
                             <div class="account-box">
                                 <div class="account-logo-box">
                                     <div class="text-center">
-                                        <a href="index.html">
-                                            <?php if ($logo['logo'] == '') {
-                                                echo "<img class='rounded-circle' src='" .  base_url('public/admin/images/identitas/sumedang.png') . "' width='20%'>
-           <br> <br>";
-                                            } else {
-                                                echo "
-                <img class='rounded-circle' src='" .  base_url('public/admin/images/identitas/' . $logo['logo']) . "' width='20%'>
-           <br> <br> ";
-                                            } ?>
-
-                                        </a>
+                                        <img class="rounded-circle" src="<?php echo base_url(' public/admin/images/identitas/sumedang.png'); ?>" width="20%">
+                                        <br> <br>
                                     </div>
                                     <center>
-                                        <h4 class="text-uppercase mb-1 mt-2">Pengajuan LAYANAN MANDIRI </h4>
-                                        <h4 class="text-uppercase mb-1 mt-2">Desa <?= $logo['nama_desa']; ?></h4>
-                                        <h6 class="text-uppercase mb-1 mt-1">Kecamatan <?= $logo['nama_kecamatan']; ?></h6>
-                                        <h6 class="text-uppercase mb-1 mt-1">Kabupaten <?= $logo['nama_kabupaten']; ?></h6>
-                                        <h6 class="text-uppercase mb-1 mt-1"><?= $logo['alamat_kantor']; ?></h6>
-
+                                        <h3 class=" text-uppercase mb-1 mt-2">Selamat Datang</h3>
+                                        <h5 class="text-uppercase mb-1 mt-2">Halaman Pengajuan Pelayanan Mandiri </h5>
                                     </center>
                                 </div>
                                 <form class="form-horizontal" action="<?php echo base_url('/user/login/pengajuan'); ?>" method="post">

@@ -37,11 +37,22 @@
                 <span aria-hidden="true">&times;</span>
               </button>
               <i class="mdi mdi-check-all mr-2"></i>
-              <?= session()->getFlashdata('pesan'); ?>
+              <?= session()->getFlashdata('pesan'); ?> <a href="https://api.whatsapp.com/send?phone=62<?= session()->getFlashdata('no_wa'); ?>&text= Saya Dari Admin Desa <?= $logo['nama_desa']; ?> Ingin Memberitahukan Bahwa PIN Akses Anda Adalah <?= session()->getFlashdata('pin'); ?>" target="_blank"><button type=" button" class="btn btn-success btn-xs waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="" data-original-title="Kirim PIN Via WA">
+                  <i class="mdi mdi-whatsapp"></i> Kirim PIN Via Whatsapp
+                </button>
+              </a>
+            </div>
+
+          <?php elseif (session()->getFlashdata('msg')) : ?>
+            <div class="alert alert-icon alert-danger text-success alert-dismissible fade show" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <i class="mdi mdi-check-all mr-2"></i>
+              <?= session()->getFlashdata('msg'); ?>
             </div>
 
           <?php endif; ?>
-
           <br> <br>
           <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
 
@@ -68,10 +79,6 @@
 
                   <td style="vertical-align: middle;"><?= $i++; ?></td>
                   <td style="vertical-align: middle;">
-                    <a href="https://api.whatsapp.com/send?phone=<?= $p['no_wa']; ?>&text= Saya Dari Admin Desa <?= $logo['nama_desa']; ?> Ingin Memberitahukan Bahwa PIN Akses Anda Adalah <?php echo md5($p['pin']); ?>" target="_blank"><button type=" button" class="btn btn-success btn-xs waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="" data-original-title="Kirim PIN Via WA">
-                        <i class="mdi mdi-whatsapp"></i>
-                      </button>
-                    </a>
                     <a href="<?php echo base_url('editpengguna/' . $p['id_pendaftar']); ?>"><button type="button" class="btn btn-purple btn-xs waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="" data-original-title="Atur PIN">
                         <i class="fas fa-edit"></i>
                       </button>

@@ -31,8 +31,12 @@
               <div class="col-9">
                 <select name="nama" id="nama" class="form-control" data-toggle="select2" onchange='changeValue(this.value)'>
                   <option>-- Cari secara NIK/ Nama Penduduk-- </option>
-                  <?php $jsArray = "var prdName = new Array();\n"; ?>
-                  <?php foreach ($penduduk as $d) : ?>
+
+                  <?php $query   = $db->query('SELECT * from penduduk Where id NOT IN(SELECT id FROM pendaftar) AND kddesa=' . $kddesa);
+
+                  $results = $query->getResultArray();
+                  $jsArray = "var prdName = new Array();\n";
+                  foreach ($results as $d) : ?>
                     <option name="id" value="<?= $d['id']; ?>"><?= $d['nik']; ?> | <?= $d['nama']; ?></option>
                     <?php $jsArray .= "prdName['" . $d['id'] . "'] = {nik:'" . addslashes($d['nik']) . "'};\n"; ?>
                   <?php endforeach; ?>
@@ -41,10 +45,16 @@
             </div>
             <input type="hidden" class="form-control" id="nik" name="nik" placeholder="Pin Warga" required autocomplete="off">
             <input type="hidden" class="form-control" id="kddesa" name="kddesa" value="<?= $kddesa; ?>" autocomplete="off" required>
+
             <div class="form-group row">
               <label for="inputEmail3" class="col-3 col-form-label">No WA</label>
               <div class="col-9">
-                <input type="text" class="form-control" id="no_wa" name="no_wa" placeholder="No WA" required autocomplete="off">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">+62</span>
+                  </div>
+                  <input type="text" class="form-control" id="no_wa" name="no_wa" placeholder="No WA" required autocomplete="off" maxlength="13">
+                </div>
               </div>
             </div>
             <div class="form-group row">

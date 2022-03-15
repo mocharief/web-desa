@@ -57,6 +57,7 @@
                 <?php foreach ($persyaratan as $p) : ?>
                   <div class="custom-control custom-checkbox">
 
+                    <input type="hidden" class="form-control" id="kddesa" name="kddesa" value="<?= $kddesa; ?>" autocomplete="off" required>
 
                     <input type="checkbox" class="custom-control-input" id="customCheck<?= $p['ref_syarat_id']; ?>" name="id_syarat[]" value="<?= $p['ref_syarat_id']; ?>" <?php foreach ($syarat as $s) : ?> <?php if ($s['id_syarat'] == $p['ref_syarat_id']) {
                                                                                                                                                                                                                 echo 'checked="checked"';

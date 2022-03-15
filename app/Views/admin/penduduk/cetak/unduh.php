@@ -128,9 +128,22 @@
               <tr>
 
                 <td style="vertical-align: middle; text-transform: uppercase; font-size: xx-small; padding: 5px; text-align: center; color: black; "><?= $i++; ?></td>
-                <td style="vertical-align: middle;text-transform: uppercase; font-size: xx-small;  padding: 5px; text-align: center;color: black;"> <?php echo $p['no_kk']; ?></td>
+                <td style="vertical-align: middle;text-transform: uppercase; font-size: xx-small;  padding: 5px; text-align: center;color: black;">
+                  <?php if ($sensor == 1) {
+                    echo substr($p['no_kk'], 0, 8) . 'xxxxxxxx';
+                  } else {
+                  ?>
+                    <?php echo  "'" . (string)$p['no_kk']; ?>
+                  <?php } ?>
+                </td>
                 <td style="vertical-align: middle;text-transform: uppercase; font-size: xx-small;  padding: 5px; text-align: center;color: black;"> <?= $p['nama']; ?></td>
-                <td style="vertical-align: middle;text-transform: uppercase; font-size: xx-small;  padding: 5px; text-align: center;color: black;"> <?php echo $p['nik']; ?></td>
+                <td style="vertical-align: middle;text-transform: uppercase; font-size: xx-small;  padding: 5px; text-align: center;color: black;">
+                  <?php if ($sensor == 1) {
+                    echo substr($p['no_kk'], 0, 8) . 'xxxxxxxx';
+                  } else {
+                  ?>
+                    <?php echo  "'" . (string)$p['nik']; ?>
+                  <?php } ?></td>
                 <td style="vertical-align: middle;text-transform: uppercase; font-size: xx-small;  padding: 5px; text-align: center;color: black;"> <?= $p['alamat_sekarang']; ?></td>
                 <td style="vertical-align: middle;text-transform: uppercase; font-size: xx-small;  padding: 5px; text-align: center;color: black;"> <?= $p['namadusun']; ?></td>
                 <td style="vertical-align: middle; text-transform: uppercase; font-size: xx-small;  padding: 5px; text-align: center;color: black;"><?= $p['rw']; ?></td>
@@ -228,7 +241,7 @@
           </tbody>
           </table>
           <br>
-          <h6>Di Cetak Tanggal : <?php echo date("d-m-Y"); ?> </h6>
+
         </div>
       </div>
       <!-- end row -->
